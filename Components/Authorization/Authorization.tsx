@@ -11,7 +11,10 @@ import {
   Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserLogin, setUserPassword } from "../../redux/reducers/authReducer";
+import {
+  setUserLogin,
+  setUserPassword,
+} from "../../redux/reducers/authReducer";
 
 interface AuthState {
   authReducer: {
@@ -23,7 +26,6 @@ interface AuthState {
 type AuthorizationProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
-
 const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { login, password } = useSelector(

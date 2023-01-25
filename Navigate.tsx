@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Authorization from "./Components/Authorization/Authorization";
-import Main from "./Main";
+import Main from "./Components/Main/Main";
 import React from "react";
 import Registration from "./Components/Registration/Registration";
 import ChoiseServises from "./Components/ChoiseServises/ChoiseServises";

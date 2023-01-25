@@ -23,7 +23,7 @@ const authReducer: Reducer<IAuthState> = (
         case SET_USER_LOGIN:
             return {
                 ...state,
-                login: action.login,
+                login: action.login
             };
         case SET_USER_PASSWORD:
             return {
