@@ -51,13 +51,17 @@ const FoundService: React.FC = () => {
             />
             {selectedIndex === index && (
               <Animatable.View
-                animation={
-                  selectedIndex === index ? "slideInDown" : "slideOutDown"
-                }
+                animation={selectedIndex === index ? "fadeIn" : "fadeOut"}
                 duration={1000}
                 style={styles.expanded}
               >
                 <Text>Additional information about the service</Text>
+                <Pressable style={styles.buttonService}>
+                  <Text style={styles.textButtonService}>Перейти в чат</Text>
+                </Pressable>
+                <Pressable style={styles.buttonService}>
+                  <Text style={styles.textButtonService}>Найти в 2Gis</Text>
+                </Pressable>
               </Animatable.View>
             )}
           </View>
@@ -108,6 +112,23 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     borderRadius: 15,
+  },
+  buttonService: {
+    width: 300,
+    height: 40,
+    alignSelf: "center",
+    backgroundColor: "#FFD83D",
+    borderRadius: 15,
+    borderBottomWidth: 1,
+    marginBottom: 5,
+    marginTop: 5,
+  },
+  textButtonService: {
+    top:5,
+    fontStyle: "normal",
+    fontSize: 16,
+    color: "#000000",
+    textAlign: "center",
   },
 });
 
