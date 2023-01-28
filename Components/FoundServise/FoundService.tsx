@@ -1,23 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import {
-  StyleSheet,
-  TextInput,
-  Image,
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Alert,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Image, View, Text, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setToggleExtended,
-  setTextChoiseService,
-} from "../../redux/reducers/choiseServicesReducer";
 import { useState } from "react";
-
+import * as Animatable from "react-native-animatable";
+import { LayoutAnimation } from "react-native";
 interface FoundServiceState {
   choiseServicesReducer: {
     dataService: [
@@ -31,35 +18,52 @@ interface FoundServiceState {
 }
 
 const FoundService: React.FC = () => {
-  
   const { dataService } = useSelector(
     (state: FoundServiceState) => state.choiseServicesReducer
   );
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const handlePress = (index: number) => {
+    if (selectedIndex === index) {
+      setSelectedIndex(-1);
+    } else {
+      setSelectedIndex(index);
+    }
+  };
 
   return (
-    <ScrollView>
-      <>
-        {dataService.map((item, index) => (
-          <View style={styles.container} key={index}>
+    <>
+      {dataService.map((item, index) => (
+        <Pressable onPress={() => handlePress(index)}>
+          <View
+            style={[
+              styles.container,
+              { height: selectedIndex === index ? 250 : 100 },
+            ]}
+            key={index}
+          >
             <Text style={styles.nameService}>{item.nameService}</Text>
-
             <Text style={styles.distanceToService}>
               Растояние: {item.distanceToService}км
             </Text>
             <Image
               source={require("./../../assets/arrow.png")}
-              style={{
-                height: 30,
-                width: 30,
-                position: "absolute",
-                right: 10,
-                top: 35,
-              }}
+              style={styles.arrow}
             />
+            {selectedIndex === index && (
+              <Animatable.View
+                animation={
+                  selectedIndex === index ? "slideInDown" : "slideOutDown"
+                }
+                duration={1000}
+                style={styles.expanded}
+              >
+                <Text>Additional information about the service</Text>
+              </Animatable.View>
+            )}
           </View>
-        ))}
-      </>
-    </ScrollView>
+        </Pressable>
+      ))}
+    </>
   );
 };
 const styles = StyleSheet.create({
@@ -84,6 +88,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     opacity: 0.6,
+  },
+  arrow: {
+    height: 30,
+    width: 30,
+    position: "absolute",
+    right: 10,
+    top: 35,
+  },
+  expanded: {
+    height: 150,
+    backgroundColor: "white",
+    padding: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 15,
   },
 });
 
