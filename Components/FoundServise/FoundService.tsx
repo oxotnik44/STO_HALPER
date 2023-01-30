@@ -55,6 +55,7 @@ const FoundService: React.FC = () => {
                 duration={1000}
                 style={styles.expanded}
               >
+                //qweqweqwe
                 <Text>Additional information about the service</Text>
                 <Pressable style={styles.buttonService}>
                   <Text style={styles.textButtonService}>Перейти в чат</Text>
