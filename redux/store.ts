@@ -7,7 +7,8 @@ import mainReducer from "./reducers/mainReducer";
 let rootreducer = combineReducers({
     authReducer: authReducer,
     choiseServicesReducer: choiseServicesReducer,
-    mainReducer: mainReducer
+    mainReducer: mainReducer,
+    
 })
 
 export type RootState = ReturnType<typeof rootreducer>;
