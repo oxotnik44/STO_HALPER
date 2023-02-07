@@ -16,7 +16,7 @@ import FoundService from "../FoundServise/FoundService";
 
 interface ServiceInfoState {
   serviceInfoReducer: {
-    textChoiseService: string;
+    nameService: string;
   };
 }
 
@@ -24,10 +24,10 @@ type ChoiseServiceProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
 
-const ChoiseServises: React.FC<ChoiseServiceProps> = ({ navigation }) => {
+const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { textChoiseService } = useSelector(
-    (state: ServiceInfoState) => state.choiseServicesReducer
+  const { nameService } = useSelector(
+    (state: ServiceInfoState) => state.serviceInfoReducer
   );
 
   return (
@@ -38,14 +38,14 @@ const ChoiseServises: React.FC<ChoiseServiceProps> = ({ navigation }) => {
             source={require("./../../assets/loupe.png")}
             style={styles.image_logo}
           ></Image>
-          <Text>{}</Text>
+          <Text>{nameService}</Text>
         </View>
         <View>
           <Text>Инфо</Text>
           <Text>Отзывы</Text>
         </View>
       </View>
-      
+
     </View>
   );
 };
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChoiseServises;
+export default ServiceInfo;

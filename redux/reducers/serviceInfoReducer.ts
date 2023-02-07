@@ -16,7 +16,7 @@ interface IServiceInfo {
 
 export const initialMainState: IServiceInfo = {
     logoService: null,
-    nameService: null,
+    nameService: "null",
     expandedService: null,
     locationService: null,
     begindayService: null,
