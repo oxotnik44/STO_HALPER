@@ -16,7 +16,15 @@ import FoundService from "../FoundServise/FoundService";
 
 interface ServiceInfoState {
   serviceInfoReducer: {
+    logoService: string;
     nameService: string;
+    expandedService: boolean;
+    locationService: string;
+    begindayService: string;
+    enddayService: string;
+    phoneService: string;
+    webService: string;
+    whatsappService: string;
   };
 }
 
@@ -26,9 +34,8 @@ type ChoiseServiceProps = {
 
 const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { nameService } = useSelector(
-    (state: ServiceInfoState) => state.serviceInfoReducer
-  );
+  const { dataService } = useSelector((state: ServiceInfoState) => state.serviceInfoReducer.dataService);
+
 
   return (
     <View style={styles.container}>
@@ -38,14 +45,35 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
             source={require("./../../assets/loupe.png")}
             style={styles.image_logo}
           ></Image>
-          <Text>{nameService}</Text>
+          <Text>{dataService.locationService}</Text>
         </View>
         <View>
           <Text>Инфо</Text>
           <Text>Отзывы</Text>
         </View>
       </View>
-
+      <View>
+        <Text>{dataService.locationService}</Text>
+      </View>
+      <View>
+        <Text>
+          Ежедневно:{dataService.begindayService} - {dataService.enddayService}
+        </Text>
+      </View>
+      <View>
+        <Text>{dataService.phoneService}</Text>
+        <Text>{dataService.phoneService}</Text>
+      </View>
+      <View>
+        <View>
+          <Text>{dataService.webService}</Text>
+          <Image></Image>
+        </View>
+        <View>
+          <Text>{dataService.whatsappService}</Text>
+          <Image></Image>
+        </View>
+      </View>
     </View>
   );
 };
