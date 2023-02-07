@@ -15,15 +15,15 @@ interface IServiceInfo {
 }
 
 export const initialMainState: IServiceInfo = {
-    logoService: null,
-    nameService: null,
-    expandedService: null,
-    locationService: null,
-    begindayService: null,
-    enddayService: null,
-    phoneService: null,
-    webService: null,
-    whatsappService: null,
+    logoService: "Logo.png",
+    nameService: "Name.txt",
+    expandedService: true,
+    locationService: "Bogatkova",
+    begindayService: "8:00",
+    enddayService: "20:00",
+    phoneService: "89133999060",
+    webService: "www.stogtfo.ru",
+    whatsappService: "89139999060",
 }
 
 
