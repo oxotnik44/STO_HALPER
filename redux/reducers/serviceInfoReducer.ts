@@ -15,7 +15,7 @@ export const initialMainState: IServiceInfo = {
 }
 
 
-const serviceinfoReducer: Reducer<IServiceInfo> = (
+const serviceInfoReducer: Reducer<IServiceInfo> = (
     state = initialMainState,
     action
 ) => {
@@ -35,4 +35,4 @@ export const setText = (text: string | null) => ({
     text: text
 })
 
-export default serviceinfoReducer
+export default serviceInfoReducer
