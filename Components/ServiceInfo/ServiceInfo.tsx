@@ -14,8 +14,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import FoundService from "../FoundServise/FoundService";
 
-interface ChoiseState {
-  choiseServicesReducer: {
+interface ServiceInfoState {
+  serviceInfoReducer: {
     textChoiseService: string;
   };
 }
@@ -24,31 +24,28 @@ type ChoiseServiceProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
 
-interface FoundServiceState {
-  choiseServicesReducer: {
-    dataService: [
-      {
-        nameService: string;
-        distanceToService: string;
-      }
-    ];
-  };
-}
 const ChoiseServises: React.FC<ChoiseServiceProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { textChoiseService } = useSelector(
-    (state: ChoiseState) => state.choiseServicesReducer
+    (state: ServiceInfoState) => state.choiseServicesReducer
   );
-  const { nameService, distanceToService } = useSelector(
-    (state: FoundServiceState) => state.choiseServicesReducer.dataService[0]
-  );
+
   return (
     <View style={styles.container}>
-      <Image
-        source={require("./../../assets/loupe.png")}
-        style={styles.image_logo}
-      ></Image>
-      <Text>{props}</Text>
+      <View>
+        <View>
+          <Image
+            source={require("./../../assets/loupe.png")}
+            style={styles.image_logo}
+          ></Image>
+          <Text>{}</Text>
+        </View>
+        <View>
+          <Text>Инфо</Text>
+          <Text>Отзывы</Text>
+        </View>
+      </View>
+      
     </View>
   );
 };
