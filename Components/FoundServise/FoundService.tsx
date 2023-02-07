@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
 import { StyleSheet, Image, View, Text, Pressable } from "react-native";
