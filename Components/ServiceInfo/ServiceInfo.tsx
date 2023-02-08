@@ -34,8 +34,9 @@ type ChoiseServiceProps = {
 
 const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { dataService } = useSelector((state: ServiceInfoState) => state.serviceInfoReducer.dataService);
-
+  const dataService = useSelector(
+    (state: ServiceInfoState) => state.serviceInfoReducer
+  );
 
   return (
     <View style={styles.container}>
@@ -57,7 +58,7 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
       </View>
       <View>
         <Text>
-          Ежедневно:{dataService.begindayService} - {dataService.enddayService}
+          Ежедневно: {dataService.begindayService} - {dataService.enddayService}
         </Text>
       </View>
       <View>
