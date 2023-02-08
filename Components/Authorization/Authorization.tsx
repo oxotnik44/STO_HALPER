@@ -16,6 +16,9 @@ import {
   setUserLogin,
   setUserPassword,
 } from "../../redux/reducers/authReducer";
+import { Dimensions } from "react-native";
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 interface AuthState {
   authReducer: {
@@ -96,8 +99,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   imgLogo: {
-    width: 300,
-    height: 304,
+    width: screenWidth * 0.56,
+    height: screenWidth * 0.5,
     alignSelf: "center",
     borderBottomWidth: 1,
     marginBottom: 12,
@@ -106,8 +109,8 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     marginBottom: 15,
-    height: 60,
-    width: 280,
+    height: screenHeight * 0.072,
+    width: screenWidth * 0.6,
     margin: 13,
     alignSelf: "center",
     borderWidth: 1,
@@ -117,8 +120,8 @@ const styles = StyleSheet.create({
     borderColor: "#FFD83D",
   },
   loginButton: {
-    width: 280,
-    height: 60,
+    width: screenWidth * 0.6,
+    height: screenHeight * 0.07,
     alignSelf: "center",
     backgroundColor: "#FFD83D",
     borderRadius: 15,
@@ -127,24 +130,20 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   textLoginButton: {
-    top: 18,
+    top: "19%",
     fontStyle: "normal",
     fontSize: 20,
-    lineHeight: 24,
     color: "#000000",
     textAlign: "center",
   },
   registrationButton: {
-    width: 159,
-    height: 60,
+    width: screenWidth * 0.6,
+    height: screenHeight * 0.07,
     alignSelf: "center",
-    marginBottom: 36,
   },
   textRegistrationButton: {
     textAlign: "center",
     fontSize: 24,
-    lineHeight: 29,
-    /* identical to box height */
   },
 });
 

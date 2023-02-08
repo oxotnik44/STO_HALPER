@@ -12,7 +12,7 @@ import {
   Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import FoundService from "../FoundServise/FoundService";
+import { Dimensions } from "react-native";
 
 interface ServiceInfoState {
   serviceInfoReducer: {
@@ -40,38 +40,38 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <View>
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
           <Image
             source={require("./../../assets/loupe.png")}
             style={styles.image_logo}
           ></Image>
           <Text>{dataService.locationService}</Text>
         </View>
-        <View>
+        <View style={styles.headerRight}>
           <Text>Инфо</Text>
           <Text>Отзывы</Text>
         </View>
       </View>
-      <View>
-        <Text>{dataService.locationService}</Text>
+      <View style={styles.locationContainer}>
+        <Text style={styles.locationText}>{dataService.locationService}</Text>
       </View>
-      <View>
-        <Text>
+      <View style={styles.worktimeContainer}>
+        <Text style={styles.worktimeText}>
           Ежедневно: {dataService.begindayService} - {dataService.enddayService}
         </Text>
       </View>
-      <View>
-        <Text>{dataService.phoneService}</Text>
-        <Text>{dataService.phoneService}</Text>
+      <View style={styles.phoneContainer}>
+        <Text style={styles.phoneText}>{dataService.phoneService}</Text>
+        <Text style={styles.phoneText}>{dataService.phoneService}</Text>
       </View>
-      <View>
-        <View>
-          <Text>{dataService.webService}</Text>
+      <View style={styles.webContainer}>
+        <View style={styles.webRow}>
+          <Text style={styles.webText}>{dataService.webService}</Text>
           <Image></Image>
         </View>
-        <View>
-          <Text>{dataService.whatsappService}</Text>
+        <View style={styles.webRow}>
+          <Text style={styles.webText}>{dataService.whatsappService}</Text>
           <Image></Image>
         </View>
       </View>
@@ -84,26 +84,52 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#3B3B3B",
   },
-  inner: {
-    padding: 24,
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: Dimensions.get("window").width * 0.04,
   },
-  inputSearch: {
-    backgroundColor: "#AEAEAE",
-    borderRadius: 15,
-    width: "90%",
-    height: 40,
-    alignSelf: "center",
-    paddingLeft: 10,
-    marginTop: 20,
-    placeholderTextColor: "#ff0000",
+  headerLeft: {
+    flexDirection: "row",
   },
-
+  headerRight: {},
   image_logo: {
-    width: 24,
-    height: 24,
-    position: "absolute",
-    right: 30,
-    top: 29,
+    width: Dimensions.get("window").width * 0.05,
+    height: Dimensions.get("window").width * 0.05,
+    marginRight: Dimensions.get("window").width * 0.02,
+  },
+  locationContainer: {
+    padding: Dimensions.get("window").width * 0.04,
+  },
+  locationText: {
+    fontSize: Dimensions.get("window").width * 0.05,
+    color: "#fff",
+  },
+  worktimeContainer: {
+    padding: Dimensions.get("window").width * 0.04,
+  },
+  worktimeText: {
+    fontSize: Dimensions.get("window").width * 0.03,
+    color: "#fff",
+  },
+  phoneContainer: {
+    padding: Dimensions.get("window").width * 0.04,
+  },
+  phoneText: {
+    fontSize: Dimensions.get("window").width * 0.03,
+    color: "#fff",
+  },
+  webContainer: {
+    padding: Dimensions.get("window").width * 0.04,
+  },
+  webRow: {
+    flexDirection: "row",
+    marginTop: Dimensions.get("window").height * 0.02,
+  },
+  webText: {
+    fontSize: Dimensions.get("window").width * 0.03,
+    color: "#fff",
+    marginRight: Dimensions.get("window").width * 0.02,
   },
 });
 
