@@ -6,6 +6,7 @@ import React from "react";
 import Registration from "./Components/Registration/Registration";
 import ChoiseServises from "./Components/ChoiseServises/ChoiseServises";
 import ServiceInfo from "./Components/ServiceInfo/ServiceInfo";
+import ServiceChat from "./Components/ServiceChat/ServiceChat";
 
 export type RootStackParamList = {
   Main: undefined;
@@ -13,6 +14,7 @@ export type RootStackParamList = {
   Registration: undefined;
   ChoiseServises: undefined;
   ServiceInfo: undefined;
+  ServiceChat: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -26,6 +28,8 @@ const Navigate: React.FC = () => {
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="ChoiseServises" component={ChoiseServises} />
         <Stack.Screen name="ServiceInfo" component={ServiceInfo} />
+        <Stack.Screen name="ServiceChat" component={ServiceChat} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

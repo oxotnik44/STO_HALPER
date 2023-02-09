@@ -42,7 +42,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
     } else {
       dispatch(setUserLogin(login));
       dispatch(setUserPassword(password));
-      navigation.navigate("ServiceInfo");
+      navigation.navigate("ServiceChat");
     }
   };
 
