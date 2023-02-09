@@ -16,28 +16,24 @@ import { useDispatch, useSelector } from "react-redux";
 
 interface ServiceChatState {
   serviceInfoReducer: {
-    dataService: [
-      {
-        logoService: string;
-        nameService: string;
-        expandedService: boolean;
-        locationService: string;
-        begindayService: string;
-        enddayService: string;
-        phoneService: string;
-        webService: string;
-        whatsappService: string;
-      }
-    ];
+    logoService: string;
+    nameService: string;
+    expandedService: boolean;
+    locationService: string;
+    begindayService: string;
+    enddayService: string;
+    phoneService: string;
+    webService: string;
+    whatsappService: string;
   };
 }
 
 const ServiceChat: React.FC = () => {
-  const { dataService } = useSelector(
+  const dataService = useSelector(
     (state: ServiceChatState) => state.serviceInfoReducer
   );
-  
-return (
+
+  return (
     <View style={styles.container}>
       <View>
         <View>
@@ -45,14 +41,13 @@ return (
             source={require("./../../assets/logo_service.png")}
             style={styles.image_logo}
           ></Image>
-          <Text>{dataService.nameService}</Text>
+          <Text></Text>
         </View>
         <View>
-          <Text></Text>
           <View></View>
+          <Text></Text>
         </View>
       </View>
-
     </View>
   );
 };
