@@ -43,10 +43,10 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Image
-            source={require("./../../assets/loupe.png")}
-            style={styles.image_logo}
+            source={require("./../../assets/logo_service.png")}
+            style={styles.imageLogo}
           ></Image>
-          <Text>{dataService.locationService}</Text>
+          <Text style ={styles.nameService}>{dataService.nameService}</Text>
         </View>
         <View style={styles.headerRight}>
           <Text>Инфо</Text>
@@ -92,11 +92,13 @@ const styles = StyleSheet.create({
   headerLeft: {
     flexDirection: "row",
   },
-  headerRight: {},
-  image_logo: {
-    width: Dimensions.get("window").width * 0.05,
-    height: Dimensions.get("window").width * 0.05,
+  imageLogo: {
+    width: Dimensions.get("window").width * 0.2,
+    height: Dimensions.get("window").width * 0.2,
     marginRight: Dimensions.get("window").width * 0.02,
+  },
+  nameService: {
+    color: "white"
   },
   locationContainer: {
     padding: Dimensions.get("window").width * 0.04,
