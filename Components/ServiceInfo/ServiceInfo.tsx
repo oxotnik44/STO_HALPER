@@ -34,7 +34,7 @@ type ChoiseServiceProps = {
 
 const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const dataService = useSelector(
+  const dataServiceInfo = useSelector(
     (state: ServiceInfoState) => state.serviceInfoReducer
   );
 
@@ -46,32 +46,32 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
             source={require("./../../assets/logo_service.png")}
             style={styles.imageLogo}
           ></Image>
-          <Text style ={styles.nameService}>{dataService.nameService}</Text>
+          <Text style ={styles.nameService}>{dataServiceInfo.nameService}</Text>
         </View>
-        <View style={styles.headerRight}>
+        <View >
           <Text>Инфо</Text>
           <Text>Отзывы</Text>
         </View>
       </View>
       <View style={styles.locationContainer}>
-        <Text style={styles.locationText}>{dataService.locationService}</Text>
+        <Text style={styles.locationText}>{dataServiceInfo.locationService}</Text>
       </View>
       <View style={styles.worktimeContainer}>
         <Text style={styles.worktimeText}>
-          Ежедневно: {dataService.begindayService} - {dataService.enddayService}
+          Ежедневно: {dataServiceInfo.begindayService} - {dataServiceInfo.enddayService}
         </Text>
       </View>
       <View style={styles.phoneContainer}>
-        <Text style={styles.phoneText}>{dataService.phoneService}</Text>
-        <Text style={styles.phoneText}>{dataService.phoneService}</Text>
+        <Text style={styles.phoneText}>{dataServiceInfo.phoneService}</Text>
+        <Text style={styles.phoneText}>{dataServiceInfo.phoneService}</Text>
       </View>
       <View style={styles.webContainer}>
         <View style={styles.webRow}>
-          <Text style={styles.webText}>{dataService.webService}</Text>
+          <Text style={styles.webText}>{dataServiceInfo.webService}</Text>
           <Image></Image>
         </View>
         <View style={styles.webRow}>
-          <Text style={styles.webText}>{dataService.whatsappService}</Text>
+          <Text style={styles.webText}>{dataServiceInfo.whatsappService}</Text>
           <Image></Image>
         </View>
       </View>
