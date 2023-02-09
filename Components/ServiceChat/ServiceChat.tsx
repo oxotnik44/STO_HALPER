@@ -13,7 +13,30 @@ import {
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-const ServiceChat: React.FC = ({  }) => {
+
+interface ServiceChatState {
+  serviceInfoReducer: {
+    dataService: [
+      {
+        logoService: string;
+        nameService: string;
+        expandedService: boolean;
+        locationService: string;
+        begindayService: string;
+        enddayService: string;
+        phoneService: string;
+        webService: string;
+        whatsappService: string;
+      }
+    ];
+  };
+}
+
+const ServiceChat: React.FC = () => {
+  const { dataService } = useSelector(
+    (state: ServiceChatState) => state.serviceInfoReducer
+  );
+  
 return (
     <View style={styles.container}>
       <View>
@@ -22,7 +45,7 @@ return (
             source={require("./../../assets/logo_service.png")}
             style={styles.image_logo}
           ></Image>
-          <Text>{}</Text>
+          <Text>{dataService.nameService}</Text>
         </View>
         <View>
           <Text></Text>
