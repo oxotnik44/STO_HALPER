@@ -22,7 +22,7 @@ return (
             source={require("./../../assets/logo_service.png")}
             style={styles.image_logo}
           ></Image>
-          <Text>{nameService}</Text>
+          <Text>{}</Text>
         </View>
         <View>
           <Text></Text>
