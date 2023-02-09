@@ -13,8 +13,8 @@ import {
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-const ServiceChat: React.FC = ({  }) => {
-return (
+const ServiceChat: React.FC = ({}) => {
+  return (
     <View style={styles.container}>
       <View>
         <View>
@@ -29,7 +29,6 @@ return (
           <View></View>
         </View>
       </View>
-
     </View>
   );
 };

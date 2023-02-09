@@ -16,7 +16,7 @@ interface IServiceInfo {
 
 export const initialMainState: IServiceInfo = {
     logoService: "Logo.png",
-    nameService: "Name.txt",
+    nameService: "Bogatkova",
     expandedService: true,
     locationService: "Bogatkova",
     begindayService: "8:00",
