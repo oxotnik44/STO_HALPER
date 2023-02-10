@@ -11,7 +11,7 @@ interface IServiceInfo {
     enddayService: string | null
     phoneService: string | null
     webService: string | null
-    whatsappService: string | null
+    whatsAppService: string | null
 }
 
 export const initialMainState: IServiceInfo = {
@@ -23,7 +23,7 @@ export const initialMainState: IServiceInfo = {
     enddayService: "20:00",
     phoneService: "89133999060",
     webService: "www.stogtfo.ru",
-    whatsappService: "89139999060",
+    whatsAppService: "WhatsApp",
 }
 
 
