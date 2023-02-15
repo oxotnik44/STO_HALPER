@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { LayoutAnimation } from "react-native";
+import { Dimensions } from "react-native";
+
 interface FoundServiceState {
   choiseServicesReducer: {
     dataService: [
@@ -73,12 +75,13 @@ const FoundService: React.FC = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    width: 335,
-    height: 100,
+    width: Dimensions.get("window").width*0.8,
+    height: Dimensions.get("window").height*0.2,
     backgroundColor: "white",
     borderRadius: 15,
     alignSelf: "center",
     marginTop: 25,
+    top:Dimensions.get("window").height*0.11
   },
   serviceContainer: {
     flexDirection: "row",

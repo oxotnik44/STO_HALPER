@@ -51,7 +51,7 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
             }}
           >
             <Image
-              source={require("./../../assets/logo_service.png")}
+              source={require("./../../assets/cto_logo.png")}
               style={styles.imageLogo}
             ></Image>
             <Text style={styles.nameService}>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   },
 
   webContainer: {
-    marginTop:Dimensions.get("window").height*0.02,
+    marginTop: Dimensions.get("window").height * 0.02,
     padding: Dimensions.get("window").width * 0.04,
     top: Dimensions.get("window").height * 0.01,
   },

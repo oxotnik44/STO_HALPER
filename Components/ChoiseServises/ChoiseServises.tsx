@@ -7,13 +7,12 @@ import {
   Image,
   View,
   Text,
-  Pressable,
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setTextChoiseService } from "../../redux/reducers/choiseServicesReducer";
 import FoundService from "../FoundServise/FoundService";
+import { Dimensions } from "react-native";
 
 interface ChoiseState {
   choiseServicesReducer: {
@@ -71,20 +70,21 @@ const styles = StyleSheet.create({
   inputSearch: {
     backgroundColor: "#AEAEAE",
     borderRadius: 15,
-    width: "90%",
-    height: 40,
+    width: Dimensions.get("window").width*0.9,
+    height: Dimensions.get("window").height*0.05,
     alignSelf: "center",
     paddingLeft: 10,
     marginTop: 20,
     placeholderTextColor: "#ff0000",
+    top:Dimensions.get("window").height*0.09
   },
 
   image: {
     width: 24,
     height: 24,
     position: "absolute",
-    right: 30,
-    top: 29,
+    right: Dimensions.get("window").width*0.09,
+    top:Dimensions.get("window").height*0.126
   },
 });
 

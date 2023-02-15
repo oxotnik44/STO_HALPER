@@ -6,6 +6,7 @@ import {
   Image,
   KeyboardAvoidingView,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 
 const Registration: React.FC = () => {
@@ -53,22 +54,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderRadius: 5,
     borderColor: "#FFD83D99",
-    width: "90%",
+    width: Dimensions.get("window").width * 0.9,
     height: 100,
     alignSelf: "center",
     paddingLeft: 20,
-    paddingTop: 50,
+    paddingTop: Dimensions.get("window").height * 0.05,
     color: "white",
     fontSize: 24,
-    paddingBottom: 10,
     opacity: 0.6,
+    marginTop: Dimensions.get("window").height * 0,
   },
   textReg: {
     fontSize: 32,
     color: "rgba(174, 174, 174, 0.7)",
     opacity: 0.7,
-    paddingTop: 50,
-    paddingLeft: 20,
+    marginTop: Dimensions.get("window").height*0.1,
+    left:Dimensions.get("window").width*0.08,
   },
 });
 export default Registration;
