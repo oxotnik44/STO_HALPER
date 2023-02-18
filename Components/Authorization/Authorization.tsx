@@ -72,7 +72,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
         <Pressable style={styles.registrationButton}>
           <Text
             style={styles.textRegistrationButton}
-            onPress={() => navigation.navigate("Registration")}
+            onPress={() => navigation.navigate("PageOneRegistrationUser")}
           >
             Регистрация
           </Text>
@@ -91,27 +91,25 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   textNameCto: {
-    top:screenHeight*0.07,
+    top: screenHeight * 0.05,
     width: 235,
-    left:screenHeight*0.09,
+    alignSelf: "center",
     height: 45,
     fontSize: 36,
     color: "#FFFFFF",
     marginBottom: 15,
   },
   imgLogo: {
-    top:screenHeight*0.1,
+    top: screenHeight * 0.1,
     width: screenWidth * 0.56,
     height: screenWidth * 0.55,
     alignSelf: "center",
     borderBottomWidth: 1,
-    marginBottom: 12,
-    margin: "auto",
   },
   input: {
     borderBottomWidth: 1,
     marginBottom: 15,
-    top:screenHeight*0.15,
+    top: screenHeight * 0.18,
     height: screenHeight * 0.072,
     width: screenWidth * 0.6,
     margin: 13,
@@ -121,7 +119,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#AEAEAE",
     padding: 10,
     borderColor: "#FFD83D",
-    marginTop:20
   },
   loginButton: {
     width: screenWidth * 0.6,
@@ -131,10 +128,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderBottomWidth: 1,
     marginBottom: 25,
-    marginTop: screenHeight*0.19,
+    marginTop: screenHeight * 0.23,
+    justifyContent: "center",
   },
   textLoginButton: {
-    top: screenHeight*0.016,
     fontStyle: "normal",
     fontSize: 20,
     color: "#000000",
@@ -144,7 +141,6 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.6,
     height: screenHeight * 0.07,
     alignSelf: "center",
-    top:screenHeight*0.02
   },
   textRegistrationButton: {
     textAlign: "center",

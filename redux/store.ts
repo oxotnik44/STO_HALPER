@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 import choiseServicesReducer from "./reducers/choiseServicesReducer";
 import mainReducer from "./reducers/mainReducer";
 import serviceInfoReducer from "./reducers/serviceInfoReducer";
+import regUserReducer from "./reducers/regUserReducer";
 let rootreducer = combineReducers({
     authReducer: authReducer,
     choiseServicesReducer: choiseServicesReducer,
     mainReducer: mainReducer,
-    serviceInfoReducer: serviceInfoReducer, 
+    serviceInfoReducer: serviceInfoReducer,
+    regUserReducer:regUserReducer
 })
 
 export type RootState = ReturnType<typeof rootreducer>;
