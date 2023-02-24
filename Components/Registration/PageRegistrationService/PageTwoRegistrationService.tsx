@@ -14,23 +14,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDataCarUser } from "../../../redux/reducers/registrationReducer/regCarUserReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
+import { setDataRegServicePageTwo } from "../../../redux/reducers/registrationReducer/regServiceDataReducer";
 interface RegState {
-  regCarUserReducer: {
-    gosnomer: string;
-    vinNumber: string;
-    telephoneNumber: string;
+  regServiceDataReducer: {
+    city: string;
+    address: string;
+    index: string;
+    workingNumber: string;
   };
 }
 type AuthorizationProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
-const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
+const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
+  navigation,
+}) => {
   const dispatch = useDispatch();
-  const { gosnomer, vinNumber, telephoneNumber } = useSelector(
-    (state: RegState) => state.regCarUserReducer
+  const { city, address, index, workingNumber } = useSelector(
+    (state: RegState) => state.regServiceDataReducer
   );
   const checkRegFieldsUser = () => {
-    if (!gosnomer || !vinNumber || !telephoneNumber) {
+    if (!city || !address || !index || !workingNumber) {
       Alert.alert("Заполните все поля!");
     } else {
       navigation.navigate("Main");
@@ -43,33 +47,55 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
         <View style={{ position: "relative" }}>
           <TextInput
             style={styles.input}
-            placeholder="Придумай название на ингл для госномера"
+            placeholder="Город"
             placeholderTextColor="white"
             onChangeText={(value: string) =>
-              dispatch(setDataCarUser(value, vinNumber, telephoneNumber))
+              dispatch(
+                setDataRegServicePageTwo(
+                  value,
+                  address,
+                  index,
+                  workingNumber
+                )
+              )
             }
           ></TextInput>
         </View>
         <TextInput
           style={styles.input}
-          placeholder="VIN-номер"
+          placeholder="Адрес"
           placeholderTextColor="white"
-          value={vinNumber}
           onChangeText={(value: string) =>
-            dispatch(setDataCarUser(gosnomer, value, telephoneNumber))
+            dispatch(
+              setDataRegServicePageTwo(
+                city,
+                value,
+                index,
+                workingNumber
+              )
+            )
           }
         ></TextInput>
         <TextInput
           style={styles.input}
-          placeholder="Номер телефона"
+          placeholder="Индекс"
           placeholderTextColor="white"
-          value={telephoneNumber}
           onChangeText={(value: string) =>
-            dispatch(setDataCarUser(gosnomer, vinNumber, value))
+            dispatch(
+              setDataRegServicePageTwo(city, address, value, workingNumber)
+            )
+          }
+        ></TextInput>
+        <TextInput
+          style={styles.input}
+          placeholder="Рабочий номер"
+          placeholderTextColor="white"
+          onChangeText={(value: string) =>
+            dispatch(setDataRegServicePageTwo(city, address, index, value))
           }
         ></TextInput>
         <Pressable style={styles.btnContinue} onPress={checkRegFieldsUser}>
-          <Text style={styles.btnTextContinue}>Завершить</Text>
+          <Text style={styles.btnTextContinue}>Продолжить</Text>
         </Pressable>
       </KeyboardAvoidingView>
     </View>
@@ -120,4 +146,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default PageRegistrationUser;
+export default PageTwoRegistrationService;

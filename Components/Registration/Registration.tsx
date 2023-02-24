@@ -11,12 +11,12 @@ import {
   Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../../redux/reducers/regUserReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
 import * as Animatable from "react-native-animatable";
+import { setUserData } from "../../redux/reducers/registrationReducer/registrationReducer";
 interface RegState {
-  regUserReducer: {
+  registrationReducer: {
     userRole: string;
     login: string;
     password: string;
@@ -29,7 +29,7 @@ type AuthorizationProps = {
 const Registration: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { userRole, login, password, repeatPassword } = useSelector(
-    (state: RegState) => state.regUserReducer
+    (state: RegState) => state.registrationReducer
   );
   const checkFieldsReg = () => {
     if (!login || !password || !repeatPassword) {
@@ -37,10 +37,12 @@ const Registration: React.FC<AuthorizationProps> = ({ navigation }) => {
     } else if (password !== repeatPassword) {
       Alert.alert("Пароли не совпадают");
     } else {
-      if (userRole == "Клиент") {
+      if (userRole === "Клиент") {
         navigation.navigate("PageRegistrationUser");
+      } else if (userRole === "СТО") {
+        navigation.navigate("PageOneRegistrationService");
       } else {
-        navigation.navigate("Authorization");
+        Alert.alert("Выберите свою роль!");
       }
     }
   };
@@ -66,8 +68,7 @@ const Registration: React.FC<AuthorizationProps> = ({ navigation }) => {
           </View>
         </Pressable>
         {showInputs && (
-          <Animatable.View animation={showInputs ? "fadeInDown" : "fadeOutUp"}
-          >
+          <Animatable.View animation={showInputs ? "fadeInDown" : "fadeOutUp"}>
             <View>
               <Pressable
                 onPress={() => {
