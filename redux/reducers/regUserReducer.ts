@@ -1,22 +1,21 @@
 import { Reducer } from "redux";
 const SET_USER_DATA = "SET_USER_DATA";
-const SET_NUMBER_PAGE = "SET_NUMBER_PAGE";
 const SET_DATA_CAR_USER = "SET_DATA_CAR_USER";
 interface IRegState {
+  userRole: string | null;
   login: string | null;
   password: string | null;
   repeatPassword: string | null;
   vinNumber: string | null;
   telephoneNumber: string | null;
-  numberPage: Number;
 }
 export const initialRegState: IRegState = {
+  userRole: "Кто вы?",
   login: null,
   password: null,
   repeatPassword: null,
   vinNumber: null,
   telephoneNumber: null,
-  numberPage: 1,
 };
 const regUserReducer: Reducer<IRegState> = (
   state = initialRegState,
@@ -26,32 +25,30 @@ const regUserReducer: Reducer<IRegState> = (
     case SET_USER_DATA:
       return {
         ...state,
+        userRole: action.userRole,
         login: action.login,
         password: action.password,
         repeatPassword: action.repeatPassword,
       };
-    case SET_NUMBER_PAGE:
+    case SET_DATA_CAR_USER:
       return {
         ...state,
-        numberPage: action.numberPage,
+        vinNumber: action.vinNumber,
+        telephoneNumber: action.telephoneNumber,
       };
-    case SET_DATA_CAR_USER:
-      return{
-        ...state,
-        vinNumber:action.vinNumber,
-        telephoneNumber:action.telephoneNumber
-      }
     default:
       return state;
   }
 };
 
 export const setUserData = (
+  userRole: string | null,
   login: string | null,
   password: string | null,
   repeatPassword: string | null
 ) => ({
   type: SET_USER_DATA,
+  userRole,
   login,
   password,
   repeatPassword,
@@ -63,10 +60,6 @@ export const setDataCarUser = (
   type: SET_DATA_CAR_USER,
   vinNumber,
   telephoneNumber,
-});
-export const setNumberPage = (numberPage: number) => ({
-  type: SET_NUMBER_PAGE,
-  numberPage,
 });
 
 export default regUserReducer;

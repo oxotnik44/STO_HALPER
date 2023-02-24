@@ -72,7 +72,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
         <Pressable style={styles.registrationButton}>
           <Text
             style={styles.textRegistrationButton}
-            onPress={() => navigation.navigate("PageOneRegistrationUser")}
+            onPress={() => navigation.navigate("Registration")}
           >
             Регистрация
           </Text>

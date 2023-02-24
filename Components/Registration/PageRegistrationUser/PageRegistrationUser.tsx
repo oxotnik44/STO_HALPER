@@ -13,7 +13,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   setDataCarUser,
-  setNumberPage,
   setUserData,
 } from "../../../redux/reducers/regUserReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -27,14 +26,14 @@ interface RegState {
 type AuthorizationProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
-const PageTwoRegistrationUser: React.FC<AuthorizationProps> = ({
+const PageRegistrationUser: React.FC<AuthorizationProps> = ({
   navigation,
 }) => {
   const dispatch = useDispatch();
   const { vinNumber, telephoneNumber } = useSelector(
     (state: RegState) => state.regUserReducer
   );
-  const checkRegFieldsTwoPageUser = () => {
+  const checkRegFieldsUser = () => {
     if ((vinNumber || telephoneNumber) == null) {
       Alert.alert("Заполните все поля!");
     } else {
@@ -72,7 +71,7 @@ const PageTwoRegistrationUser: React.FC<AuthorizationProps> = ({
         ></TextInput>
         <Pressable
           style={styles.btnContinue}
-          onPress={checkRegFieldsTwoPageUser}
+          onPress={checkRegFieldsUser}
         >
           <Text style={styles.btnTextContinue}>Продолжить</Text>
         </Pressable>
@@ -125,4 +124,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default PageTwoRegistrationUser;
+export default PageRegistrationUser;
