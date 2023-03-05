@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import {
-  StyleSheet,
-  TextInput,
-  Image,
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Alert,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { Dimensions } from "react-native";
-import Carousel from "./CarouselCardItem";
+import { Image, View, Text } from "react-native";
+import { useSelector } from "react-redux";
+import styles, { screenWidth, screenHeight } from "./ServiceInfoStyles";
+import CarouselCardItem from "./CarouselCardItem";
+
 interface ServiceInfoState {
   serviceInfoReducer: {
     logoService: string;
@@ -32,8 +24,7 @@ type ChoiseServiceProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
 
-const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
-  const dispatch = useDispatch();
+const ServiceInfo: React.FC<ChoiseServiceProps> = () => {
   const dataServiceInfo = useSelector(
     (state: ServiceInfoState) => state.serviceInfoReducer
   );
@@ -42,7 +33,7 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
     <View style={styles.container}>
       <View
         style={{
-          top: Dimensions.get("window").height * 0.04,
+          top: screenHeight * 0.04,
         }}
       >
         <View style={styles.header}>
@@ -82,9 +73,9 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
         </View>
         <View
           style={{
-            width: Dimensions.get("window").width,
-            height: Dimensions.get("window").height * 0.12,
-            top: Dimensions.get("window").height * 0.01,
+            width: screenWidth,
+            height: screenHeight * 0.12,
+            top: screenHeight * 0.01,
           }}
         >
           <Text style={styles.locationText}>Бориса Богаткова, 80</Text>
@@ -118,7 +109,7 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
             />
           </View>
         </View>
-        <View style={styles.lineSeporator}></View>
+        <View style={styles.lineSeporatorUp}></View>
         <View style={styles.webContainer}>
           <View style={styles.webRow}>
             <Text style={styles.links}>{dataServiceInfo.webService}</Text>
@@ -134,122 +125,12 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
               style={styles.iconConntection}
             />
           </View>
-          <Carousel/>
+          <View style={styles.lineSeporatorDown}></View>
+          <CarouselCardItem />
         </View>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#3B3B3B",
-  },
-
-  header: {
-    padding: Dimensions.get("window").width * 0.04,
-    height: Dimensions.get("window").height * 0.185,
-    borderBottomColor: "#000",
-    borderBottomWidth: 1,
-    marginBottom: Dimensions.get("window").height * 0.015,
-  },
-  imageLogo: {
-    width: Dimensions.get("window").width * 0.2,
-    height: Dimensions.get("window").height * 0.12,
-  },
-  nameService: {
-    color: "white",
-    top: Dimensions.get("window").height * 0.001,
-    left: Dimensions.get("window").width * 0.03,
-    fontSize: 25,
-  },
-  textInfoAndReview: {
-    paddingLeft: Dimensions.get("window").width * 0.18,
-    color: "white",
-    fontSize: 23,
-    bottom: Dimensions.get("window").height * 0.01,
-  },
-  underlinedText: {
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    textDecorationColor: "red",
-  },
-
-  locationText: {
-    fontSize: Dimensions.get("window").width * 0.05,
-    color: "#fff",
-    opacity: 0.7,
-    left: Dimensions.get("window").width * 0.07,
-    top: Dimensions.get("window").height * -0.01,
-  },
-  textLocationService: {
-    fontSize: 20,
-    color: "#9497FF",
-    marginRight: Dimensions.get("window").width * 0.02,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    right: Dimensions.get("window").width * -0.55,
-  },
-
-  containerWorkTime: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height * 0.08,
-    marginTop: Dimensions.get("window").height * 0.02,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: "#FFD83D",
-  },
-  textWorkTime: {
-    fontSize: 20,
-    color: "white",
-    left: Dimensions.get("window").width * 0.1,
-    top: Dimensions.get("window").height * 0.018,
-  },
-
-  phoneContainer: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height * 0.08,
-  },
-  phoneText: {
-    fontSize: 25,
-    color: "#9497FF",
-    marginTop: Dimensions.get("window").height * 0.012,
-    left: Dimensions.get("window").width * 0.1,
-  },
-  iconTelephone: {
-    left: Dimensions.get("window").width * 0.14,
-    top: Dimensions.get("window").height * 0.025,
-  },
-
-  lineSeporator: {
-    width: Dimensions.get("window").width * 0.85,
-    height: 1,
-    backgroundColor: "#FFD83D",
-    top: Dimensions.get("window").height * 0.05,
-    left: Dimensions.get("window").width * 0.07,
-  },
-
-  links: {
-    fontSize: 30,
-    color: "#9497FF",
-  },
-  iconConntection: {
-    top: Dimensions.get("window").height * 0.012,
-    left: Dimensions.get("window").width * 0.03,
-  },
-
-  webContainer: {
-    marginTop: Dimensions.get("window").height * 0.02,
-    padding: Dimensions.get("window").width * 0.04,
-    top: Dimensions.get("window").height * 0.01,
-  },
-  webRow: {
-    flexDirection: "row",
-    marginTop: Dimensions.get("window").height * 0.01,
-    left: Dimensions.get("window").width * 0.06,
-  },
-});
 
 export default ServiceInfo;
