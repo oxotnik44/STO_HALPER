@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     left: Dimensions.get("window").width * 0.08,
   },
   btnContinue: {
-    width: Dimensions.get("window").width * 0.6,
-    height: Dimensions.get("window").height * 0.07,
+    width: Dimensions.get("window").width * 0.7,
+    height: Dimensions.get("window").height * 0.08,
     top: Dimensions.get("window").height * 0.87,
     backgroundColor: "#FFD83D",
     borderRadius: 15,

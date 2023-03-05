@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     left: Dimensions.get("window").width * 0.08,
   },
   btnContinue: {
-    width: Dimensions.get("window").width * 0.6,
-    height: Dimensions.get("window").height * 0.07,
+    width: Dimensions.get("window").width * 0.7,
+    height: Dimensions.get("window").height * 0.08,
     marginTop: Dimensions.get("window").height * 0.2,
     backgroundColor: "#FFD83D",
     borderRadius: 15,

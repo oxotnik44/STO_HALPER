@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Dimensions } from "react-native";
+import Carousel from "./CarouselCardItem";
 interface ServiceInfoState {
   serviceInfoReducer: {
     logoService: string;
@@ -133,6 +134,7 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
               style={styles.iconConntection}
             />
           </View>
+          <Carousel/>
         </View>
       </View>
     </View>
