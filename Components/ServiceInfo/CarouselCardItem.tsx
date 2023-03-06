@@ -1,15 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  Image,
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Alert,
-  Dimensions,
-} from "react-native";
+import { Image, View, Dimensions } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { useSelector } from "react-redux";
 import { IServiceInfo } from "./../../redux/reducers/serviceInfoReducer";
