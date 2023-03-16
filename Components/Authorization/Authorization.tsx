@@ -1,21 +1,9 @@
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./../../Navigate";
-import {
-  StyleSheet,
-  TextInput,
-  Image,
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Alert,
-} from "react-native";
+import { TextInput, Image, View, Text, Pressable, KeyboardAvoidingView, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setUserLogin,
-  setUserPassword,
-} from "../../redux/reducers/authReducer";
+import { setUserLogin, setUserPassword } from "../../redux/reducers/authReducer";
 import { Dimensions } from "react-native";
 import { styles } from "./AuthorizationStyles";
 const screenWidth = Dimensions.get("window").width;
