@@ -1,20 +1,9 @@
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./../../Navigate";
-import {
-  TextInput,
-  Image,
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Alert,
-} from "react-native";
+import { TextInput, Image, View, Text, Pressable, KeyboardAvoidingView, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setUserLogin,
-  setUserPassword,
-} from "../../redux/reducers/authReducer";
+import { setUserLogin, setUserPassword } from "../../redux/reducers/authReducer";
 import { styles } from "./AuthorizationStyles";
 
 interface AuthState {
