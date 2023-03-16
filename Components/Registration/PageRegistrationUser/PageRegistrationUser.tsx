@@ -16,7 +16,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 interface RegState {
   regCarUserReducer: {
-    gosnomer: string;
+    carNumber: string;
     vinNumber: string;
     telephoneNumber: string;
   };
@@ -26,11 +26,11 @@ type AuthorizationProps = {
 };
 const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { gosnomer, vinNumber, telephoneNumber } = useSelector(
+  const { carNumber, vinNumber, telephoneNumber } = useSelector(
     (state: RegState) => state.regCarUserReducer
   );
   const checkRegFieldsUser = () => {
-    if (!gosnomer || !vinNumber || !telephoneNumber) {
+    if (!carNumber || !vinNumber || !telephoneNumber) {
       Alert.alert("Заполните все поля!");
     } else {
       navigation.navigate("Main");
@@ -43,7 +43,7 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
         <View style={{ position: "relative" }}>
           <TextInput
             style={styles.input}
-            placeholder="Придумай название на ингл для госномера"
+            placeholder="Госномер"
             placeholderTextColor="white"
             onChangeText={(value: string) =>
               dispatch(setDataCarUser(value, vinNumber, telephoneNumber))
@@ -56,7 +56,7 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
           placeholderTextColor="white"
           value={vinNumber}
           onChangeText={(value: string) =>
-            dispatch(setDataCarUser(gosnomer, value, telephoneNumber))
+            dispatch(setDataCarUser(carNumber, value, telephoneNumber))
           }
         ></TextInput>
         <TextInput
@@ -65,7 +65,7 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
           placeholderTextColor="white"
           value={telephoneNumber}
           onChangeText={(value: string) =>
-            dispatch(setDataCarUser(gosnomer, vinNumber, value))
+            dispatch(setDataCarUser(carNumber, vinNumber, value))
           }
         ></TextInput>
         <Pressable style={styles.btnContinue} onPress={checkRegFieldsUser}>

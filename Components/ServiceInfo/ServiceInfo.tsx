@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import { Image, View, Text } from "react-native";
+import { Image, View, Text, Linking, Alert } from "react-native";
 import { useSelector } from "react-redux";
 import styles, { screenWidth, screenHeight } from "./ServiceInfoStyles";
 import CarouselCardItem from "./CarouselCardItem";
@@ -19,6 +19,12 @@ interface ServiceInfoState {
     whatsAppService: string;
   };
 }
+interface ServiceLocationInfo {
+  regServiceDataReducer: {
+    city: string;
+    address: string;
+  };
+}
 
 type ChoiseServiceProps = {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -28,6 +34,11 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = () => {
   const dataServiceInfo = useSelector(
     (state: ServiceInfoState) => state.serviceInfoReducer
   );
+  const dataServiceLocation = useSelector(
+    (state: ServiceLocationInfo) => state.regServiceDataReducer
+  );
+  const address = `${dataServiceLocation.city}, ${dataServiceLocation.address}`;
+  const yandexMapsUrl = `https://yandex.ru/maps/?text=${address}`;
   const [selected, setSelected] = useState("info");
   return (
     <View style={styles.container}>
@@ -84,7 +95,19 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = () => {
           <Text style={styles.locationText}>1 этаж</Text>
         </View>
         <View style={styles.locationContainer}>
-          <Text style={styles.textLocationService}>Найти в 2ГИС</Text>
+          <Text
+            style={styles.textLocationService}
+            onPress={() => {
+              if ((dataServiceLocation.city && dataServiceLocation.address) != null) {
+                Linking.openURL(yandexMapsUrl);
+              }
+              else{
+                Alert.alert("Данные не введены!")
+              }
+            }}
+          >
+            Найти на Я. Карте
+          </Text>
           <Image source={require("../../assets/arrowWhite.png")} />
         </View>
         <View style={styles.containerWorkTime}>

@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
   textLocationService: {
     fontSize: 20,
     color: "#9497FF",
-    marginRight: screenWidth * 0.02,
+    marginRight: screenWidth * 0,
   },
   locationContainer: {
     flexDirection: "row",
-    right: screenWidth * -0.55,
+    right: screenWidth * -0.52,
   },
 
   containerWorkTime: {

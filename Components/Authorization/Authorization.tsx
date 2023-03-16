@@ -37,14 +37,38 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
   );
 
   const setData = () => {
-    if (login == null || password == null) {
-      Alert.alert("Внимание!", "Вы ввели неправильный логин или пароль");
-    } else {
-      dispatch(setUserLogin(login));
-      dispatch(setUserPassword(password));
-      navigation.navigate("ServiceInfo");
-    }
-  };
+  if (login == null || password == null) {
+    Alert.alert("Внимание!", "Вы ввели неправильный логин или пароль");
+  } else {
+    const url = "https://example.com/login";
+    const data = { login, password };
+
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        // обрабатываем ответ сервера
+        console.log(responseData);
+        // вызываем действия для изменения состояния в Redux Store
+        dispatch(setUserLogin(login));
+        dispatch(setUserPassword(password));
+        navigation.navigate("ServiceInfo");
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+        Alert.alert("Ошибка!", "Произошла ошибка при выполнении запроса.");
+      });
+  }
+};
+
 
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
