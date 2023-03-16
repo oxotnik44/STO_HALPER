@@ -1,11 +1,7 @@
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import {
-  TextInput,
-  Image,
-  View,
-} from "react-native";
+import { TextInput, Image, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import FoundService from "../FoundServise/FoundService";
 import { styles } from "./ChoiseServisesStyles";
@@ -54,7 +50,5 @@ const ChoiseServises: React.FC<ChoiseServiceProps> = ({ navigation }) => {
     </View>
   );
 };
-
-
 
 export default ChoiseServises;

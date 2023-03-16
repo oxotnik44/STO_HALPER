@@ -1,9 +1,9 @@
-import React from "react"; 
+import React from "react";
 import { Image, View, Text, Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import * as Animatable from "react-native-animatable";
-import { styles } from "./FoundServiceStyles"; 
+import { styles } from "./FoundServiceStyles";
 
 interface FoundServiceState {
   choiseServicesReducer: {
