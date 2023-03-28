@@ -14,7 +14,6 @@ import { setDataCarUser } from "../../../redux/reducers/registrationReducer/regC
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { styles } from "./PageRegistrationUserStyles";
-import authReducer from "../../../redux/reducers/authReducer";
 
 interface RegState {
   regCarUserReducer: {

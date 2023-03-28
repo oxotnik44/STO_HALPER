@@ -8,7 +8,7 @@ interface IRegState {
 export const initialRegState: IRegState = {
   carNumber: null,
   vinNumber: null,
-  telephoneNumber: null,
+  telephoneNumber: null
 };
 const regCarUserReducer: Reducer<IRegState> = (
   state = initialRegState,
