@@ -48,7 +48,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
         });
 
-      navigation.navigate("ServiceInfo");
+      navigation.navigate("ServiceChat");
     }
   };
 
