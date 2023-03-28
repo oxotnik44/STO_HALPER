@@ -1,26 +1,33 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#3B3B3B",
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   image_logo: {
-    width: Dimensions.get("window").width * 0.16,
-    height: Dimensions.get("window").height * 0.1,
-    top: 0,
-    left: 0,
+    width: screenWidth * 0.16,
+    height: screenHeight * 0.1,
   },
 
   nameService: {
-    width: Dimensions.get("window").width * 0.16,
-    height: Dimensions.get("window").height * 0.1,
-    top: 0,
-    left: 0,
+    fontSize: screenWidth * 0.05,
+    fontWeight: "bold",
+    color: "#FFF",
+    marginHorizontal: 10,
   },
+
   headerService:{
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 20,
   }
 });
