@@ -27,18 +27,38 @@ interface AuthState {
 type AuthorizationProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
+
 const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { login, password } = useSelector(
     (state: AuthState) => state.authReducer
   );
 
-  const setData = () => {
+  const setData = async () => {
     if (login == null || password == null) {
-      Alert.alert("Внимание!", "Вы ввели неправильный логин или пароль");
+      Alert.alert("Внимание!", "Вы ввели неправильные данные");
     } else {
       dispatch(setUserLogin(login));
       dispatch(setUserPassword(password));
+
+      fetch("http://192.168.2.101:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ login, password }),
+      })
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {
+          alert(data);
+        })
+        .catch((error) => {
+          console.error(error);
+          Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
+        });
+
       navigation.navigate("ServiceInfo");
     }
   };

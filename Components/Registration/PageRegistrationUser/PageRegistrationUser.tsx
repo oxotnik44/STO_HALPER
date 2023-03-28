@@ -1,10 +1,20 @@
 import React from "react";
-import { View, Text, TextInput, KeyboardAvoidingView, StyleSheet, Dimensions, Pressable, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Dimensions,
+  Pressable,
+  Alert,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataCarUser } from "../../../redux/reducers/registrationReducer/regCarUserReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { styles } from "./PageRegistrationUserStyles";
+import authReducer from "../../../redux/reducers/authReducer";
 
 interface RegState {
   regCarUserReducer: {
@@ -13,11 +23,43 @@ interface RegState {
     telephoneNumber: string;
   };
 }
+interface AuthState{
+  registrationReducer:{
+    login:string,
+    password:string
+  }
+}
 type AuthorizationProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
+const sendDataUser = async (carNumber: string, vinNumber: string, telephoneNumber: string, login: string, password: string) => {
+  const data = {
+    carNumber,
+    vinNumber,
+    telephoneNumber,
+    login,
+    password,
+  };
+  try {
+    const response = await fetch("http://192.168.2.101:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }); 
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { login, password } = useSelector(
+    (state: AuthState) => state.registrationReducer
+  );
   const { carNumber, vinNumber, telephoneNumber } = useSelector(
     (state: RegState) => state.regCarUserReducer
   );
@@ -25,9 +67,11 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
     if (!carNumber || !vinNumber || !telephoneNumber) {
       Alert.alert("Заполните все поля!");
     } else {
+      sendDataUser(carNumber, vinNumber, telephoneNumber, login, password);
       navigation.navigate("Main");
     }
   };
+  
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={100}>
