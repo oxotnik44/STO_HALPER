@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#3B3B3B",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: 0,
   },
 
   image_logo: {
