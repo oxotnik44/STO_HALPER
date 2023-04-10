@@ -1,36 +1,54 @@
+import axios from "axios";
 import { Alert } from "react-native";
-import { useSelector } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../Navigate";
+import { clearDataCarUser } from "../redux/reducers/registrationReducer/regCarUserReducer";
+import { useDispatch } from "react-redux";
 
-interface AuthState {
-  authReducer: {
-    login: string;
-    password: string;
-  };
-}
+const api = axios.create({
+  baseURL: "http://192.168.2.101:5000/api",
+});
 
-const { login, password } = useSelector(
-  (state: AuthState) => state.authReducer
-);
-
-const sendDataUser = () => {
-  return fetch("http://192.168.2.101:3000/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+export const handleRegistration = async (
+  login: string,
+  password: string,
+  carNumber: string | null,
+  vinNumber: string | null,
+  telephoneNumber: string | null,
+  navigation: StackNavigationProp<RootStackParamList>
+) => {
+  try {
+    const response = await api.post("/auth/registrationUser", {
       login,
       password,
-    }),
-  })
-    .then((response) => {
-      return response.text();
-    })
-    .catch((error) => {
-      console.error(error);
-      Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
-      throw error;
+      carNumber,
+      vinNumber,
+      telephoneNumber,
     });
+    console.log(response.data); // обработка успешной регистрации
+    navigation.navigate("Main"); // переход на экран логина после успешной регистрации
+  } catch (error) {
+    console.error(error);
+    // обработка ошибки регистрации
+  }
 };
 
-export default sendDataUser;
+export const handleLogin = async (
+  login: string,
+  password: string,
+  navigation: StackNavigationProp<RootStackParamList>
+) => {
+  try {
+    const response = await api.post("/auth/loginUser", {
+      login,
+      password,
+    });
+    // Handle successful login
+    Alert.alert("Успешный вход", "Вы успешно авторизовались!");
+    navigation.navigate("ServiceInfo");
+  } catch (error) {
+    console.error(error);
+    // Handle login error
+    Alert.alert("Ошибка входа", "Введенные данные не верны.");
+  }
+};

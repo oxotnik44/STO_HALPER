@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 const SET_DATA_CAR_USER = "SET_DATA_CAR_USER";
+const CLEAR_DATA_CAR_USER = "CLEAR_DATA_CAR_USER";
 interface IRegState {
   carNumber: string | null;
   vinNumber: string | null;
@@ -8,7 +9,7 @@ interface IRegState {
 export const initialRegState: IRegState = {
   carNumber: null,
   vinNumber: null,
-  telephoneNumber: null
+  telephoneNumber: null,
 };
 const regCarUserReducer: Reducer<IRegState> = (
   state = initialRegState,
@@ -21,6 +22,13 @@ const regCarUserReducer: Reducer<IRegState> = (
         carNumber: action.carNumber,
         vinNumber: action.vinNumber,
         telephoneNumber: action.telephoneNumber,
+      };
+    case CLEAR_DATA_CAR_USER:
+      return {
+        ...state,
+        carNumber: null,
+        vinNumber: null,
+        telephoneNumber: null,
       };
     default:
       return state;
@@ -38,4 +46,7 @@ export const setDataCarUser = (
   telephoneNumber,
 });
 
+export const clearDataCarUser = () => ({
+  type: CLEAR_DATA_CAR_USER,
+});
 export default regCarUserReducer;
