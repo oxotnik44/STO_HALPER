@@ -9,7 +9,6 @@ interface ServiceChatState {
     logoService: string;
     nameService: string;
     expandedService: boolean;
-    isOnline: boolean;
   };
 }
 
@@ -22,7 +21,6 @@ const ServiceChat: React.FC = () => {
     <View style={styles.container}>
     <View>
       <View style={styles.headerService}>
-      <OnlineIndicator isOnline={dataServiceChat.isOnline} />
         <Image
           source={require("./../../assets/logo_service.png")}
           style={styles.image_logo}

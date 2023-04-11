@@ -40,7 +40,6 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
     } else {
       dispatch(setUserLogin(login));
       dispatch(setUserPassword(password));
-
       fetch("http://192.168.2.101:3000/users", {
         method: "POST",
         headers: {
