@@ -1,14 +1,27 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 interface OnlineIndicatorProps {
-  isOnline: boolean;
+  serviceInfoReducer: {
+    expandedService: boolean;
+  };
 }
 
-const OnlineIndicator: React.FC<OnlineIndicatorProps> = ({ isOnline }) => {
-  const indicatorColor = isOnline ? "green" : "green";
-
-  return <View style={[styles.indicator, { backgroundColor: indicatorColor }]} />;
+const OnlineIndicator: React.FC<OnlineIndicatorProps> = () => {
+  const data = useSelector(
+    (state: OnlineIndicatorProps) => state.serviceInfoReducer
+  );
+  return (
+    <View
+      style={[
+        styles.indicator,
+        data.expandedService
+          ? { backgroundColor: "green" }
+          : { backgroundColor: "red" },
+      ]}
+    />
+  );
 };
 
 const styles = StyleSheet.create({

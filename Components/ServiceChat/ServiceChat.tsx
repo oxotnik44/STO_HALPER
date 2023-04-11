@@ -9,7 +9,6 @@ interface ServiceChatState {
     logoService: string;
     nameService: string;
     expandedService: boolean;
-    isOnline: boolean;
   };
 }
 
@@ -20,25 +19,31 @@ const ServiceChat: React.FC = () => {
 
   return (
     <View style={styles.container}>
-    <View>
-      <View style={styles.headerService}>
-      <OnlineIndicator isOnline={dataServiceChat.isOnline} />
-        <Image
-          source={require("./../../assets/logo_service.png")}
-          style={styles.image_logo}
-        />
-        <Text style={styles.nameService}>{dataServiceChat.nameService}</Text>
-      </View>
       <View>
-        <View></View>
-      </View>
-      <View style={[styles.footerService, dataServiceChat.expandedService ? {backgroundColor:"green"} : {backgroundColor:"red"} ]}>
-        <Text style={styles.footerText}>
-          Оператор на связи {dataServiceChat.expandedService}
-        </Text>
+        <View style={styles.headerService}>
+          <Image
+            source={require("./../../assets/logo_service.png")}
+            style={styles.image_logo}
+          />
+          <Text style={styles.nameService}>{dataServiceChat.nameService}</Text>
+        </View>
+        <View>
+          <View></View>
+        </View>
+        <View
+          style={[
+            styles.footerService,
+            dataServiceChat.expandedService
+              ? { backgroundColor: "green" }
+              : { backgroundColor: "red" },
+          ]}
+        >
+          <Text style={styles.footerText}>
+            Оператор на связи {dataServiceChat.expandedService}
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
   );
 };
 
