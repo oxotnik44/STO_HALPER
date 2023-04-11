@@ -2,7 +2,6 @@ import React from "react";
 import { Image, View, Text } from "react-native";
 import { useSelector } from "react-redux";
 import { styles } from "./ServiceChatStyles";
-import OnlineIndicator from "./OnlineIndicator";
 
 interface ServiceChatState {
   serviceInfoReducer: {

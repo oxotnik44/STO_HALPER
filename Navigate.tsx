@@ -35,7 +35,11 @@ const Navigate: React.FC = () => {
           headerShown: false,
         }}
       >
-         <Stack.Screen
+        <Stack.Screen
+          name="PageThreeRegistrationService"
+          component={PageThreeRegistrationService}
+        />
+        <Stack.Screen
           name="PageTwoRegistrationService"
           component={PageTwoRegistrationService}
         />
@@ -43,7 +47,6 @@ const Navigate: React.FC = () => {
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ChoiseServises" component={ChoiseServises} />
         <Stack.Screen name="ServiceInfo" component={ServiceInfo} />
-        <Stack.Screen name="Authorization" component={Authorization} />
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen
           name="PageRegistrationUser"
@@ -53,7 +56,6 @@ const Navigate: React.FC = () => {
           name="PageOneRegistrationService"
           component={PageOneRegistrationService}
         />
-       
       </Stack.Navigator>
     </NavigationContainer>
   );
