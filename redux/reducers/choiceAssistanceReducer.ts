@@ -1,21 +1,60 @@
 import { Reducer } from "redux";
 
-interface IState {
-  dataService: Array<string> | null;
+const UPDATE_ASSISTANCE_SERVICE = "UPDATE_ASSISTANCE_SERVICE";
+
+interface IAssistanceItem {
+  assistanceService: string;
+  isSelectedAssistance: boolean;
 }
 
-export const initialServiceState: IState = {
-  dataService: ["Шины", "Двигатель", "Тормозная система", "Электроника"],
+interface IState {
+  dataAssistance: IAssistanceItem[];
+}
+
+export const initialAssistanceState: IState = {
+  dataAssistance: [
+    {
+      assistanceService: "Шины",
+      isSelectedAssistance: false,
+    },
+    {
+      assistanceService: "Двигатель",
+      isSelectedAssistance: false,
+    },
+    {
+      assistanceService: "Тормозная система",
+      isSelectedAssistance: false,
+    },
+    {
+      assistanceService: "Электроника",
+      isSelectedAssistance: false,
+    },
+  ],
 };
 
-const serviceReducer: Reducer<IState> = (
-  state = initialServiceState,
+const assistanceReducer: Reducer<IState> = (
+  state = initialAssistanceState,
   action
 ) => {
   switch (action.type) {
+    case UPDATE_ASSISTANCE_SERVICE:
+      const { index, isSelected } = action.payload;
+      return {
+        ...state,
+        dataAssistance: state.dataAssistance.map((item, i) =>
+          i === index ? { ...item, isSelectedAssistance: isSelected } : item
+        ),
+      };
     default:
       return state;
   }
 };
 
-export default serviceReducer;
+export const updateAssistanceService = (index: number, isSelected: boolean) => {
+  return {
+    type: UPDATE_ASSISTANCE_SERVICE,
+    payload: { index, isSelected },
+  };
+};
+
+export default assistanceReducer;

@@ -40,26 +40,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
     } else {
       dispatch(setUserLogin(login));
       dispatch(setUserPassword(password));
-
-      fetch("http://192.168.2.101:3000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ login, password }),
-      })
-        .then((response) => {
-          return response.text();
-        })
-        .then((data) => {
-          alert(data);
-        })
-        .catch((error) => {
-          console.error(error);
-          Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
-        });
-
-      navigation.navigate("ServiceInfo");
+      await handleLogin(login, password, navigation);
     }
   };
 

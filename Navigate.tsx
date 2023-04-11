@@ -10,6 +10,7 @@ import PageRegistrationUser from "./Components/Registration/PageRegistrationUser
 import Registration from "./Components/Registration/Registration";
 import PageOneRegistrationService from "./Components/Registration/PageRegistrationService/PageOneRegistrationService";
 import PageTwoRegistrationService from "./Components/Registration/PageRegistrationService/PageTwoRegistrationService";
+import PageThreeRegistrationService from "./Components/Registration/PageRegistrationService/PageThreeRegistrationService";
 
 export type RootStackParamList = {
   Main: undefined;
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   PageRegistrationUser: undefined;
   PageOneRegistrationService: undefined;
   PageTwoRegistrationService: undefined;
+  PageThreeRegistrationService: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -33,6 +35,10 @@ const Navigate: React.FC = () => {
           headerShown: false,
         }}
       >
+        <Stack.Screen
+          name="PageThreeRegistrationService"
+          component={PageThreeRegistrationService}
+        />
         <Stack.Screen name="Authorization" component={Authorization} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ChoiseServises" component={ChoiseServises} />
