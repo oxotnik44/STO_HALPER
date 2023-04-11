@@ -5,7 +5,7 @@ const SET_TEXT = "SET_TEXT";
 export interface IServiceInfo {
   logoService: string | null;
   nameService: string | null;
-  expandedService: string | null;
+  expandedService: boolean;
   locationService: string | null;
   begindayService: string | null;
   enddayService: string | null;
@@ -18,7 +18,7 @@ export interface IServiceInfo {
 export const initialMainState: IServiceInfo = {
   logoService: "Logo.png",
   nameService: "Bogatkova",
-  expandedService: "true",
+  expandedService: true,
   locationService: "Bogatkova",
   begindayService: "8:00",
   enddayService: "20:00",

@@ -33,11 +33,11 @@ const Navigate: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Authorization" component={Authorization} />
+        <Stack.Screen name="ServiceChat" component={ServiceChat} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ChoiseServises" component={ChoiseServises} />
         <Stack.Screen name="ServiceInfo" component={ServiceInfo} />
-        <Stack.Screen name="ServiceChat" component={ServiceChat} />
+        <Stack.Screen name="Authorization" component={Authorization} />
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen
           name="PageRegistrationUser"
