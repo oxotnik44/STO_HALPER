@@ -1,11 +1,22 @@
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./../../Navigate";
-import { TextInput, Image, View, Text, Pressable, KeyboardAvoidingView, Alert } from "react-native";
+import {
+  TextInput,
+  Image,
+  View,
+  Text,
+  Pressable,
+  KeyboardAvoidingView,
+  Alert,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserLogin, setUserPassword } from "../../redux/reducers/authReducer";
+import {
+  setUserLogin,
+  setUserPassword,
+} from "../../redux/reducers/authReducer";
 import { styles } from "./AuthorizationStyles";
-
+import { handleLogin } from "../../api/apiUsers";
 interface AuthState {
   authReducer: {
     login: string;
@@ -25,7 +36,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
 
   const setData = async () => {
     if (login == null || password == null) {
-      Alert.alert("Внимание!", "Вы ввели неправильные данные");
+      Alert.alert("Внимание!", "Поля не могут быть пустыми");
     } else {
       dispatch(setUserLogin(login));
       dispatch(setUserPassword(password));
@@ -48,7 +59,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
         });
 
-      navigation.navigate("ServiceInfo");
+      navigation.navigate("ServiceChat");
     }
   };
 
@@ -75,13 +86,11 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
         <Pressable style={styles.loginButton} onPress={setData}>
           <Text style={styles.textLoginButton}>Вход</Text>
         </Pressable>
-        <Pressable style={styles.registrationButton}>
-          <Text
-            style={styles.textRegistrationButton}
-            onPress={() => navigation.navigate("Registration")}
-          >
-            Регистрация
-          </Text>
+        <Pressable
+          style={styles.registrationButton}
+          onPress={() => navigation.navigate("Registration")}
+        >
+          <Text style={styles.textRegistrationButton}>Регистрация</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
