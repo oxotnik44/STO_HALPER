@@ -2,7 +2,6 @@ import React from "react";
 import { Image, View, Text } from "react-native";
 import { useSelector } from "react-redux";
 import { styles } from "./ServiceChatStyles";
-import OnlineIndicator from "./OnlineIndicator";
 
 interface ServiceChatState {
   serviceInfoReducer: {
@@ -19,6 +18,7 @@ const ServiceChat: React.FC = () => {
 
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
     <View>
       <View style={styles.headerService}>
         <Image
@@ -27,16 +27,33 @@ const ServiceChat: React.FC = () => {
         />
         <Text style={styles.nameService}>{dataServiceChat.nameService}</Text>
       </View>
+=======
+>>>>>>> 2afbd8a1be15d3bfff94fb230e33ad2834b5af35
       <View>
-        <View></View>
-      </View>
-      <View style={[styles.footerService, dataServiceChat.expandedService ? {backgroundColor:"green"} : {backgroundColor:"red"} ]}>
-        <Text style={styles.footerText}>
-          Оператор на связи {dataServiceChat.expandedService}
-        </Text>
+        <View style={styles.headerService}>
+          <Image
+            source={require("./../../assets/logo_service.png")}
+            style={styles.image_logo}
+          />
+          <Text style={styles.nameService}>{dataServiceChat.nameService}</Text>
+        </View>
+        <View>
+          <View></View>
+        </View>
+        <View
+          style={[
+            styles.footerService,
+            dataServiceChat.expandedService
+              ? { backgroundColor: "green" }
+              : { backgroundColor: "red" },
+          ]}
+        >
+          <Text style={styles.footerText}>
+            Оператор на связи {dataServiceChat.expandedService}
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
   );
 };
 
