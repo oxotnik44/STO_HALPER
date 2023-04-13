@@ -18,6 +18,17 @@ const ServiceChat: React.FC = () => {
 
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
+    <View>
+      <View style={styles.headerService}>
+        <Image
+          source={require("./../../assets/logo_service.png")}
+          style={styles.image_logo}
+        />
+        <Text style={styles.nameService}>{dataServiceChat.nameService}</Text>
+      </View>
+=======
+>>>>>>> 2afbd8a1be15d3bfff94fb230e33ad2834b5af35
       <View>
         <View style={styles.headerService}>
           <Image
