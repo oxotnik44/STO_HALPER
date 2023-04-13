@@ -30,4 +30,20 @@ export const styles = StyleSheet.create({
     marginLeft: screenWidth * 0.7,
     marginTop: -screenHeight * 0.03,
   },
+  btnContinue: {
+    width: Dimensions.get("window").width * 0.7,
+    height: Dimensions.get("window").height * 0.08,
+    top: Dimensions.get("window").height * 0.87,
+    backgroundColor: "#FFD83D",
+    borderRadius: 15,
+    alignSelf: "center",
+    justifyContent: "center",
+    position: "absolute",
+  },
+  btnTextContinue: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 20,
+    textAlign: "center",
+  },
 });

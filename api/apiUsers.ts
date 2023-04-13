@@ -9,7 +9,7 @@ const api = axios.create({
   baseURL: "http://192.168.2.101:5000/api",
 });
 
-export const handleRegistration = async (
+export const handleRegistrationUser = async (
   login: string,
   password: string,
   carNumber: string | null,
@@ -26,14 +26,14 @@ export const handleRegistration = async (
       telephoneNumber,
     });
     console.log(response.data); // обработка успешной регистрации
-    navigation.navigate("Main"); // переход на экран логина после успешной регистрации
+    navigation.navigate("ChoiseServises"); // переход на экран логина после успешной регистрации
   } catch (error) {
     console.error(error);
     // обработка ошибки регистрации
   }
 };
 
-export const handleLogin = async (
+export const handleLoginUser = async (
   login: string,
   password: string,
   navigation: StackNavigationProp<RootStackParamList>
@@ -45,7 +45,7 @@ export const handleLogin = async (
     });
     // Handle successful login
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
-    navigation.navigate("ServiceInfo");
+    navigation.navigate("ChoiseServises");
   } catch (error) {
     console.error(error);
     // Handle login error

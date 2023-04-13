@@ -40,6 +40,14 @@ const ServiceChat: React.FC = () => {
           <Text style={styles.footerText}>
             Оператор на связи {dataServiceChat.expandedService}
           </Text>
+          <View
+            style={[
+              styles.footerService,
+              dataServiceChat.expandedService
+                ? { backgroundColor: "green" }
+                : { backgroundColor: "red" },
+            ]}
+          ></View>
         </View>
       </View>
     </View>

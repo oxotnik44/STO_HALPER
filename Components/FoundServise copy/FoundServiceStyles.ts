@@ -1,36 +1,20 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#3B3B3B",
-    flex: 1,
-  },
-  loupeImg: {
-    bottom: screenHeight * 0.045,
-    left: screenWidth * 0.85,
-  },
-  searchAssistance: {
-    borderBottomWidth: 1,
-    borderRadius: 5,
-    borderColor: "#FFD83D99",
-    width: screenWidth * 0.9,
-    height: 100,
-    alignSelf: "center",
-    paddingLeft: 20,
-    paddingTop: screenHeight * 0.05,
-    color: "white",
-    fontSize: 24,
-    opacity: 0.6,
-  },
-  itemAssistance: {
-    width: screenWidth * 0.8,
-    height: screenHeight * 0.1,
+    width: Dimensions.get("window").width*0.8,
+    height: Dimensions.get("window").height*0.2,
     backgroundColor: "white",
     borderRadius: 15,
     alignSelf: "center",
-    marginTop: screenHeight * 0.03,
+    marginTop: 25,
+    top:Dimensions.get("window").height*0.11
+  },
+  serviceContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   nameService: {
     fontSize: 20,
@@ -42,14 +26,14 @@ export const styles = StyleSheet.create({
     opacity: 0.6,
   },
   arrow: {
-    height: screenHeight * 0.04,
-    width: screenWidth * 0.04,
+    height: 30,
+    width: 30,
     position: "absolute",
-    right: screenWidth * 0.04,
-    top: screenHeight * 0.04,
+    right: 10,
+    top: 35,
   },
   expanded: {
-    height: screenHeight * 0.19,
+    height: 150,
     backgroundColor: "white",
     padding: 10,
     borderTopLeftRadius: 15,
@@ -62,20 +46,22 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
   },
   buttonService: {
-    width: screenWidth * 0.7,
-    height: screenHeight * 0.047,
+    width: 300,
+    height: 40,
     alignSelf: "center",
     backgroundColor: "#FFD83D",
     borderRadius: 15,
     borderBottomWidth: 1,
     marginBottom: 5,
-    marginTop: 8,
+    marginTop: 5,
   },
   textButtonService: {
-    top: 5,
+    top:5,
     fontStyle: "normal",
     fontSize: 16,
     color: "#000000",
     textAlign: "center",
   },
 });
+
+

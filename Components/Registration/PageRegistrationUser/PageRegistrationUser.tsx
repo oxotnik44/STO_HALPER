@@ -17,7 +17,7 @@ import {
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { styles } from "./PageRegistrationUserStyles";
-import { handleRegistration } from "../../../api/apiUsers";
+import { handleRegistrationUser } from "../../../api/apiUsers";
 
 interface RegState {
   regCarUserReducer: {
@@ -48,7 +48,7 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
     if (!carNumber || !vinNumber || !telephoneNumber) {
       Alert.alert("Заполните все поля!");
     } else {
-      handleRegistration(
+      handleRegistrationUser(
         login,
         password,
         carNumber,
