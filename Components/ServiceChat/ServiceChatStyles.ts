@@ -40,16 +40,15 @@ export const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     top: -65,
-    left: 100,
+    left: 80,
   },
   statusIndicator: {
     width: 10,
     height: 10,
     borderRadius: 10,
     backgroundColor: 'green',
-    marginHorizontal: 5,
-    top: 100,
-    left: -100,
+    top: -81,
+    left: 250,
   },
   
 });

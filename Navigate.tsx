@@ -11,6 +11,7 @@ import Registration from "./Components/Registration/Registration";
 import PageOneRegistrationService from "./Components/Registration/PageRegistrationService/PageOneRegistrationService";
 import PageTwoRegistrationService from "./Components/Registration/PageRegistrationService/PageTwoRegistrationService";
 import PageThreeRegistrationService from "./Components/Registration/PageRegistrationService/PageThreeRegistrationService";
+import UserChoiceOfServices from "./Components/UserChoiceOfServices/UserChoiceOfServices";
 
 export type RootStackParamList = {
   Main: undefined;
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   PageOneRegistrationService: undefined;
   PageTwoRegistrationService: undefined;
   PageThreeRegistrationService: undefined;
+  UserChoiceOfServices: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -35,14 +37,8 @@ const Navigate: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen
-          name="PageThreeRegistrationService"
-          component={PageThreeRegistrationService}
-        />
-        <Stack.Screen
-          name="PageTwoRegistrationService"
-          component={PageTwoRegistrationService}
-        />
+        <Stack.Screen name="UserChoiceOfServices" component={UserChoiceOfServices} />
+        <Stack.Screen name="PageThreeRegistrationService" component={PageThreeRegistrationService} />
         <Stack.Screen name="Authorization" component={Authorization} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ChoiseServises" component={ChoiseServises} />
@@ -55,6 +51,10 @@ const Navigate: React.FC = () => {
         <Stack.Screen
           name="PageOneRegistrationService"
           component={PageOneRegistrationService}
+        />
+        <Stack.Screen
+          name="PageTwoRegistrationService"
+          component={PageTwoRegistrationService}
         />
       </Stack.Navigator>
     </NavigationContainer>
