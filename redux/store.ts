@@ -7,7 +7,7 @@ import serviceInfoReducer from "./reducers/serviceInfoReducer";
 import registrationReducer from "./reducers/registrationReducer/registrationReducer";
 import regCarUserReducer from "./reducers/registrationReducer/regCarUserReducer";
 import regServiceDataReducer from "./reducers/registrationReducer/regServiceDataReducer";
-import assistanceReducer from "./reducers/choiceAssistanceReducer";
+import assistanceReducer from "./reducers/registrationReducer/choiceAssistanceReducer";
 let rootreducer = combineReducers({
   authReducer: authReducer,
   choiseServicesReducer: choiseServicesReducer,

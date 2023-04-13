@@ -14,7 +14,7 @@ interface FoundServiceState {
   };
 }
 
-const FoundService: React.FC = () => {
+const Example: React.FC = () => {
   const dataService = useSelector(
     (state: FoundServiceState) => state.assistanceReducer
   );
@@ -28,13 +28,13 @@ const FoundService: React.FC = () => {
             styles.square,
             {
               marginLeft: index % 2 === 0 ? 0 : 10,
-              marginTop: 10, // добавляем отступ сверху между рядами
+              marginTop: index > 1 ? 10 : 0,
             },
           ]}
         >
           {/* Здесь можете разместить ссылку на картинку */}
           <Image
-            source={require("./../../assets/cto_logo.png")}
+            source={require("./assets/cto_logo.png")}
             style={styles.image}
           />
 
@@ -47,14 +47,15 @@ const FoundService: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row", // изменяем направление оси на "column"
-    flexWrap: "wrap", // добавляем обертку на новую линию
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },
   square: {
-    width: 200, // устанавливаем ширину и высоту 200
-    height: 200,
+    width: 100,
+    height: 100,
     backgroundColor: "gray",
     justifyContent: "center",
     alignItems: "center",
@@ -69,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FoundService;
+export default Example;

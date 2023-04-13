@@ -28,7 +28,7 @@ const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
     if (!city || !address || !index || !workingNumber) {
       Alert.alert("Заполните все поля!");
     } else {
-      navigation.navigate("Main");
+      navigation.navigate("PageThreeRegistrationService");
     }
   };
   return (

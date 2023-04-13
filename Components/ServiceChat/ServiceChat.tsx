@@ -36,6 +36,14 @@ const ServiceChat: React.FC = () => {
             Оператор на связи {dataServiceChat.expandedService}
           </Text>
           <View
+            style={[
+              styles.footerService,
+              dataServiceChat.expandedService
+                ? { backgroundColor: "green" }
+                : { backgroundColor: "red" },
+            ]}
+          ></View>
+          <View
           style={[
             styles.statusIndicator,
             dataServiceChat.expandedService
