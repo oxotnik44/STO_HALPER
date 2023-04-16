@@ -5,7 +5,6 @@ import { styles } from "./ServiceChatStyles";
 
 interface ServiceChatState {
   serviceInfoReducer: {
-    logoService: string;
     nameService: string;
     expandedService: boolean;
   };
@@ -18,17 +17,6 @@ const ServiceChat: React.FC = () => {
 
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
-    <View>
-      <View style={styles.headerService}>
-        <Image
-          source={require("./../../assets/logo_service.png")}
-          style={styles.image_logo}
-        />
-        <Text style={styles.nameService}>{dataServiceChat.nameService}</Text>
-      </View>
-=======
->>>>>>> 2afbd8a1be15d3bfff94fb230e33ad2834b5af35
       <View>
         <View style={styles.headerService}>
           <Image
@@ -41,12 +29,8 @@ const ServiceChat: React.FC = () => {
           <View></View>
         </View>
         <View
-          style={[
-            styles.footerService,
-            dataServiceChat.expandedService
-              ? { backgroundColor: "green" }
-              : { backgroundColor: "red" },
-          ]}
+          style={
+            styles.footerService}
         >
           <Text style={styles.footerText}>
             Оператор на связи {dataServiceChat.expandedService}
@@ -59,6 +43,15 @@ const ServiceChat: React.FC = () => {
                 : { backgroundColor: "red" },
             ]}
           ></View>
+          <View
+          style={[
+            styles.statusIndicator,
+            dataServiceChat.expandedService
+              ? { backgroundColor: "green" }
+              : { backgroundColor: "red" },
+          ]}>
+
+          </View>
         </View>
       </View>
     </View>

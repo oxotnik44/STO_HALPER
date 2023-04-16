@@ -11,7 +11,8 @@ import Registration from "./Components/Registration/Registration";
 import PageOneRegistrationService from "./Components/Registration/PageRegistrationService/PageOneRegistrationService";
 import PageTwoRegistrationService from "./Components/Registration/PageRegistrationService/PageTwoRegistrationService";
 import PageThreeRegistrationService from "./Components/Registration/PageRegistrationService/PageThreeRegistrationService";
-import FoundService from "./Components/FoundServise/FoundService";
+import FoundService from "./Components/FoundServise/FoundService";import UserChoiceOfServices from "./Components/UserChoiceOfServices/UserChoiceOfServices";
+
 export type RootStackParamList = {
   Main: undefined;
   Authorization: undefined;
@@ -25,6 +26,7 @@ export type RootStackParamList = {
   PageThreeRegistrationService: undefined;
   Example: undefined;
   FoundService: undefined;
+  UserChoiceOfServices: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -41,14 +43,8 @@ const Navigate: React.FC = () => {
         <Stack.Screen name="FoundService" component={FoundService} />
         <Stack.Screen name="Authorization" component={Authorization} />
         <Stack.Screen name="Registration" component={Registration} />
-        <Stack.Screen
-          name="PageThreeRegistrationService"
-          component={PageThreeRegistrationService}
-        />
-        <Stack.Screen
-          name="PageTwoRegistrationService"
-          component={PageTwoRegistrationService}
-        />
+        <Stack.Screen name="UserChoiceOfServices" component={UserChoiceOfServices} />
+        <Stack.Screen name="PageThreeRegistrationService" component={PageThreeRegistrationService} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ServiceInfo" component={ServiceInfo} />
         <Stack.Screen
@@ -58,6 +54,10 @@ const Navigate: React.FC = () => {
         <Stack.Screen
           name="PageOneRegistrationService"
           component={PageOneRegistrationService}
+        />
+        <Stack.Screen
+          name="PageTwoRegistrationService"
+          component={PageTwoRegistrationService}
         />
       </Stack.Navigator>
     </NavigationContainer>
