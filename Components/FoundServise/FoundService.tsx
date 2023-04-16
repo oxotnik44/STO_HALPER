@@ -3,70 +3,69 @@ import { Image, View, Text, Pressable, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import * as Animatable from "react-native-animatable";
-
+import { styles } from "./FoundServiceStyles";
 interface FoundServiceState {
-  assistanceReducer: {
-    dataAssistance: [
+  choiseServicesReducer: {
+    dataService: [
       {
-        assistanceService: string;
+        nameService: string;
+        distanceToService: string;
+        expanded: boolean;
       }
     ];
   };
 }
 
 const FoundService: React.FC = () => {
-  const dataService = useSelector(
-    (state: FoundServiceState) => state.assistanceReducer
+  const { dataService } = useSelector(
+    (state: FoundServiceState) => state.choiseServicesReducer
   );
-
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const handlePress = (index: number) => {
+    if (selectedIndex === index) {
+      setSelectedIndex(-1);
+    } else {
+      setSelectedIndex(index);
+    }
+  };
   return (
-    <View style={styles.container}>
-      {dataService.dataAssistance.map((item, index) => (
-        <View
-          key={index}
-          style={[
-            styles.square,
-            {
-              marginLeft: index % 2 === 0 ? 0 : 10,
-              marginTop: 10, // добавляем отступ сверху между рядами
-            },
-          ]}
-        >
-          {/* Здесь можете разместить ссылку на картинку */}
-          <Image
-            source={require("./../../assets/cto_logo.png")}
-            style={styles.image}
-          />
-
-          <Text style={styles.text}>{item.assistanceService}</Text>
-        </View>
+    <>
+      {dataService.map((item, index) => (
+        <Pressable onPress={() => handlePress(index)}>
+          <View
+            style={[
+              styles.container,
+              { height: selectedIndex === index ? 250 : 100 },
+            ]}
+            key={index}
+          >
+            <Text style={styles.nameService}>{item.nameService}</Text>
+            <Text style={styles.distanceToService}>
+              Растояние: {item.distanceToService}км
+            </Text>
+            <Image
+              source={require("./../../assets/arrow.png")}
+              style={styles.arrow}
+            />
+            {selectedIndex === index && (
+              <Animatable.View
+                animation={selectedIndex === index ? "fadeIn" : "fadeOut"}
+                duration={1000}
+                style={styles.expanded}
+              >
+                <Text>Additional information about the service</Text>
+                <Pressable style={styles.buttonService}>
+                  <Text style={styles.textButtonService}>Перейти в чат</Text>
+                </Pressable>
+                <Pressable style={styles.buttonService}>
+                  <Text style={styles.textButtonService}>Найти в 2Gis</Text>
+                </Pressable>
+              </Animatable.View>
+            )}
+          </View>
+        </Pressable>
       ))}
-    </View>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row", // изменяем направление оси на "column"
-    flexWrap: "wrap", // добавляем обертку на новую линию
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  square: {
-    width: 200, // устанавливаем ширину и высоту 200
-    height: 200,
-    backgroundColor: "gray",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: 50,
-    height: 50,
-    // стили для картинки
-  },
-  text: {
-    // стили для текста
-  },
-});
-
 export default FoundService;
