@@ -2,13 +2,14 @@ import React, { useRef, useState } from "react";
 import { Image, View, Dimensions } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { useSelector } from "react-redux";
-import { IServiceInfo } from "./../../redux/reducers/serviceInfoReducer";
 
 export const SLIDER_WIDTH = Dimensions.get("window").width;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
 
 type CarouselState = {
-  serviceInfoReducer: IServiceInfo;
+  serviceInfoReducer: {
+    imgCarousel: string|null;
+  };
 };
 
 const renderItem = ({ item }: { item: { url: string } }) => {

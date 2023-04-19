@@ -1,26 +1,34 @@
 import { Reducer } from "redux";
+
 const SET_DATA_REG_SERVICE_PAGE_ONE = "SET_DATA_REG_SERVICE_PAGE_ONE";
 const SET_DATA_REG_SERVICE_PAGE_TWO = "SET_DATA_REG_SERVICE_PAGE_TWO";
+
 interface IRegState {
-  surname: string | null;
-  name: string | null;
-  patronymic: string | null;
+  whatsappNumber: string | null;
+  webAddress: string | null;
+  startOfWork: string | null;
+  endOfWork: string | null;
   telephoneNumber: string | null;
   city: string | null;
   address: string | null;
   index: string | null;
   workingNumber: string | null;
+  nameService: string | null;
 }
+
 export const initialRegState: IRegState = {
-  surname: null,
-  name: null,
-  patronymic: null,
   telephoneNumber: null,
   city: null,
   address: null,
   index: null,
+  startOfWork: null,
+  endOfWork: null,
+  whatsappNumber: null,
+  webAddress: null,
   workingNumber: null,
+  nameService: null,
 };
+
 const regServiceDataReducer: Reducer<IRegState> = (
   state = initialRegState,
   action
@@ -29,10 +37,11 @@ const regServiceDataReducer: Reducer<IRegState> = (
     case SET_DATA_REG_SERVICE_PAGE_ONE:
       return {
         ...state,
-        surname: action.surname,
-        name: action.name,
-        patronymic: action.patronymic,
+        whatsappNumber: action.whatsappNumber,
+        webAddress: action.webAddress,
         telephoneNumber: action.telephoneNumber,
+        startOfWork: action.startOfWork,
+        endOfWork: action.endOfWork,
       };
     case SET_DATA_REG_SERVICE_PAGE_TWO:
       return {
@@ -41,6 +50,7 @@ const regServiceDataReducer: Reducer<IRegState> = (
         address: action.address,
         index: action.index,
         workingNumber: action.workingNumber,
+        nameService: action.nameService,
       };
     default:
       return state;
@@ -48,27 +58,33 @@ const regServiceDataReducer: Reducer<IRegState> = (
 };
 
 export const setDataRegServicePageOne = (
-  surname: string | null,
-  name: string | null,
-  patronymic: string | null,
-  telephoneNumber: string | null
+  whatsappNumber: string | null,
+  webAddress: string | null,
+  telephoneNumber: string | null,
+  startOfWork: string | null,
+  endOfWork: string | null
 ) => ({
   type: SET_DATA_REG_SERVICE_PAGE_ONE,
-  surname,
-  name,
-  patronymic,
+  whatsappNumber,
+  webAddress,
   telephoneNumber,
+  startOfWork,
+  endOfWork,
 });
+
 export const setDataRegServicePageTwo = (
   city: string | null,
   address: string | null,
   index: string | null,
-  workingNumber: string | null
+  workingNumber: string | null,
+  nameService: string | null
 ) => ({
   type: SET_DATA_REG_SERVICE_PAGE_TWO,
   city,
   address,
   index,
   workingNumber,
+  nameService,
 });
+
 export default regServiceDataReducer;

@@ -22,7 +22,6 @@ export const styles = StyleSheet.create({
     paddingTop: screenHeight * 0.05,
     color: "white",
     fontSize: 24,
-    opacity: 0.6,
   },
   itemAssistance: {
     width: screenWidth * 0.8,

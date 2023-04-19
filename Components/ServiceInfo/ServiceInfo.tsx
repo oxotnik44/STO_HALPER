@@ -149,7 +149,6 @@ const ServiceInfo: React.FC<ChoiseServiceProps> = () => {
             />
           </View>
           <View style={styles.lineSeporatorDown}></View>
-          <CarouselCardItem />
         </View>
       </View>
     </View>

@@ -18,9 +18,11 @@ interface AuthDataService {
 }
 interface PersonalServiceData {
   regServiceDataReducer: {
-    surname: string;
-    name: string;
-    patronymic: string;
+    nameService:string,
+    whatsappNumber: string;
+    webAddress: string;
+    startOfWork: string;
+    endOfWork: string;
     telephoneNumber: string;
     city: string;
     address: string;
@@ -33,7 +35,7 @@ interface AssistanceServiceState {
     dataAssistance: [
       {
         assistanceService: string;
-        isSelectedAssistance: boolean;
+        isSelectedAssistanceService: boolean;
       }
     ];
   };
@@ -52,14 +54,11 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
     (state: AuthDataService) => state.registrationReducer
   );
   const dispatch = useDispatch();
-  const [selectedAssistanceServices, setSelectedAssistanceServices] = useState(
-    []
-  );
+  
   const handleContinuePress = async () => {
     const selectedServices = dataAssistance
-      .filter((item) => item.isSelectedAssistance)
+      .filter((item) => item.isSelectedAssistanceService)
       .map((item) => item.assistanceService);
-    setSelectedAssistanceServices(selectedServices);
 
     // Добавляем асинхронный вызов функции handleRegistrationService
     // с использованием async/await или промисов
@@ -67,14 +66,15 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
       await handleRegistrationService(
         authDataService.login,
         authDataService.password,
-        personalDataService.surname,
-        personalDataService.name,
-        personalDataService.patronymic,
+        personalDataService.nameService,
+        personalDataService.whatsappNumber,
+        personalDataService.webAddress,
+        personalDataService.startOfWork,
+        personalDataService.endOfWork,
         personalDataService.telephoneNumber,
         personalDataService.city,
         personalDataService.address,
         personalDataService.index,
-        personalDataService.workingNumber,
         selectedServices, // Передаем актуальное значение состояния
         navigation
       );
@@ -98,10 +98,10 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
             <CheckBox
               style={styles.checkBoxStyle}
               onClick={() => {
-                handleCheckBoxChange(index, !item.isSelectedAssistance); // Передача двух аргументов в функцию handleCheckBoxChange
+                handleCheckBoxChange(index, !item.isSelectedAssistanceService); // Передача двух аргументов в функцию handleCheckBoxChange
               }}
               checkBoxColor={"yellow"}
-              isChecked={item.isSelectedAssistance} // Использование item.isSelectedAssistance вместо dataAssistance.isSelectedAssistance
+              isChecked={item.isSelectedAssistanceService} // Использование item.isSelectedAssistanceService вместо dataAssistance.isSelectedAssistanceService
             />
           </View>
         ))}

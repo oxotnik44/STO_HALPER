@@ -1,61 +1,46 @@
 import { Reducer } from "redux";
 
-const SET_TEXT = "SET_TEXT";
+const SET_DATA_SERVICE = "SET_DATA_SERVICE";
 
-export interface IServiceInfo {
-  logoService: string | null;
-  nameService: string | null;
-  expandedService: boolean;
-  locationService: string | null;
-  begindayService: string | null;
-  enddayService: string | null;
-  phoneService: string | null;
-  webService: string | null;
-  whatsAppService: string | null;
-  imgCarousel: Array<{ url: string }> | null;
+interface IServiceInfo {
+  whatsappNumber: string;
+  nameService: string;
+  startOfWork: string;
+  endOfWork: string;
+  telephoneNumber: string;
+  city: string;
+  address: string;
+  index: string;
+  assistanceServices: Array<string> | null;
+  imgCarousel: Array<string> | null;
 }
 
-export const initialMainState: IServiceInfo = {
-  logoService: "Logo.png",
-  nameService: "Bogatkova",
-  expandedService: true,
-  locationService: "Bogatkova",
-  begindayService: "8:00",
-  enddayService: "20:00",
-  phoneService: "89133999060",
-  webService: "www.stogtfo.ru",
-  whatsAppService: "WhatsApp",
-  imgCarousel: [
-    {
-      url: "https://i.ytimg.com/vi/_YBmayY1Ah0/maxresdefault.jpg",
-    },
-    {
-      url: "https://i.ytimg.com/vi/_YBmayY1Ah0/maxresdefault.jpg",
-    },
-    {
-      url: "https://i.ytimg.com/vi/_YBmayY1Ah0/maxresdefault.jpg",
-    },
-  ],
+interface IState {
+  dataService: IServiceInfo[];
+}
+
+export const initialServiceState: IState = {
+  dataService: [],
 };
 
-const serviceInfoReducer: Reducer<IServiceInfo> = (
-  state = initialMainState,
+const serviceInfoReducer: Reducer<IState> = (
+  state = initialServiceState,
   action
 ) => {
   switch (action.type) {
-    case SET_TEXT:
+    case SET_DATA_SERVICE:
       return {
         ...state,
-        logoService: action.logoService,
+        dataService: [...state.dataService, ...action.dataService],
       };
     default:
       return state;
   }
 };
 
-export const setText = (text: string | null) => ({
-  type: SET_TEXT,
-  text: text,
+export const setDataService = (data: IServiceInfo[]) => ({
+  type: SET_DATA_SERVICE,
+  dataService: data,
 });
 
 export default serviceInfoReducer;

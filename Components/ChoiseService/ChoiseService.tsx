@@ -1,10 +1,17 @@
 import React from "react";
-import { Image, View, Text, Pressable, StyleSheet } from "react-native";
+import {
+  Image,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import * as Animatable from "react-native-animatable";
-import { styles } from "./FoundServiceStyles";
-interface FoundServiceState {
+import { styles } from "./ChoiseServiceStyles";
+interface ChoiseServiceState {
   choiseServicesReducer: {
     dataService: [
       {
@@ -15,10 +22,20 @@ interface FoundServiceState {
     ];
   };
 }
+interface DataServiceState {
+  serviceInfoReducer: {
+    dataService: [
+      {
+        whatsappNumber: string;
+      }
+    ];
+  };
+}
 
-const FoundService: React.FC = () => {
-  const { dataService } = useSelector(
-    (state: FoundServiceState) => state.choiseServicesReducer
+const ChoiseService: React.FC = () => {
+  
+  const dataServiceInfo = useSelector(
+    (state: DataServiceState) => state.serviceInfoReducer
   );
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const handlePress = (index: number) => {
@@ -29,19 +46,27 @@ const FoundService: React.FC = () => {
     }
   };
   return (
-    <>
-      {dataService.map((item, index) => (
+    <View style={styles.container}>
+      <TextInput
+        placeholder="Поиск"
+        style={styles.searchAssistance}
+        placeholderTextColor="white"
+      />
+      <Image
+        source={require("./../../assets/loupe2.png")}
+        style={styles.loupeImg}
+      />
+      {dataServiceInfo.dataService.map((item, index) => (
         <Pressable onPress={() => handlePress(index)}>
           <View
             style={[
-              styles.container,
+              styles.itemAssistance,
               { height: selectedIndex === index ? 250 : 100 },
             ]}
             key={index}
           >
-            <Text style={styles.nameService}>{item.nameService}</Text>
+            <Text style={styles.nameService}>{item.whatsappNumber}</Text>
             <Text style={styles.distanceToService}>
-              Растояние: {item.distanceToService}км
             </Text>
             <Image
               source={require("./../../assets/arrow.png")}
@@ -65,7 +90,7 @@ const FoundService: React.FC = () => {
           </View>
         </Pressable>
       ))}
-    </>
+    </View>
   );
 };
-export default FoundService;
+export default ChoiseService;

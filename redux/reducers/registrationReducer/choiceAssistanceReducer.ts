@@ -1,10 +1,14 @@
 import { Reducer } from "redux";
 
 const UPDATE_ASSISTANCE_SERVICE = "UPDATE_ASSISTANCE_SERVICE";
+const UPDATE_ASSISTANCE_USER = "UPDATE_ASSISTANCE_USER";
+const GET_ASSISTANCE = "GET_ASSISTANCE";
 
 interface IAssistanceItem {
   assistanceService: string;
-  isSelectedAssistance: boolean;
+  urlAssistance: string;
+  isSelectedAssistanceService: boolean;
+  isSelectedAssistanceUser: boolean;
 }
 
 interface IState {
@@ -12,24 +16,7 @@ interface IState {
 }
 
 export const initialAssistanceState: IState = {
-  dataAssistance: [
-    {
-      assistanceService: "Шины",
-      isSelectedAssistance: false,
-    },
-    {
-      assistanceService: "Двигатель",
-      isSelectedAssistance: false,
-    },
-    {
-      assistanceService: "Тормозная система",
-      isSelectedAssistance: false,
-    },
-    {
-      assistanceService: "Электроника",
-      isSelectedAssistance: false,
-    },
-  ],
+  dataAssistance: [],
 };
 
 const assistanceReducer: Reducer<IState> = (
@@ -42,8 +29,25 @@ const assistanceReducer: Reducer<IState> = (
       return {
         ...state,
         dataAssistance: state.dataAssistance.map((item, i) =>
-          i === index ? { ...item, isSelectedAssistance: isSelected } : item
+          i === index
+            ? { ...item, isSelectedAssistanceService: isSelected }
+            : item
         ),
+      };
+    case UPDATE_ASSISTANCE_USER:
+      const { index: userIndex, isSelected: userSelected } = action.payload;
+      return {
+        ...state,
+        dataAssistance: state.dataAssistance.map((item, i) =>
+          i === userIndex
+            ? { ...item, isSelectedAssistanceUser: userSelected }
+            : item
+        ),
+      };
+    case GET_ASSISTANCE:
+      return {
+        ...state,
+        dataAssistance: [...state.dataAssistance, ...action.assistanceData],
       };
     default:
       return state;
@@ -54,6 +58,20 @@ export const updateAssistanceService = (index: number, isSelected: boolean) => {
   return {
     type: UPDATE_ASSISTANCE_SERVICE,
     payload: { index, isSelected },
+  };
+};
+export const updateAssistanceUser = (index: number, isSelected: boolean) => {
+  return {
+    type: UPDATE_ASSISTANCE_USER,
+    payload: { index, isSelected },
+  };
+};
+export const getAssistance = (
+  assistanceData: { assistanceService: string; urlAssistance: string }[]
+) => {
+  return {
+    type: GET_ASSISTANCE,
+    assistanceData: assistanceData,
   };
 };
 

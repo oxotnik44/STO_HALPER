@@ -4,20 +4,21 @@ import { RootStackParamList } from "../Navigate";
 import { Alert } from "react-native";
 
 const api = axios.create({
-  baseURL: "http://192.168.2.101:5000/api",
+  baseURL: "http://192.168.2.100:5000/api",
 });
 
 export const handleRegistrationService = async (
   login: string,
   password: string,
-  surname: string,
-  name: string,
-  patronymic: string,
+  nameService:string,
+  whatsappNumber: string,
+  webAddress: string,
+  startOfWork: string,
+  endOfWork: string,
   telephoneNumber: string,
   city: string,
   address: string,
   index: string,
-  workingNumber: string,
   assistanceServices: string[], // Массив выбранных услуг сервиса
   navigation: StackNavigationProp<RootStackParamList>
 ) => {
@@ -25,14 +26,15 @@ export const handleRegistrationService = async (
     const response = await api.post("/auth/registrationService", {
       login,
       password,
-      surname,
-      name,
-      patronymic,
+      nameService,
+      whatsappNumber,
+      webAddress,
+      startOfWork,
+      endOfWork,
       telephoneNumber,
       city,
       address,
       index,
-      workingNumber,
       assistanceServices, // Включаем выбранные услуги в тело запроса
     });
     console.log(response.data);
@@ -54,7 +56,6 @@ export const handleLoginService = async (
     });
     // Handle successful login
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
-    navigation.navigate("ServiceInfo");
   } catch (error) {
     console.error(error);
     // Handle login error
