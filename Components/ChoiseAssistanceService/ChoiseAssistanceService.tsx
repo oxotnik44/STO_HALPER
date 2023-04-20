@@ -12,7 +12,7 @@ import { styles } from "./ChoiseAssistanceServiceStyle";
 import { updateAssistanceUser } from "../../redux/reducers/registrationReducer/choiceAssistanceReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import { handleGetAssistance } from "../../api/apiUsers";
+import { handleGetService } from "../../api/apiUsers";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -40,7 +40,7 @@ const ChoiseAssistanceService: React.FC<Navigation> = ({ navigation }) => {
       .filter((item) => item.isSelectedAssistanceUser)
       .map((item) => item.assistanceService);
     try {
-      await handleGetAssistance(
+      await handleGetService(
         selectedAssistance, // Передаем актуальное значение состояния
         navigation,
         dispatch

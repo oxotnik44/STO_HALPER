@@ -11,6 +11,11 @@ export const styles = StyleSheet.create({
     bottom: screenHeight * 0.045,
     left: screenWidth * 0.85,
   },
+  address: {
+    fontSize: 20,
+    bottom: screenHeight * 0.01,
+    left: screenWidth * 0.02,
+  },
   searchAssistance: {
     borderBottomWidth: 1,
     borderRadius: 5,
@@ -32,8 +37,9 @@ export const styles = StyleSheet.create({
     marginTop: screenHeight * 0.03,
   },
   nameService: {
-    fontSize: 20,
-    margin: 10,
+    fontSize: 22,
+    left: screenWidth * 0.05,
+    top: screenHeight * 0.02,
   },
   distanceToService: {
     fontSize: 20,

@@ -4,13 +4,13 @@ import { RootStackParamList } from "../Navigate";
 import { Alert } from "react-native";
 
 const api = axios.create({
-  baseURL: "http://192.168.2.100:5000/api",
+  baseURL: "https://stohelperbackend-oxotnik44.onrender.com/api/auth",
 });
 
 export const handleRegistrationService = async (
   login: string,
   password: string,
-  nameService:string,
+  nameService: string,
   whatsappNumber: string,
   webAddress: string,
   startOfWork: string,
@@ -20,10 +20,11 @@ export const handleRegistrationService = async (
   address: string,
   index: string,
   assistanceServices: string[], // Массив выбранных услуг сервиса
-  navigation: StackNavigationProp<RootStackParamList>
+  navigation: StackNavigationProp<RootStackParamList>,
+  dispatch: Function
 ) => {
   try {
-    const response = await api.post("/auth/registrationService", {
+    const requestData = {
       login,
       password,
       nameService,
@@ -35,9 +36,14 @@ export const handleRegistrationService = async (
       city,
       address,
       index,
-      assistanceServices, // Включаем выбранные услуги в тело запроса
-    });
+      assistanceServices,
+    };
+
+    const response = await api.post("/registrationService", requestData);
     console.log(response.data);
+
+    dispatch(requestData); // pass the requestData object to the dispatch function
+
     navigation.navigate("ServiceInfo"); // переход на экран логина после успешной регистрации
   } catch (error) {
     console.error(error);
@@ -50,12 +56,13 @@ export const handleLoginService = async (
   navigation: StackNavigationProp<RootStackParamList>
 ) => {
   try {
-    const response = await api.post("/auth/loginService", {
+    const response = await api.post("/loginService", {
       login,
       password,
     });
     // Handle successful login
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
+    navigation.navigate("ServiceInfo")
   } catch (error) {
     console.error(error);
     // Handle login error

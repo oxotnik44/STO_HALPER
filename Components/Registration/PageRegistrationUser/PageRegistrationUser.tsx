@@ -4,20 +4,18 @@ import {
   Text,
   TextInput,
   KeyboardAvoidingView,
-  StyleSheet,
-  Dimensions,
   Pressable,
   Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearDataCarUser,
-  setDataCarUser,
-} from "../../../redux/reducers/registrationReducer/regCarUserReducer";
+import { setDataCarUser } from "../../../redux/reducers/registrationReducer/regCarUserReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { styles } from "./PageRegistrationUserStyles";
-import { handleRegistrationUser } from "../../../api/apiUsers";
+import {
+  handleGetAssistance,
+  handleRegistrationUser,
+} from "../../../api/apiUsers";
 
 interface RegState {
   regCarUserReducer: {
@@ -48,14 +46,19 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
     if (!carNumber || !vinNumber || !telephoneNumber) {
       Alert.alert("Заполните все поля!");
     } else {
-      handleRegistrationUser(
-        login,
-        password,
-        carNumber,
-        vinNumber,
-        telephoneNumber,
-        navigation
-      );
+      try {
+        handleRegistrationUser(
+          login,
+          password,
+          carNumber,
+          vinNumber,
+          telephoneNumber,
+          navigation
+        );
+      } catch (e) {}
+      try {
+        handleGetAssistance(dispatch);
+      } catch (e) {}
     }
   };
 

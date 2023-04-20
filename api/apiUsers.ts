@@ -1,20 +1,20 @@
 import axios from "axios";
 import { Alert } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Navigate";
 import { getAssistance } from "../redux/reducers/registrationReducer/choiceAssistanceReducer";
 import { setDataService } from "../redux/reducers/serviceInfoReducer";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const api = axios.create({
-  baseURL: "http://192.168.2.100:5000/api/auth",
+  baseURL: "https://stohelperbackend-oxotnik44.onrender.com/api/auth",
 });
 
 export const handleRegistrationUser = async (
   login: string,
   password: string,
-  carNumber: string | null,
-  vinNumber: string | null,
-  telephoneNumber: string | null,
+  carNumber: string,
+  vinNumber: string,
+  telephoneNumber: string,
   navigation: StackNavigationProp<RootStackParamList>
 ) => {
   try {
@@ -28,12 +28,15 @@ export const handleRegistrationUser = async (
     console.log(response.data); // обработка успешной регистрации
     navigation.navigate("ChoiseAssistanceService"); // переход на экран логина после успешной регистрации
   } catch (error) {
-    console.error(error);
-    // обработка ошибки регистрации
+    Alert.alert("Ошибка!","Ошибка регистрации");
   }
 };
 
-export const handleLoginUser = async (login: string, password: string) => {
+export const handleLoginUser = async (
+  login: string,
+  password: string,
+  navigation: StackNavigationProp<RootStackParamList>
+) => {
   try {
     const response = await api.post("/loginUser", {
       login,
@@ -41,13 +44,14 @@ export const handleLoginUser = async (login: string, password: string) => {
     });
     // Handle successful login
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
+    navigation.navigate("ChoiseAssistanceService");
   } catch (error) {
     console.error(error);
     // Handle login error
     Alert.alert("Ошибка входа", "Введенные данные не верны.");
   }
 };
-export const handleReceivingAssistance = async (
+export const handleGetAssistance = async (
   dispatch: Function // Передаем dispatch в качестве аргумента
 ) => {
   try {
@@ -57,14 +61,13 @@ export const handleReceivingAssistance = async (
       urlAssistance: item.urlAssistance,
     }));
     dispatch(getAssistance(assistanceData));
-
   } catch (error) {
     console.error(error);
-    Alert.alert("Ошибка входа", "Введенные данные не верны.");
+    Alert.alert("Ошибка входа", "Ошибка загрузке данных");
   }
 };
 
-export const handleGetAssistance = async (
+export const handleGetService = async (
   assistanceServices: string[], // Массив выбранных услуг сервиса
   navigation: StackNavigationProp<RootStackParamList>,
   dispatch: Function
@@ -75,6 +78,7 @@ export const handleGetAssistance = async (
     });
     const serviceData = response.data.map((item) => ({
       whatsappNumber: item.whatsappNumber,
+      webAddress: item.webAddress,
       nameService: item.nameService,
       startOfWork: item.startOfWork,
       endOfWork: item.endOfWork,

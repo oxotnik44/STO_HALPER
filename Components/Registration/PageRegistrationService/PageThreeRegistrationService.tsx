@@ -76,7 +76,8 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
         personalDataService.address,
         personalDataService.index,
         selectedServices, // Передаем актуальное значение состояния
-        navigation
+        navigation,
+        dispatch
       );
       // Действия, выполняемые после успешного выполнения функции handleRegistrationService
     } catch (error) {
@@ -108,7 +109,7 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
       </View>
       <Pressable style={styles.btnContinue}>
         <Text style={styles.btnTextContinue} onPress={handleContinuePress}>
-          Продолжить
+          Завершить
         </Text>
       </Pressable>
     </View>

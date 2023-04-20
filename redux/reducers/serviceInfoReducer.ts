@@ -1,9 +1,10 @@
 import { Reducer } from "redux";
 
 const SET_DATA_SERVICE = "SET_DATA_SERVICE";
-
+const SET_NUMBER_SERVICE = "SET_NUMBER_SERVICE";
 interface IServiceInfo {
   whatsappNumber: string;
+  webAddress: string;
   nameService: string;
   startOfWork: string;
   endOfWork: string;
@@ -17,10 +18,12 @@ interface IServiceInfo {
 
 interface IState {
   dataService: IServiceInfo[];
+  numberService: number;
 }
 
 export const initialServiceState: IState = {
   dataService: [],
+  numberService: 0,
 };
 
 const serviceInfoReducer: Reducer<IState> = (
@@ -33,6 +36,12 @@ const serviceInfoReducer: Reducer<IState> = (
         ...state,
         dataService: [...state.dataService, ...action.dataService],
       };
+    case SET_NUMBER_SERVICE:
+      return {
+        ...state,
+        numberService: action.numberService,
+      };
+    
     default:
       return state;
   }
@@ -42,5 +51,11 @@ export const setDataService = (data: IServiceInfo[]) => ({
   type: SET_DATA_SERVICE,
   dataService: data,
 });
+
+export const setNumberService = (numberService: number) => ({
+  type: SET_NUMBER_SERVICE,
+  numberService: numberService,
+});
+
 
 export default serviceInfoReducer;
