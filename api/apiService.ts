@@ -2,6 +2,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import axios from "axios";
 import { RootStackParamList } from "../Navigate";
 import { Alert } from "react-native";
+import { setDataRegistredService } from "../redux/reducers/registrationReducer/regServiceDataReducer";
+import { setIsAdmin } from "../redux/reducers/serviceInfoReducer";
 
 const api = axios.create({
   baseURL: "https://stohelperbackend-oxotnik44.onrender.com/api/auth",
@@ -42,8 +44,8 @@ export const handleRegistrationService = async (
     const response = await api.post("/registrationService", requestData);
     console.log(response.data);
 
-    dispatch(requestData); // pass the requestData object to the dispatch function
-
+    dispatch(setDataRegistredService(requestData));
+    dispatch(setIsAdmin(true)); // pass the requestData object to the dispatch function
     navigation.navigate("ServiceInfo"); // переход на экран логина после успешной регистрации
   } catch (error) {
     console.error(error);
@@ -62,7 +64,7 @@ export const handleLoginService = async (
     });
     // Handle successful login
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
-    navigation.navigate("ServiceInfo")
+    navigation.navigate("ServiceInfo");
   } catch (error) {
     console.error(error);
     // Handle login error
