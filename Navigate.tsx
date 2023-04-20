@@ -41,6 +41,10 @@ const Navigate: React.FC = () => {
           headerShown: false,
         }}
       >
+        <Stack.Screen
+          name="UserChoiceOfServices"
+          component={UserChoiceOfServices}
+        />
         <Stack.Screen name="Authorization" component={Authorization} />
 
         <Stack.Screen
@@ -53,10 +57,6 @@ const Navigate: React.FC = () => {
         />
         <Stack.Screen name="ChoiseService" component={ChoiseService} />
         <Stack.Screen name="Registration" component={Registration} />
-        <Stack.Screen
-          name="UserChoiceOfServices"
-          component={UserChoiceOfServices}
-        />
         <Stack.Screen
           name="PageThreeRegistrationService"
           component={PageThreeRegistrationService}
