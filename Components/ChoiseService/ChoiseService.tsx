@@ -7,33 +7,29 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { styles } from "./ChoiseServiceStyles";
-interface ChoiseServiceState {
-  choiseServicesReducer: {
-    dataService: [
-      {
-        nameService: string;
-        distanceToService: string;
-        expanded: boolean;
-      }
-    ];
-  };
-}
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../Navigate";
+import { setNumberService } from "../../redux/reducers/serviceInfoReducer";
+
 interface DataServiceState {
   serviceInfoReducer: {
     dataService: [
       {
-        whatsappNumber: string;
+        nameService: string;
+        address:string
       }
     ];
   };
 }
+type AuthorizationProps = {
+  navigation: StackNavigationProp<RootStackParamList>;
+};
 
-const ChoiseService: React.FC = () => {
-  
+const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dataServiceInfo = useSelector(
     (state: DataServiceState) => state.serviceInfoReducer
   );
@@ -45,6 +41,7 @@ const ChoiseService: React.FC = () => {
       setSelectedIndex(index);
     }
   };
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <TextInput
@@ -65,9 +62,8 @@ const ChoiseService: React.FC = () => {
             ]}
             key={index}
           >
-            <Text style={styles.nameService}>{item.whatsappNumber}</Text>
-            <Text style={styles.distanceToService}>
-            </Text>
+            <Text style={styles.nameService}>{item.nameService}</Text>
+            <Text style={styles.distanceToService}></Text>
             <Image
               source={require("./../../assets/arrow.png")}
               style={styles.arrow}
@@ -78,12 +74,18 @@ const ChoiseService: React.FC = () => {
                 duration={1000}
                 style={styles.expanded}
               >
-                <Text>Additional information about the service</Text>
+                <Text style={styles.address}>Адрес:{item.address}</Text>
                 <Pressable style={styles.buttonService}>
                   <Text style={styles.textButtonService}>Перейти в чат</Text>
                 </Pressable>
-                <Pressable style={styles.buttonService}>
-                  <Text style={styles.textButtonService}>Найти в 2Gis</Text>
+                <Pressable
+                  style={styles.buttonService}
+                  onPress={() => {
+                    dispatch(setNumberService(index));
+                    navigation.navigate("ServiceInfo");
+                  }}
+                >
+                  <Text style={styles.textButtonService}>Открыть профиль</Text>
                 </Pressable>
               </Animatable.View>
             )}

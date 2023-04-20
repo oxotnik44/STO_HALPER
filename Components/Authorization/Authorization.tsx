@@ -17,7 +17,7 @@ import {
   setUserPassword,
 } from "../../redux/reducers/authReducer";
 import { styles } from "./AuthorizationStyles";
-import { handleLoginUser, handleReceivingAssistance } from "../../api/apiUsers";
+import { handleGetAssistance, handleLoginUser } from "../../api/apiUsers";
 import * as Animatable from "react-native-animatable";
 import { handleLoginService } from "../../api/apiService";
 
@@ -56,28 +56,19 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
             password,
             navigation
           );
-          try{
-
-          }
-          catch(e){
-
-          }
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
         }
       } else if (role == "Клиент") {
         try {
-          const response = await handleLoginUser(login, password);
+          const response = await handleLoginUser(login, password, navigation);
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
         }
         try {
-          const response = await handleReceivingAssistance(
-            dispatch
-          );
-          navigation.navigate("ChoiseAssistanceService");
+          const response = await handleGetAssistance(dispatch);
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");

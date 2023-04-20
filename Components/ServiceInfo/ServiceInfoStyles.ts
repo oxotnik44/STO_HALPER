@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   nameService: {
     color: "white",
     top: screenHeight * 0.001,
-    left: screenWidth * 0.03,
-    fontSize: 25,
+    left: screenWidth * 0.07,
+    fontSize: 40,
   },
   textInfoAndReview: {
     paddingLeft: screenWidth * 0.18,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
 
   locationText: {
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.07,
     color: "#fff",
     opacity: 0.7,
     left: screenWidth * 0.07,
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     color: "#9497FF",
   },
   iconConntection: {
-    top: screenHeight * 0.012,
-    left: screenWidth * 0.03,
+    left: screenWidth * 0.02,
+    top: screenHeight * 0.008,
   },
 
   webContainer: {

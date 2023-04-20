@@ -12,7 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { setDataRegServicePageTwo } from "../../../redux/reducers/registrationReducer/regServiceDataReducer";
 import { styles } from "./PageTwoRegistrationServiceStyles";
-import { handleReceivingAssistance } from "../../../api/apiUsers";
+import { handleGetAssistance } from "../../../api/apiUsers";
 
 interface RegState {
   regServiceDataReducer: {
@@ -38,7 +38,7 @@ const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
       Alert.alert("Заполните все поля!");
     } else {
       try {
-        await handleReceivingAssistance(dispatch);
+        await handleGetAssistance(dispatch);
       } catch (e) {}
       navigation.navigate("PageThreeRegistrationService");
     }

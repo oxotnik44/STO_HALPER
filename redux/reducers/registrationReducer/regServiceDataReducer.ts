@@ -2,10 +2,12 @@ import { Reducer } from "redux";
 
 const SET_DATA_REG_SERVICE_PAGE_ONE = "SET_DATA_REG_SERVICE_PAGE_ONE";
 const SET_DATA_REG_SERVICE_PAGE_TWO = "SET_DATA_REG_SERVICE_PAGE_TWO";
+const SET_DATA_REGISTRED_SERVICE = "SET_DATA_REGISTRED_SERVICE";
 
 interface IRegState {
   whatsappNumber: string | null;
   webAddress: string | null;
+  nameService: string | null;
   startOfWork: string | null;
   endOfWork: string | null;
   telephoneNumber: string | null;
@@ -13,7 +15,6 @@ interface IRegState {
   address: string | null;
   index: string | null;
   workingNumber: string | null;
-  nameService: string | null;
 }
 
 export const initialRegState: IRegState = {
@@ -52,6 +53,11 @@ const regServiceDataReducer: Reducer<IRegState> = (
         workingNumber: action.workingNumber,
         nameService: action.nameService,
       };
+    case SET_DATA_REGISTRED_SERVICE:
+      return {
+        ...state,
+        registeredServiceData: action.payload,
+      };
     default:
       return state;
   }
@@ -86,5 +92,8 @@ export const setDataRegServicePageTwo = (
   workingNumber,
   nameService,
 });
-
+export const setDataRegistredService = (data) => ({
+  type: SET_DATA_REGISTRED_SERVICE,
+  payload: data,
+});
 export default regServiceDataReducer;
