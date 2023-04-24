@@ -51,7 +51,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
       dispatch(setUserPassword(password));
       if (role == "СТО") {
         try {
-          const response = await handleLoginService(
+           await handleLoginService(
             login,
             password,
             navigation
@@ -62,13 +62,13 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
         }
       } else if (role == "Клиент") {
         try {
-          const response = await handleLoginUser(login, password, navigation);
+          await handleLoginUser(login, password, navigation);
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
         }
         try {
-          const response = await handleGetAssistance(dispatch);
+          await handleGetAssistance(dispatch);
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
