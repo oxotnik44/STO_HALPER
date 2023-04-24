@@ -1,21 +1,11 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  KeyboardAvoidingView,
-  Pressable,
-  Alert,
-} from "react-native";
+import { View, Text, TextInput, KeyboardAvoidingView, Pressable, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataCarUser } from "../../../redux/reducers/registrationReducer/regCarUserReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { styles } from "./PageRegistrationUserStyles";
-import {
-  handleGetAssistance,
-  handleRegistrationUser,
-} from "../../../api/apiUsers";
+import { handleGetAssistance, handleRegistrationUser } from "../../../api/apiUsers";
 
 interface RegState {
   regCarUserReducer: {
@@ -47,7 +37,7 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
       Alert.alert("Заполните все поля!");
     } else {
       try {
-        handleRegistrationUser(
+         handleRegistrationUser(
           login,
           password,
           carNumber,
@@ -57,7 +47,7 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
         );
       } catch (e) {}
       try {
-        handleGetAssistance(dispatch);
+         handleGetAssistance(dispatch);
       } catch (e) {}
     }
   };
