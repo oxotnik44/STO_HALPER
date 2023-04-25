@@ -57,6 +57,10 @@ const Navigate: React.FC = () => {
           name="PageThreeRegistrationService"
           component={PageThreeRegistrationService}
         />
+        <Stack.Screen
+          name="UserChoiceOfServices"
+          component={UserChoiceOfServices}
+        />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ServiceInfo" component={ServiceInfo} />
         <Stack.Screen
