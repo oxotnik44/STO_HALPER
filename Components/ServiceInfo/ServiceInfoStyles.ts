@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
   },
   underlinedText: {
     textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    textDecorationColor: "red",
+    textDecorationColor: "yellow",
   },
 
   locationText: {
@@ -120,6 +119,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: screenHeight * 0.01,
     left: screenWidth * 0.06,
+  },
+  input: {
+    borderBottomWidth: 1,
+    borderRadius: 5,
+    borderColor: "#FFD83D99",
+    width: screenWidth * 0.9,
+    height: 100,
+    alignSelf: "center",
+    paddingLeft: 20,
+    paddingTop: screenHeight * 0.05,
+    color: "white",
+    fontSize: 24,
+    top:screenHeight*0.65,
+  },
+  buttonReview: {
+    width: screenWidth * 0.1,
+    height: screenHeight * 0.05,
+    position: "absolute",
+    top: screenHeight * 0.358,
+    left: screenWidth * 0.42,
   },
 });
 

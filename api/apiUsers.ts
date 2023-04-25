@@ -1,8 +1,15 @@
 import axios from "axios";
 import { Alert } from "react-native";
 import { RootStackParamList } from "../Navigate";
-import { getAssistance } from "../redux/reducers/registrationReducer/choiceAssistanceReducer";
-import { setDataService } from "../redux/reducers/serviceInfoReducer";
+import {
+  getAssistance,
+  resetAssistance,
+} from "../redux/reducers/registrationReducer/choiceAssistanceReducer";
+import {
+  resetService,
+  setDataService,
+  setIsAdmin,
+} from "../redux/reducers/serviceInfoReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 const api = axios.create({
@@ -15,7 +22,9 @@ export const handleRegistrationUser = async (
   carNumber: string,
   vinNumber: string,
   telephoneNumber: string,
-  navigation: StackNavigationProp<RootStackParamList>
+  navigation: StackNavigationProp<RootStackParamList>,
+  dispatch: Function
+
 ) => {
   try {
     const response = await api.post("/registrationUser", {
@@ -25,17 +34,20 @@ export const handleRegistrationUser = async (
       vinNumber,
       telephoneNumber,
     });
-    console.log(response.data); // обработка успешной регистрации
+    console.log(response.data);
+    dispatch(setIsAdmin(false)); // pass the requestData object to the dispatch function
+     // обработка успешной регистрации
     navigation.navigate("ChoiseAssistanceService"); // переход на экран логина после успешной регистрации
   } catch (error) {
-    Alert.alert("Ошибка!","Ошибка регистрации");
+    Alert.alert("Ошибка!", "Ошибка регистрации");
   }
 };
 
 export const handleLoginUser = async (
   login: string,
   password: string,
-  navigation: StackNavigationProp<RootStackParamList>
+  navigation: StackNavigationProp<RootStackParamList>,
+  dispatch: Function
 ) => {
   try {
     const response = await api.post("/loginUser", {
@@ -43,6 +55,9 @@ export const handleLoginUser = async (
       password,
     });
     // Handle successful login
+    dispatch(resetAssistance());
+    dispatch(setIsAdmin(false)); // pass the requestData object to the dispatch function
+    await handleGetAssistance(dispatch);
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
     navigation.navigate("ChoiseAssistanceService");
   } catch (error) {
@@ -60,6 +75,7 @@ export const handleGetAssistance = async (
       assistanceService: item.assistance, // обновляем название поля
       urlAssistance: item.urlAssistance,
     }));
+    dispatch(resetAssistance())
     dispatch(getAssistance(assistanceData));
   } catch (error) {
     console.error(error);
@@ -67,32 +83,3 @@ export const handleGetAssistance = async (
   }
 };
 
-export const handleGetService = async (
-  assistanceServices: string[], // Массив выбранных услуг сервиса
-  navigation: StackNavigationProp<RootStackParamList>,
-  dispatch: Function
-) => {
-  try {
-    const response = await api.post("/shippingAssistance", {
-      assistanceServices, // Включаем выбранные услуги в тело запроса
-    });
-    const serviceData = response.data.map((item) => ({
-      whatsappNumber: item.whatsappNumber,
-      webAddress: item.webAddress,
-      nameService: item.nameService,
-      startOfWork: item.startOfWork,
-      endOfWork: item.endOfWork,
-      telephoneNumber: item.telephoneNumber,
-      city: item.city,
-      address: item.address,
-      index: item.index,
-      assistanceServices: item.assistanceServices,
-    }));
-    dispatch(setDataService(serviceData));
-    console.log(response.data);
-    navigation.navigate("ChoiseService"); // переход на экран логина после успешной регистрации
-  } catch (error) {
-    console.error(error);
-    // обработка ошибки регистрации
-  }
-};

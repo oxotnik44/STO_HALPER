@@ -13,11 +13,13 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import { setDataRegServicePageOne } from "../../../redux/reducers/registrationReducer/regServiceDataReducer";
 import { styles } from "./PageOneRegistrationServiceStyles";
+import { TextInputMask } from "react-native-masked-text";
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 interface RegState {
   regServiceDataReducer: {
-    whatsappNumber: string;
+    nameAdmin: string;
     webAddress: string;
     telephoneNumber: string;
     startOfWork: string;
@@ -31,22 +33,25 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
   navigation,
 }) => {
   const dispatch = useDispatch();
-  const {
-    whatsappNumber,
-    webAddress,
-    startOfWork,
-    endOfWork,
-    telephoneNumber,
-  } = useSelector((state: RegState) => state.regServiceDataReducer);
+  const { nameAdmin, webAddress, startOfWork, endOfWork, telephoneNumber } =
+    useSelector((state: RegState) => state.regServiceDataReducer);
   const checkRegFieldsUser = () => {
+    const [endHours, endMinutes] = endOfWork.split(":");
+    const [startHours, startMinutes] = startOfWork.split(":");
+
+    const endMinutesNum = parseInt(endHours) * 60 + parseInt(endMinutes);
+    const startMinutesNum = parseInt(startHours) * 60 + parseInt(startMinutes);
     if (
-      !whatsappNumber ||
+      !nameAdmin ||
       !webAddress ||
       !startOfWork ||
       !endOfWork ||
       !telephoneNumber
     ) {
       Alert.alert("Заполните все поля!");
+    } else if (endMinutesNum < startMinutesNum) {
+      // Выводим сообщение об ошибке, так как endOfWork меньше startOfWork
+      Alert.alert("Ошибка","Время окончания работы меньше времени начала работы.");
     } else {
       navigation.navigate("PageTwoRegistrationService");
     }
@@ -58,8 +63,8 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
         <View style={{ position: "relative" }}>
           <TextInput
             style={styles.input}
-            placeholder="Whatsapp"
-            value={whatsappNumber}
+            placeholder="Имя"
+            value={nameAdmin}
             placeholderTextColor="white"
             onChangeText={(value: string) =>
               dispatch(
@@ -72,7 +77,7 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
                 )
               )
             }
-          ></TextInput>
+          />
         </View>
         <TextInput
           style={styles.input}
@@ -82,7 +87,7 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
           onChangeText={(value: string) =>
             dispatch(
               setDataRegServicePageOne(
-                whatsappNumber,
+                nameAdmin,
                 value,
                 telephoneNumber,
                 startOfWork,
@@ -91,15 +96,20 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
             )
           }
         ></TextInput>
-        <TextInput
+        <TextInputMask
           style={styles.input}
           placeholder="Номер телефона"
           value={telephoneNumber}
           placeholderTextColor="white"
+          type={"custom"}
+          options={{
+            mask: "+9(999)999-99-99",
+          }}
+          keyboardType={"numeric"}
           onChangeText={(value: string) =>
             dispatch(
               setDataRegServicePageOne(
-                whatsappNumber,
+                nameAdmin,
                 webAddress,
                 value,
                 startOfWork,
@@ -107,7 +117,8 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
               )
             )
           }
-        ></TextInput>
+        />
+
         <Text
           style={{
             color: "white",
@@ -130,19 +141,51 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
             >
               C
             </Text>
-            <TextInput
-              style={[styles.inputTime, { bottom: screenHeight * 0.052 }]}
+            <TextInputMask
+              style={[styles.inputTime, { bottom: screenHeight * 0.05 }]}
               value={startOfWork}
-              onChangeText={(value) => {
-                dispatch(
-                  setDataRegServicePageOne(
-                    whatsappNumber,
-                    webAddress,
-                    telephoneNumber,
-                    value,
-                    endOfWork
-                  )
-                );
+              placeholder="ЧЧ:ММ"
+              placeholderTextColor="white"
+              type={"datetime"}
+              options={{
+                format: "HH:mm",
+              }}
+              onChangeText={(value: string) => {
+                const [hours, minutes] = value.split(":");
+                const timeInMinutes = parseInt(hours) * 60 + parseInt(minutes);
+                if (parseInt(hours) > 23) {
+                  dispatch(
+                    setDataRegServicePageOne(
+                      nameAdmin,
+                      webAddress,
+                      telephoneNumber,
+                      "24:00",
+                      endOfWork
+                    )
+                  );
+                }
+
+                if (timeInMinutes >= 1440) {
+                  dispatch(
+                    setDataRegServicePageOne(
+                      nameAdmin,
+                      webAddress,
+                      telephoneNumber,
+                      "24:00",
+                      endOfWork
+                    )
+                  );
+                } else {
+                  dispatch(
+                    setDataRegServicePageOne(
+                      nameAdmin,
+                      webAddress,
+                      telephoneNumber,
+                      value,
+                      endOfWork
+                    )
+                  );
+                }
               }}
             />
           </View>
@@ -157,19 +200,39 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
           >
             До
           </Text>
-          <TextInput
-            style={[styles.inputTime, { bottom: screenHeight * 0.122 }]}
+          <TextInputMask
+            style={[styles.inputTime, { bottom: screenHeight * 0.12 }]}
             value={endOfWork}
-            onChangeText={(value) => {
-              dispatch(
-                setDataRegServicePageOne(
-                  whatsappNumber,
-                  webAddress,
-                  telephoneNumber,
-                  startOfWork,
-                  value
-                )
-              );
+            placeholder="ЧЧ:ММ"
+            placeholderTextColor="white"
+            type={"datetime"}
+            options={{
+              format: "HH:mm",
+            }}
+            onChangeText={(value: string) => {
+              const [hours, minutes] = value.split(":");
+              const timeInMinutes = parseInt(hours) * 60 + parseInt(minutes);
+              if (timeInMinutes >= 1440) {
+                dispatch(
+                  setDataRegServicePageOne(
+                    nameAdmin,
+                    webAddress,
+                    telephoneNumber,
+                    startOfWork,
+                    "24:00"
+                  )
+                );
+              } else {
+                dispatch(
+                  setDataRegServicePageOne(
+                    nameAdmin,
+                    webAddress,
+                    telephoneNumber,
+                    startOfWork,
+                    value
+                  )
+                );
+              }
             }}
           />
         </View>

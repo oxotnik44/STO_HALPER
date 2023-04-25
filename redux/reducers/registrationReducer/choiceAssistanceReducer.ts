@@ -3,7 +3,7 @@ import { Reducer } from "redux";
 const UPDATE_ASSISTANCE_SERVICE = "UPDATE_ASSISTANCE_SERVICE";
 const UPDATE_ASSISTANCE_USER = "UPDATE_ASSISTANCE_USER";
 const GET_ASSISTANCE = "GET_ASSISTANCE";
-
+const RESET_ASSISTANCE = "RESET_ASSISTANCE";
 interface IAssistanceItem {
   assistanceService: string;
   urlAssistance: string;
@@ -49,6 +49,8 @@ const assistanceReducer: Reducer<IState> = (
         ...state,
         dataAssistance: [...state.dataAssistance, ...action.assistanceData],
       };
+    case RESET_ASSISTANCE:
+      return { ...state, dataAssistance: [] };
     default:
       return state;
   }
@@ -72,6 +74,11 @@ export const getAssistance = (
   return {
     type: GET_ASSISTANCE,
     assistanceData: assistanceData,
+  };
+};
+export const resetAssistance = () => {
+  return {
+    type: RESET_ASSISTANCE,
   };
 };
 

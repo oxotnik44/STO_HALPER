@@ -3,8 +3,9 @@ import { Reducer } from "redux";
 const SET_DATA_SERVICE = "SET_DATA_SERVICE";
 const SET_NUMBER_SERVICE = "SET_NUMBER_SERVICE";
 const SET_IS_ADMIN = "SET_IS_ADMIN";
+const RESET_SERVICE = "RESET_SERVICE";
 interface IServiceInfo {
-  whatsappNumber: string;
+  nameAdmin: string;
   webAddress: string;
   nameService: string;
   startOfWork: string;
@@ -13,6 +14,7 @@ interface IServiceInfo {
   city: string;
   address: string;
   index: string;
+  reviews: string[];
   assistanceServices: Array<string> | null;
   imgCarousel: Array<string> | null;
 }
@@ -49,6 +51,11 @@ const serviceInfoReducer: Reducer<IState> = (
         ...state,
         isAdmin: action.isAdmin,
       };
+    case RESET_SERVICE:
+      return {
+        ...state,
+        dataService: [],
+      };
     default:
       return state;
   }
@@ -67,5 +74,9 @@ export const setIsAdmin = (isAdmin: boolean) => ({
   type: SET_IS_ADMIN,
   isAdmin: isAdmin,
 });
-
+export const resetService = () => {
+  return {
+    type: RESET_SERVICE,
+  };
+};
 export default serviceInfoReducer;

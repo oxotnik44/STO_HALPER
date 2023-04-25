@@ -3,9 +3,9 @@ import { Reducer } from "redux";
 const SET_DATA_REG_SERVICE_PAGE_ONE = "SET_DATA_REG_SERVICE_PAGE_ONE";
 const SET_DATA_REG_SERVICE_PAGE_TWO = "SET_DATA_REG_SERVICE_PAGE_TWO";
 const SET_DATA_REGISTRED_SERVICE = "SET_DATA_REGISTRED_SERVICE";
-
+const SET_DATA_AUTH_SERVICE = "SET_DATA_AUTH_SERVICE"
 interface IRegState {
-  whatsappNumber: string | null;
+  nameAdmin: string | null;
   webAddress: string | null;
   nameService: string | null;
   startOfWork: string | null;
@@ -24,7 +24,7 @@ export const initialRegState: IRegState = {
   index: null,
   startOfWork: null,
   endOfWork: null,
-  whatsappNumber: null,
+  nameAdmin: null,
   webAddress: null,
   workingNumber: null,
   nameService: null,
@@ -38,7 +38,7 @@ const regServiceDataReducer: Reducer<IRegState> = (
     case SET_DATA_REG_SERVICE_PAGE_ONE:
       return {
         ...state,
-        whatsappNumber: action.whatsappNumber,
+        nameAdmin: action.nameAdmin,
         webAddress: action.webAddress,
         telephoneNumber: action.telephoneNumber,
         startOfWork: action.startOfWork,
@@ -58,20 +58,33 @@ const regServiceDataReducer: Reducer<IRegState> = (
         ...state,
         registeredServiceData: action.payload,
       };
+      case SET_DATA_AUTH_SERVICE:
+        return{
+          ...state,
+          nameAdmin:action.nameAdmin,
+          webAddress:action.webAddress,
+          nameService:action.nameService,
+          startOfWork:action.startOfWork,
+          endOfWork:action.endOfWork,
+          telephoneNumber:action.telephoneNumber,
+          city:action.city,
+          address:action.address,
+          index:action.index,
+        }
     default:
       return state;
   }
 };
 
 export const setDataRegServicePageOne = (
-  whatsappNumber: string | null,
+  nameAdmin: string | null,
   webAddress: string | null,
   telephoneNumber: string | null,
   startOfWork: string | null,
   endOfWork: string | null
 ) => ({
   type: SET_DATA_REG_SERVICE_PAGE_ONE,
-  whatsappNumber,
+  nameAdmin,
   webAddress,
   telephoneNumber,
   startOfWork,
@@ -95,5 +108,18 @@ export const setDataRegServicePageTwo = (
 export const setDataRegistredService = (data) => ({
   type: SET_DATA_REGISTRED_SERVICE,
   payload: data,
+});
+
+export const setDataAuthService = (data) => ({
+  type: SET_DATA_AUTH_SERVICE,
+  nameAdmin: data.nameAdmin,
+  webAddress: data.webAddress,
+  nameService: data.nameService,
+  startOfWork: data.startOfWork,
+  endOfWork: data.endOfWork,
+  telephoneNumber: data.telephoneNumber,
+  city: data.city,
+  address: data.address,
+  index: data.index,
 });
 export default regServiceDataReducer;

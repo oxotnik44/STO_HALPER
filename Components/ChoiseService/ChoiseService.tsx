@@ -14,13 +14,14 @@ import { styles } from "./ChoiseServiceStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
 import { setNumberService } from "../../redux/reducers/serviceInfoReducer";
+import { getReviews } from "../../api/apiService";
 
 interface DataServiceState {
   serviceInfoReducer: {
     dataService: [
       {
         nameService: string;
-        address:string
+        address: string;
       }
     ];
   };
@@ -54,7 +55,9 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
         style={styles.loupeImg}
       />
       {dataServiceInfo.dataService.map((item, index) => (
-        <Pressable onPress={() => handlePress(index)}>
+        <Pressable onPress={() => handlePress(index)}
+        key={index}
+        >
           <View
             style={[
               styles.itemAssistance,
@@ -64,9 +67,18 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
           >
             <Text style={styles.nameService}>{item.nameService}</Text>
             <Text style={styles.distanceToService}></Text>
-            <Image
+            <Animatable.Image
               source={require("./../../assets/arrow.png")}
-              style={styles.arrow}
+              style={[
+                styles.arrow,
+                {
+                  transform: [
+                    {
+                      rotate: selectedIndex === index ? "90deg" : "0deg",
+                    },
+                  ],
+                },
+              ]}
             />
             {selectedIndex === index && (
               <Animatable.View
@@ -82,6 +94,7 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
                   style={styles.buttonService}
                   onPress={() => {
                     dispatch(setNumberService(index));
+                    getReviews(item.nameService, dispatch);
                     navigation.navigate("ServiceInfo");
                   }}
                 >

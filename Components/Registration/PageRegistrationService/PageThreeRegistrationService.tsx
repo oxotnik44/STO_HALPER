@@ -19,7 +19,7 @@ interface AuthDataService {
 interface PersonalServiceData {
   regServiceDataReducer: {
     nameService:string,
-    whatsappNumber: string;
+    nameAdmin: string;
     webAddress: string;
     startOfWork: string;
     endOfWork: string;
@@ -67,7 +67,7 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
         authDataService.login,
         authDataService.password,
         personalDataService.nameService,
-        personalDataService.whatsappNumber,
+        personalDataService.nameAdmin,
         personalDataService.webAddress,
         personalDataService.startOfWork,
         personalDataService.endOfWork,

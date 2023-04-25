@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.3,
     height: 100,
     alignSelf: "center",
-    paddingLeft: 30,
+    paddingLeft: 20,
     paddingTop: Dimensions.get("window").height * 0.05,
     color: "white",
     fontSize: 24,

@@ -13,6 +13,7 @@ import { RootStackParamList } from "../../../Navigate";
 import { setDataRegServicePageTwo } from "../../../redux/reducers/registrationReducer/regServiceDataReducer";
 import { styles } from "./PageTwoRegistrationServiceStyles";
 import { handleGetAssistance } from "../../../api/apiUsers";
+import { TextInputMask } from "react-native-masked-text";
 
 interface RegState {
   regServiceDataReducer: {
@@ -97,10 +98,13 @@ const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
             )
           }
         ></TextInput>
-        <TextInput
+        <TextInputMask
           style={styles.input}
           placeholder="Индекс"
           placeholderTextColor="white"
+          type={"custom"}
+          options={{ mask: "999999" }}
+          keyboardType={"numeric"}
           onChangeText={(value: string) =>
             dispatch(
               setDataRegServicePageTwo(
@@ -112,17 +116,21 @@ const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
               )
             )
           }
-        ></TextInput>
-        <TextInput
+        />
+        <TextInputMask
           style={styles.input}
           placeholder="Рабочий номер"
           placeholderTextColor="white"
+          type={"custom"}
+          options={{ mask: "+9(999)999-99-99" }}
+          keyboardType={"numeric"}
           onChangeText={(value: string) =>
             dispatch(
               setDataRegServicePageTwo(city, address, index, value, nameService)
             )
           }
-        ></TextInput>
+        />
+
         <Pressable style={styles.btnContinue} onPress={checkRegFieldsUser}>
           <Text style={styles.btnTextContinue}>Продолжить</Text>
         </Pressable>

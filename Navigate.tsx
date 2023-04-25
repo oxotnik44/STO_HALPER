@@ -10,7 +10,6 @@ import Registration from "./Components/Registration/Registration";
 import PageOneRegistrationService from "./Components/Registration/PageRegistrationService/PageOneRegistrationService";
 import PageTwoRegistrationService from "./Components/Registration/PageRegistrationService/PageTwoRegistrationService";
 import PageThreeRegistrationService from "./Components/Registration/PageRegistrationService/PageThreeRegistrationService";
-import UserChoiceOfServices from "./Components/UserChoiceOfServices/UserChoiceOfServices";
 import ChoiseService from "./Components/ChoiseService/ChoiseService";
 import ChoiseAssistanceService from "./Components/ChoiseAssistanceService/ChoiseAssistanceService";
 
@@ -41,16 +40,13 @@ const Navigate: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen
-          name="UserChoiceOfServices"
-          component={UserChoiceOfServices}
-        />
         <Stack.Screen name="Authorization" component={Authorization} />
 
         <Stack.Screen
           name="PageOneRegistrationService"
           component={PageOneRegistrationService}
         />
+
         <Stack.Screen
           name="ChoiseAssistanceService"
           component={ChoiseAssistanceService}

@@ -54,7 +54,8 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
           const response = await handleLoginService(
             login,
             password,
-            navigation
+            navigation,
+            dispatch
           );
         } catch (error) {
           console.error(error);
@@ -62,13 +63,12 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
         }
       } else if (role == "Клиент") {
         try {
-          const response = await handleLoginUser(login, password, navigation);
-        } catch (error) {
-          console.error(error);
-          Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
-        }
-        try {
-          const response = await handleGetAssistance(dispatch);
+          const response = await handleLoginUser(
+            login,
+            password,
+            navigation,
+            dispatch
+          );
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
@@ -96,7 +96,12 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
             </View>
             <Image
               source={require("./../../assets/arrow.png")}
-              style={{ right: 70, top: 57, position: "absolute" }}
+              style={[
+                { right: 70, top: 57, position: "absolute" },
+                {
+                  transform: [{ rotate: showInputs ? "90deg" : "0deg" }],
+                },
+              ]}
             />
           </View>
         </Pressable>
@@ -127,7 +132,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
               >
                 <Animatable.View
                   animation={showInputs ? "fadeInDown" : "fadeOutDown"}
-                  delay={100}
+                  delay={150}
                 >
                   <View style={{ ...styles.inputRole, opacity: 1 }}>
                     <Text style={{ color: "white", fontSize: 26 }}>Клиент</Text>

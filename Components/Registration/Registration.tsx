@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Image, KeyboardAvoidingView, Pressable, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  KeyboardAvoidingView,
+  Pressable,
+  Alert,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
@@ -55,7 +63,12 @@ const Registration: React.FC<AuthorizationProps> = ({ navigation }) => {
             </View>
             <Image
               source={require("./../../assets/arrow.png")}
-              style={{ right: 25, top: 52, position: "absolute" }}
+              style={[
+                { right: 25, top: 52, position: "absolute" },
+                {
+                  transform: [{ rotate: showInputs ? "90deg" : "0deg" }],
+                },
+              ]}
             />
           </View>
         </Pressable>
@@ -88,7 +101,7 @@ const Registration: React.FC<AuthorizationProps> = ({ navigation }) => {
               >
                 <Animatable.View
                   animation={showInputs ? "fadeInDown" : "fadeOutDown"}
-                  delay={100}
+                  delay={150}
                 >
                   <View style={{ ...styles.input, opacity: 1 }}>
                     <Text style={{ color: "white", fontSize: 26, top: 10 }}>

@@ -6,13 +6,14 @@ import {
   Pressable,
   TextInput,
   Dimensions,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./ChoiseAssistanceServiceStyle";
 import { updateAssistanceUser } from "../../redux/reducers/registrationReducer/choiceAssistanceReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import { handleGetService } from "../../api/apiUsers";
+import { handleGetService } from "../../api/apiService";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -39,15 +40,20 @@ const ChoiseAssistanceService: React.FC<Navigation> = ({ navigation }) => {
     const selectedAssistance = dataService
       .filter((item) => item.isSelectedAssistanceUser)
       .map((item) => item.assistanceService);
-    try {
-      await handleGetService(
-        selectedAssistance, // Передаем актуальное значение состояния
-        navigation,
-        dispatch
-      );
-      // Действия, выполняемые после успешного выполнения функции handleRegistrationService
-    } catch (error) {
-      // Обработка ошибок, если они возникнут
+    if (selectedAssistance.length > 0) {
+      try {
+        await handleGetService(
+          selectedAssistance, // Передаем актуальное значение состояния
+          dispatch
+        );
+        navigation.navigate("ChoiseService"); // переход на экран логина после успешной регистрации
+
+        // Действия, выполняемые после успешного выполнения функции handleRegistrationService
+      } catch (error) {
+        // Обработка ошибок, если они возникнут
+      }
+    } else {
+      Alert.alert("Ошибка", "Не выбрана ни одна услуга");
     }
   };
 

@@ -32,6 +32,7 @@
     "react-native-debugger": "^1.1.0",
     "react-native-fs": "^2.20.0",
     "react-native-image-slider-box": "^2.0.7",
+    "react-native-masked-text": "^1.13.0",
     "react-native-netclient": "^0.0.1",
     "react-native-pg-react-native-sdk": "^2.1.10",
     "react-native-responsive-screen": "^1.4.2",

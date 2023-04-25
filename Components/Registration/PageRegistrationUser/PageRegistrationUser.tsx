@@ -16,6 +16,7 @@ import {
   handleGetAssistance,
   handleRegistrationUser,
 } from "../../../api/apiUsers";
+import { TextInputMask } from "react-native-masked-text";
 
 interface RegState {
   regCarUserReducer: {
@@ -53,7 +54,8 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
           carNumber,
           vinNumber,
           telephoneNumber,
-          navigation
+          navigation,
+          dispatch
         );
       } catch (e) {}
       try {
@@ -67,33 +69,45 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={100}>
         <Text style={styles.textReg}>Данные авто</Text>
         <View style={{ position: "relative" }}>
-          <TextInput
+          <TextInputMask
             style={styles.input}
             placeholder="Госномер"
+            type={"custom"}
             placeholderTextColor="white"
             onChangeText={(value: string) =>
               dispatch(setDataCarUser(value, vinNumber, telephoneNumber))
             }
-          ></TextInput>
+            options={{
+              mask: "******", // Пример маски для госномера, например A123BC
+            }}
+          />
         </View>
-        <TextInput
+        <TextInputMask
           style={styles.input}
           placeholder="VIN-номер"
           placeholderTextColor="white"
+          type={"custom"}
+          options={{
+            mask: "*****************", // Пример маски для VIN-номера, здесь * заменяются на любой символ
+          }}
           value={vinNumber}
           onChangeText={(value: string) =>
             dispatch(setDataCarUser(carNumber, value, telephoneNumber))
           }
-        ></TextInput>
-        <TextInput
+        />
+        <TextInputMask
           style={styles.input}
           placeholder="Номер телефона"
+          type={"custom"}
           placeholderTextColor="white"
           value={telephoneNumber}
           onChangeText={(value: string) =>
             dispatch(setDataCarUser(carNumber, vinNumber, value))
           }
-        ></TextInput>
+          options={{
+            mask: "+7 (999)-999-99-99", // Пример маски для номера телефона, например +7 (123) 456 78 90
+          }}
+        />
         <Pressable style={styles.btnContinue} onPress={checkRegFieldsUser}>
           <Text style={styles.btnTextContinue}>Завершить</Text>
         </Pressable>

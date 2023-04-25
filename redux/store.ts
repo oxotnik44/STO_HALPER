@@ -8,6 +8,7 @@ import registrationReducer from "./reducers/registrationReducer/registrationRedu
 import regCarUserReducer from "./reducers/registrationReducer/regCarUserReducer";
 import regServiceDataReducer from "./reducers/registrationReducer/regServiceDataReducer";
 import assistanceReducer from "./reducers/registrationReducer/choiceAssistanceReducer";
+import reviewsServiceReducer from "./reducers/reviewsServiceReducer";
 let rootreducer = combineReducers({
   authReducer: authReducer,
   choiseServicesReducer: choiseServicesReducer,
@@ -16,7 +17,8 @@ let rootreducer = combineReducers({
   registrationReducer: registrationReducer,
   regCarUserReducer: regCarUserReducer,
   regServiceDataReducer: regServiceDataReducer,
-  assistanceReducer:assistanceReducer
+  assistanceReducer: assistanceReducer,
+  reviewsServiceReducer: reviewsServiceReducer,
 });
 
 export type RootState = ReturnType<typeof rootreducer>;
