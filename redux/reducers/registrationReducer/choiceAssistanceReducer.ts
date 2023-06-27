@@ -62,12 +62,7 @@ export const updateAssistanceService = (index: number, isSelected: boolean) => {
     payload: { index, isSelected },
   };
 };
-export const updateAssistanceUser = (index: number, isSelected: boolean) => {
-  return {
-    type: UPDATE_ASSISTANCE_USER,
-    payload: { index, isSelected },
-  };
-};
+
 export const getAssistance = (
   assistanceData: { assistanceService: string; urlAssistance: string }[]
 ) => {

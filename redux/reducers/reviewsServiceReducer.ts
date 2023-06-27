@@ -3,6 +3,7 @@ import { Reducer } from "redux";
 const SET_REVIEW_USER = "SET_REVIEW_USER";
 const SET_REVIEW = "SET_REVIEW";
 const RESET_REVIEWS = "RESET_REVIEWS";
+const RESET_REVIEW_USER = "RESET_REVIEW_USER";
 interface IReviewInfo {
   review: string;
   userName: string;
@@ -29,11 +30,17 @@ const reviewsServiceReducer: Reducer<IState> = (
         ...state,
         textReview: action.textReview,
       };
+    case RESET_REVIEW_USER:
+      return {
+        ...state,
+        textReview: "",
+      };
     case SET_REVIEW:
       return {
         ...state,
         reviews: [...state.reviews, ...action.reviewsData],
       };
+
     case RESET_REVIEWS:
       return {
         ...state,
@@ -53,7 +60,12 @@ export const setReview = (data: IReviewInfo[]) => ({
   type: SET_REVIEW,
   reviewsData: data,
 });
+
 export const resetReviews = () => ({
   type: RESET_REVIEWS,
+});
+
+export const resetReviewUser = () => ({
+  type: RESET_REVIEW_USER,
 });
 export default reviewsServiceReducer;

@@ -9,11 +9,13 @@ import {
   Pressable,
   TextInput,
   KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ServiceInfoStyles";
 import { setReviewUser } from "../../redux/reducers/reviewsServiceReducer";
 import { addReview } from "../../api/apiService";
+import CarouselCardItem from "./CarouselCardItem";
 export const screenWidth = Dimensions.get("window").width;
 export const screenHeight = Dimensions.get("window").height;
 
@@ -32,16 +34,12 @@ interface ServiceInfoState {
         city: string;
         address: string;
         index: string;
-        reviews: { review: string; userName: string };
+        assistanceServices: string;
       }
     ];
   };
 }
-interface ServiceInfo {
-  regServiceDataReducer: {
-    nameAdmin: string;
-  };
-}
+
 interface UserInfo {
   authReducer: {
     login: string;
@@ -50,15 +48,12 @@ interface UserInfo {
 interface ReviewInfo {
   reviewsServiceReducer: {
     textReview: string;
-    reviews: [{ userName: string; review: string }];
+    reviews: [{ review: string; userName: string }];
   };
 }
 const ServiceInfoForUser: React.FC = () => {
   const dataServiceInfo = useSelector(
     (state: ServiceInfoState) => state.serviceInfoReducer
-  );
-  const dataInfo = useSelector(
-    (state: ServiceInfo) => state.regServiceDataReducer
   );
   const selectedItem = dataServiceInfo.dataService.find(
     (item, index) => index === dataServiceInfo.numberService
@@ -66,15 +61,9 @@ const ServiceInfoForUser: React.FC = () => {
   const reviewInfo = useSelector(
     (state: ReviewInfo) => state.reviewsServiceReducer
   );
-  reviewInfo.reviews.map((e) => {
-  console.log(e.review);
-});
+
   const { login } = useSelector((state: UserInfo) => state.authReducer);
-  
   const dispatch = useDispatch();
-  const setTextReview = (text: string) => {
-    dispatch(setReviewUser(text));
-  };
   let yandexMapsUrl = "";
   const { city, address } = selectedItem || {};
   const [selected, setSelected] = useState("info");
@@ -82,190 +71,194 @@ const ServiceInfoForUser: React.FC = () => {
     yandexMapsUrl = `https://yandex.ru/maps/?text=${city}, ${address}`;
   }
   const setDataReview = () => {
-    addReview(
-      reviewInfo.textReview,
-      login,
-      dataServiceInfo.dataService[dataServiceInfo.numberService].nameService,
-      dispatch
-    );
+    if (reviewInfo.textReview) {
+      addReview(
+        reviewInfo.textReview,
+        login,
+        dataServiceInfo.dataService[dataServiceInfo.numberService].nameService,
+        dispatch
+      );
+    } else {
+      Alert.alert("Введите сообщение");
+    }
   };
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          top: screenHeight * 0.04,
-        }}
-      >
-        <View style={styles.header}>
+      <View style={styles.header}>
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Image
+            source={require("./../../assets/cto_logo.png")}
+            style={styles.imageLogo}
+          ></Image>
+          <Text style={styles.nameService}>
+            {
+              dataServiceInfo.dataService[dataServiceInfo.numberService]
+                .nameService
+            }
+          </Text>
+        </View>
+        <View style={{ flexDirection: "row", zIndex: 2 }}>
+          <Text
+            style={[
+              selected === "info" ? styles.underlinedText : null,
+              styles.textInfoAndReview,
+            ]}
+            onPress={() => setSelected("info")}
+          >
+            Инфо
+          </Text>
+          <Text
+            style={[
+              selected === "reviews" ? styles.underlinedText : null,
+              styles.textInfoAndReview,
+            ]}
+            onPress={() => setSelected("reviews")}
+          >
+            Отзывы
+          </Text>
+        </View>
+      </View>
+      {selected === "info" ? (
+        <View style={{ top: 30 }}>
           <View
             style={{
-              flexDirection: "row",
+              width: screenWidth,
+              height: screenHeight * 0.12,
+              top: screenHeight * 0.01,
             }}
           >
-            <Image
-              source={require("./../../assets/cto_logo.png")}
-              style={styles.imageLogo}
-            ></Image>
-            <Text style={styles.nameService}>
+            <Text style={styles.locationText}>
+              {dataServiceInfo.dataService[dataServiceInfo.numberService].index}
+              ,{" "}
+              {dataServiceInfo.dataService[dataServiceInfo.numberService].city},{" "}
               {
                 dataServiceInfo.dataService[dataServiceInfo.numberService]
-                  .nameService
+                  .address
               }
             </Text>
           </View>
-          <View style={{ flexDirection: "row" }}>
+          <View style={styles.locationContainer}>
             <Text
-              style={[
-                selected === "info" ? styles.underlinedText : null,
-                styles.textInfoAndReview,
-              ]}
-              onPress={() => setSelected("info")}
-            >
-              Инфо
-            </Text>
-            <Text
-              style={[
-                selected === "reviews" ? styles.underlinedText : null,
-                styles.textInfoAndReview,
-              ]}
-              onPress={() => setSelected("reviews")}
-            >
-              Отзывы
-            </Text>
-          </View>
-        </View>
-        {selected === "info" ? (
-          <View>
-            <View
-              style={{
-                width: screenWidth,
-                height: screenHeight * 0.12,
-                top: screenHeight * 0.01,
+              style={styles.textLocationService}
+              onPress={() => {
+                if (
+                  (dataServiceInfo.dataService[dataServiceInfo.numberService]
+                    .city &&
+                    dataServiceInfo.dataService[dataServiceInfo.numberService]
+                      .address) != null
+                ) {
+                  Linking.openURL(yandexMapsUrl);
+                } else {
+                  Alert.alert("Данные не введены!");
+                }
               }}
             >
-              <Text style={styles.locationText}>
+              Найти на Я. Карте
+            </Text>
+            <Image source={require("../../assets/arrowWhite.png")} />
+          </View>
+          <View style={styles.containerWorkTime}>
+            <Text style={styles.textWorkTime}>
+              Ежедневно:{" "}
+              {
+                dataServiceInfo.dataService[dataServiceInfo.numberService]
+                  .startOfWork
+              }{" "}
+              -{" "}
+              {
+                dataServiceInfo.dataService[dataServiceInfo.numberService]
+                  .endOfWork
+              }
+            </Text>
+          </View>
+          <View style={styles.phoneContainer}>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.phoneText}>
                 {
                   dataServiceInfo.dataService[dataServiceInfo.numberService]
-                    .index
-                }
-                ,{" "}
-                {
-                  dataServiceInfo.dataService[dataServiceInfo.numberService]
-                    .city
-                }
-                ,{" "}
-                {
-                  dataServiceInfo.dataService[dataServiceInfo.numberService]
-                    .address
-                }
-              </Text>
-            </View>
-            <View style={styles.locationContainer}>
-              <Text
-                style={styles.textLocationService}
-                onPress={() => {
-                  if (
-                    (dataServiceInfo.dataService[dataServiceInfo.numberService]
-                      .city &&
-                      dataServiceInfo.dataService[dataServiceInfo.numberService]
-                        .address) != null
-                  ) {
-                    Linking.openURL(yandexMapsUrl);
-                  } else {
-                    Alert.alert("Данные не введены!");
-                  }
-                }}
-              >
-                Найти на Я. Карте
-              </Text>
-              <Image source={require("../../assets/arrowWhite.png")} />
-            </View>
-            <View style={styles.containerWorkTime}>
-              <Text style={styles.textWorkTime}>
-                Ежедневно:{" "}
-                {
-                  dataServiceInfo.dataService[dataServiceInfo.numberService]
-                    .startOfWork
-                }{" "}
-                -{" "}
-                {
-                  dataServiceInfo.dataService[dataServiceInfo.numberService]
-                    .endOfWork
+                    .telephoneNumber
                 }
               </Text>
+              <Image
+                source={require("../../assets/iconTelephone.png")}
+                style={styles.iconTelephone}
+              />
             </View>
-            <View style={styles.phoneContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.phoneText}>
-                  {
-                    dataServiceInfo.dataService[dataServiceInfo.numberService]
-                      .telephoneNumber
-                  }
-                </Text>
-                <Image
-                  source={require("../../assets/iconTelephone.png")}
-                  style={styles.iconTelephone}
-                />
-              </View>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.phoneText}>
-                  {
-                    dataServiceInfo.dataService[dataServiceInfo.numberService]
-                      .telephoneNumber
-                  }
-                </Text>
-                <Image
-                  source={require("../../assets/iconTelephone.png")}
-                  style={styles.iconTelephone}
-                />
-              </View>
-            </View>
-            <View style={styles.lineSeporatorUp}></View>
-            <View style={styles.webContainer}>
-              <View style={[styles.webRow, { flexDirection: "row" }]}>
-                <Text style={styles.links}>
-                  {
-                    dataServiceInfo.dataService[dataServiceInfo.numberService]
-                      .webAddress
-                  }
-                </Text>
-                <Image
-                  source={require("../../assets/iconInet.png")}
-                  style={styles.iconConntection}
-                />
-              </View>
-              <View style={[styles.webRow, { flexDirection: "row" }]}>
-                <Text style={styles.links}>
-                  {
-                    dataServiceInfo.dataService[dataServiceInfo.numberService]
-                      .nameAdmin
-                  }
-                </Text>
-                <Image
-                  source={require("../../assets/iconWhatsApp.png")}
-                  style={styles.iconConntection}
-                />
-              </View>
-              <View style={styles.lineSeporatorDown}></View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.phoneText}>
+                {
+                  dataServiceInfo.dataService[dataServiceInfo.numberService]
+                    .telephoneNumber
+                }
+              </Text>
+              <Image
+                source={require("../../assets/iconTelephone.png")}
+                style={styles.iconTelephone}
+              />
             </View>
           </View>
-        ) : (
-          <KeyboardAvoidingView
-            behavior="position"
-            keyboardVerticalOffset={580}
-          >
-            <View>
-              {reviewInfo.reviews.map((item, index) => (
-                <View key={index}>{item.review}</View>
-              ))}
+          <View style={styles.lineSeporatorUp}></View>
+          <View style={styles.webContainer}>
+            <View style={[styles.webRow, { flexDirection: "row" }]}>
+              <Text style={styles.links}>
+                {
+                  dataServiceInfo.dataService[dataServiceInfo.numberService]
+                    .webAddress
+                }
+              </Text>
+              <Image
+                source={require("../../assets/iconInet.png")}
+                style={styles.iconConntection}
+              />
             </View>
+            <View style={[styles.webRow, { flexDirection: "row" }]}>
+              <Text style={styles.links}>
+                {
+                  dataServiceInfo.dataService[dataServiceInfo.numberService]
+                    .nameAdmin
+                }
+              </Text>
+              <Image
+                source={require("../../assets/iconWhatsApp.png")}
+                style={styles.iconConntection}
+              />
+            </View>
+            <View style={styles.lineSeporatorDown}></View>
+          </View>
+          <CarouselCardItem />
+        </View>
+      ) : (
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={75}>
+          <ScrollView style={styles.containerReview}>
+            {reviewInfo.reviews.map((item, index) =>
+              reviewInfo.reviews.length != null ? (
+                <View key={index} style={styles.review}>
+                  <Image
+                    source={require("./../../assets/imageUser.png")}
+                    style={styles.imageUser}
+                  />
+                  <View>
+                    <Text style={styles.textUser}>{item.userName}</Text>
+                    <Text style={styles.textReview}>{item.review}</Text>
+                  </View>
+                </View>
+              ) : (
+                <Text>Отзывов нет</Text>
+              )
+            )}
+          </ScrollView>
 
+          <View style={styles.containerUserReview}>
             <TextInput
               style={styles.input}
               placeholder="Отзыв"
-              value={reviewInfo.textReview}
               placeholderTextColor="white"
-              onChangeText={(value: string) => setTextReview(value)}
+              value={reviewInfo.textReview}
+              onChangeText={(value: string) => dispatch(setReviewUser(value))}
             />
             <Pressable onPress={setDataReview} style={styles.buttonReview}>
               <Image
@@ -273,9 +266,9 @@ const ServiceInfoForUser: React.FC = () => {
                 source={require("./../../assets/iconShippingReview.png")}
               />
             </Pressable>
-          </KeyboardAvoidingView>
-        )}
-      </View>
+          </View>
+        </KeyboardAvoidingView>
+      )}
     </View>
   );
 };

@@ -3,6 +3,7 @@ import axios from "axios";
 import { RootStackParamList } from "../Navigate";
 import { Alert } from "react-native";
 import {
+  removeDataInfo,
   setDataAuthService,
   setDataRegistredService,
 } from "../redux/reducers/registrationReducer/regServiceDataReducer";
@@ -12,10 +13,12 @@ import {
   setIsAdmin,
 } from "../redux/reducers/serviceInfoReducer";
 import {
+  resetReviewUser,
   resetReviews,
   setReview,
 } from "../redux/reducers/reviewsServiceReducer";
-import { Dispatch } from "redux";
+import { setDataServiceInfo } from "../redux/reducers/registrationReducer/serviceInfoReducer";
+import { resetData } from "../redux/reducers/registrationReducer/registrationReducer";
 
 const api = axios.create({
   baseURL: "https://stohelperbackend-oxotnik44.onrender.com/api/auth",
@@ -57,8 +60,13 @@ export const handleRegistrationService = async (
     const response = await api.post("/registrationService", requestData);
     console.log(response.data);
 
-    dispatch(setDataRegistredService(requestData));
+    dispatch(setDataServiceInfo(requestData));
+    dispatch(removeDataInfo());
+
     dispatch(setIsAdmin(true));
+    dispatch(resetData());
+    // Вызов экшн-криэйтора resetReviews для сброса отзывов в состоянии Redux
+    getReviews(nameService, dispatch);
     navigation.navigate("ServiceInfo");
   } catch (error) {
     console.error(error);
@@ -79,8 +87,12 @@ export const handleLoginService = async (
     });
 
     const { service } = response.data;
+    const { nameService } = service;
     dispatch(setIsAdmin(true));
+    dispatch(setDataServiceInfo(service));
+
     dispatch(setDataAuthService(service));
+    getReviews(nameService, dispatch);
 
     Alert.alert("Успешный вход", "Вы успешно авторизовались!");
 
@@ -116,7 +128,6 @@ export const handleGetService = async (
     }));
     dispatch(resetService());
     dispatch(setDataService(serviceData));
-    
   } catch (error) {
     console.error(error);
     // обработка ошибки регистрации
@@ -141,6 +152,8 @@ export const addReview = async (
 
     // Обрабатываем успешный ответ от сервера
     if (response.data.success) {
+      dispatch(setReview([{ review, userName: login }]));
+      dispatch(resetReviewUser());
       // Выводим сообщение об успешном добавлении отзыва
       console.log("Отзыв успешно добавлен");
     } else {
@@ -154,15 +167,17 @@ export const addReview = async (
 };
 
 // Изменения в функции getReviews
-export const getReviews = async (nameService: string, dispatch: Dispatch) => {
+export const getReviews = async (nameService: string, dispatch: Function) => {
   try {
     // Выполнение запроса на сервер с использованием библиотеки axios или другой аналогичной библиотеки
     const response = await api.post("/getReviews", {
       nameService,
     });
 
-    // Диспатч действий Redux для обновления состояния приложения
+    // Вызов экшн-криэйтора resetReviews для сброса отзывов в состоянии Redux
     dispatch(resetReviews());
+
+    // Вызов экшн-криэйтора setReview с данными из запроса в аргументе
     dispatch(setReview(response.data));
   } catch (error) {
     console.error(error);

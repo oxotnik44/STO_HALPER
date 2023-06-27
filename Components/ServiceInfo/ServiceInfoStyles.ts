@@ -9,21 +9,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#3B3B3B",
   },
-
   header: {
     padding: screenWidth * 0.04,
-    height: screenHeight * 0.185,
+    height: screenHeight * 0.19,
     borderBottomColor: "#000",
     borderBottomWidth: 1,
     marginBottom: screenHeight * 0.015,
+    backgroundColor: "#3B3B3B",
+    zIndex: 2,
   },
   imageLogo: {
     width: screenWidth * 0.2,
     height: screenHeight * 0.12,
+    marginTop: screenHeight * 0.015,
   },
   nameService: {
     color: "white",
-    top: screenHeight * 0.001,
+    marginTop: screenHeight * 0.01,
     left: screenWidth * 0.07,
     fontSize: 40,
   },
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
   },
   underlinedText: {
     textDecorationLine: "underline",
-    textDecorationColor: "yellow",
   },
 
   locationText: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     flexDirection: "row",
-    right: screenWidth * -0.52,
+    right: screenWidth * -0.47,
   },
 
   containerWorkTime: {
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     height: 1,
     opacity: 0.3,
     backgroundColor: "#FFD83D",
-    top: screenHeight * 0.05,
+    top: screenHeight * 0.04,
     left: screenWidth * 0.04,
   },
   links: {
@@ -121,24 +122,57 @@ const styles = StyleSheet.create({
     left: screenWidth * 0.06,
   },
   input: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 4,
     borderRadius: 5,
     borderColor: "#FFD83D99",
-    width: screenWidth * 0.9,
-    height: 100,
+    width: screenWidth * 0.8,
+    height: 60,
     alignSelf: "center",
+    right: 20,
     paddingLeft: 20,
-    paddingTop: screenHeight * 0.05,
     color: "white",
     fontSize: 24,
-    top:screenHeight*0.65,
+    top: screenHeight * 0.09,
   },
   buttonReview: {
     width: screenWidth * 0.1,
     height: screenHeight * 0.05,
-    position: "absolute",
-    top: screenHeight * 0.358,
-    left: screenWidth * 0.42,
+    left: screenWidth * 0.43,
+    top: screenHeight * 0.025,
+  },
+  containerUserReview: {
+    flexDirection: "column",
+    paddingBottom: 25,
+  },
+  review: {
+    flexDirection: "row",
+    marginBottom: 10,
+    alignSelf: "center",
+    width: screenWidth * 0.9,
+    height: screenHeight * 0.06,
+    backgroundColor: "white",
+    borderRadius: 9,
+  },
+
+  imageUser: {
+    width: screenWidth * 0.1,
+    height: screenHeight * 0.05,
+    marginTop: 2,
+  },
+  textUser: {
+    fontSize: 16,
+    right: 10,
+    fontWeight: "bold",
+    left: 5,
+  },
+  textReview: {
+    fontSize: 14,
+    left: 5,
+  },
+  containerReview: {
+    height: screenHeight * 0.65,
+    zIndex: 1,
+    top: screenHeight * 0.05,
   },
 });
 

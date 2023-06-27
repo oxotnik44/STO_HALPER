@@ -2,7 +2,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../Navigate";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Alert } from "react-native";
 import { styles } from "./PageThreeRegistrationServiceStyles";
 import CheckBox from "react-native-check-box";
 import { updateAssistanceService } from "../../../redux/reducers/registrationReducer/choiceAssistanceReducer";
@@ -18,7 +18,7 @@ interface AuthDataService {
 }
 interface PersonalServiceData {
   regServiceDataReducer: {
-    nameService:string,
+    nameService: string;
     nameAdmin: string;
     webAddress: string;
     startOfWork: string;
@@ -54,34 +54,40 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
     (state: AuthDataService) => state.registrationReducer
   );
   const dispatch = useDispatch();
-  
+  const selectedServices = dataAssistance.filter(
+    (item) => item.isSelectedAssistanceService
+  );
   const handleContinuePress = async () => {
-    const selectedServices = dataAssistance
-      .filter((item) => item.isSelectedAssistanceService)
-      .map((item) => item.assistanceService);
+    if (selectedServices.length < 1) {
+      Alert.alert("Ошибка", "Пожалуйста, выберите хотя бы одну услугу!");
+    } else {
+      const selectedServices = dataAssistance
+        .filter((item) => item.isSelectedAssistanceService)
+        .map((item) => item.assistanceService);
 
-    // Добавляем асинхронный вызов функции handleRegistrationService
-    // с использованием async/await или промисов
-    try {
-      await handleRegistrationService(
-        authDataService.login,
-        authDataService.password,
-        personalDataService.nameService,
-        personalDataService.nameAdmin,
-        personalDataService.webAddress,
-        personalDataService.startOfWork,
-        personalDataService.endOfWork,
-        personalDataService.telephoneNumber,
-        personalDataService.city,
-        personalDataService.address,
-        personalDataService.index,
-        selectedServices, // Передаем актуальное значение состояния
-        navigation,
-        dispatch
-      );
-      // Действия, выполняемые после успешного выполнения функции handleRegistrationService
-    } catch (error) {
-      // Обработка ошибок, если они возникнут
+      // Добавляем асинхронный вызов функции handleRegistrationService
+      // с использованием async/await или промисов
+      try {
+        await handleRegistrationService(
+          authDataService.login,
+          authDataService.password,
+          personalDataService.nameService,
+          personalDataService.nameAdmin,
+          personalDataService.webAddress,
+          personalDataService.startOfWork,
+          personalDataService.endOfWork,
+          personalDataService.telephoneNumber,
+          personalDataService.city,
+          personalDataService.address,
+          personalDataService.index,
+          selectedServices, // Передаем актуальное значение состояния
+          navigation,
+          dispatch
+        );
+        // Действия, выполняемые после успешного выполнения функции handleRegistrationService
+      } catch (error) {
+        // Обработка ошибок, если они возникнут
+      }
     }
   };
   const handleCheckBoxChange = (index, isSelected) => {

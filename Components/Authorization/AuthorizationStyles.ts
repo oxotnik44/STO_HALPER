@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFD83D",
     borderRadius: 15,
     borderBottomWidth: 1,
-    marginTop: screenHeight * 0.08,
+    marginTop: screenHeight * 0.05,
     justifyContent: "center",
   },
   textLoginButton: {

@@ -42,22 +42,30 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
       setSelectedIndex(index);
     }
   };
+  const [searchService, setSearchService] = useState("");
   const dispatch = useDispatch();
+  const filteredServices = dataServiceInfo.dataService.filter((item) => {
+    // Приведите оба значения к нижнему регистру для сравнения без учета регистра
+    const serviceName = item.nameService.toLowerCase();
+    const searchValue = searchService.toLowerCase();
+    // Проверьте, содержит ли название сервиса введенное значение поиска
+    return serviceName.includes(searchValue);
+  });
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="Поиск"
         style={styles.searchAssistance}
         placeholderTextColor="white"
+        value={searchService}
+        onChangeText={(value) => setSearchService(value)}
       />
       <Image
         source={require("./../../assets/loupe2.png")}
         style={styles.loupeImg}
       />
-      {dataServiceInfo.dataService.map((item, index) => (
-        <Pressable onPress={() => handlePress(index)}
-        key={index}
-        >
+      {filteredServices.map((item, index) => (
+        <Pressable onPress={() => handlePress(index)} key={index}>
           <View
             style={[
               styles.itemAssistance,
@@ -87,9 +95,9 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
                 style={styles.expanded}
               >
                 <Text style={styles.address}>Адрес:{item.address}</Text>
-                <Pressable style={styles.buttonService}>
+                {/* <Pressable style={styles.buttonService}>
                   <Text style={styles.textButtonService}>Перейти в чат</Text>
-                </Pressable>
+                </Pressable> */}
                 <Pressable
                   style={styles.buttonService}
                   onPress={() => {

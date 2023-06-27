@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const RESET_DATA = "RESET_DATA";
 
 interface IRegState {
   userRole: string | null;
@@ -29,7 +30,8 @@ const registrationReducer: Reducer<IRegState> = (
         password: action.password,
         repeatPassword: action.repeatPassword,
       };
-
+    case RESET_DATA:
+      return initialRegState;
     default:
       return state;
   }
@@ -46,6 +48,10 @@ export const setUserData = (
   login,
   password,
   repeatPassword,
+});
+
+export const resetData = () => ({
+  type: RESET_DATA,
 });
 
 export default registrationReducer;

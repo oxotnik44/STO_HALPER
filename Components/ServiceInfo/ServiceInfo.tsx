@@ -5,6 +5,7 @@ import { RootStackParamList } from "../../Navigate";
 import { useSelector } from "react-redux";
 import ServiceInfoForAdmin from "./ServiceInfoForAdmin";
 import ServiceInfoForUser from "./ServiceInfoForUser";
+import { NavigationContainer } from "@react-navigation/native";
 
 interface ServiceInfoState {
   serviceInfoReducer: {
@@ -44,19 +45,19 @@ type ChoiseServiceProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
 
-const ServiceInfo: React.FC<ChoiseServiceProps> = () => {
+const ServiceInfo: React.FC<ChoiseServiceProps> = ({ navigation }) => {
   const dataServiceInfo = useSelector(
-    (state: ServiceInfoState) => state.serviceInfoReducer
+    (state: ServiceInfoState) => state.serviceInfoReducer  
   );
 
   return (
-    <>
+    <NavigationContainer independent={true}>
       {dataServiceInfo.isAdmin ? (
-        <ServiceInfoForAdmin />
+        <ServiceInfoForAdmin navigation={navigation} />
       ) : (
         <ServiceInfoForUser />
       )}
-    </>
+    </NavigationContainer>
   );
 };
 

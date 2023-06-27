@@ -3,7 +3,8 @@ import { Reducer } from "redux";
 const SET_DATA_REG_SERVICE_PAGE_ONE = "SET_DATA_REG_SERVICE_PAGE_ONE";
 const SET_DATA_REG_SERVICE_PAGE_TWO = "SET_DATA_REG_SERVICE_PAGE_TWO";
 const SET_DATA_REGISTRED_SERVICE = "SET_DATA_REGISTRED_SERVICE";
-const SET_DATA_AUTH_SERVICE = "SET_DATA_AUTH_SERVICE"
+const SET_DATA_AUTH_SERVICE = "SET_DATA_AUTH_SERVICE";
+const REMOVE_DATA_INFO = "REMOVE_DATA_INFO";
 interface IRegState {
   nameAdmin: string | null;
   webAddress: string | null;
@@ -58,19 +59,32 @@ const regServiceDataReducer: Reducer<IRegState> = (
         ...state,
         registeredServiceData: action.payload,
       };
-      case SET_DATA_AUTH_SERVICE:
-        return{
-          ...state,
-          nameAdmin:action.nameAdmin,
-          webAddress:action.webAddress,
-          nameService:action.nameService,
-          startOfWork:action.startOfWork,
-          endOfWork:action.endOfWork,
-          telephoneNumber:action.telephoneNumber,
-          city:action.city,
-          address:action.address,
-          index:action.index,
-        }
+    case SET_DATA_AUTH_SERVICE:
+      return {
+        ...state,
+        nameAdmin: action.nameAdmin,
+        webAddress: action.webAddress,
+        nameService: action.nameService,
+        startOfWork: action.startOfWork,
+        endOfWork: action.endOfWork,
+        telephoneNumber: action.telephoneNumber,
+        city: action.city,
+        address: action.address,
+        index: action.index,
+      };
+    case REMOVE_DATA_INFO:
+      return {
+        nameAdmin: null,
+        webAddress: null,
+        nameService: null,
+        startOfWork: null,
+        endOfWork: null,
+        telephoneNumber: null,
+        city: null,
+        address: null,
+        index: null,
+        workingNumber: null,
+      };
     default:
       return state;
   }
@@ -108,6 +122,9 @@ export const setDataRegServicePageTwo = (
 export const setDataRegistredService = (data) => ({
   type: SET_DATA_REGISTRED_SERVICE,
   payload: data,
+});
+export const removeDataInfo = () => ({
+  type: REMOVE_DATA_INFO,
 });
 
 export const setDataAuthService = (data) => ({

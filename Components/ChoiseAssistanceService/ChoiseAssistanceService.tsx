@@ -40,71 +40,82 @@ const ChoiseAssistanceService: React.FC<Navigation> = ({ navigation }) => {
     const selectedAssistance = dataService
       .filter((item) => item.isSelectedAssistanceUser)
       .map((item) => item.assistanceService);
-    if (selectedAssistance.length > 0) {
-      try {
-        await handleGetService(
-          selectedAssistance, // Передаем актуальное значение состояния
-          dispatch
-        );
-        navigation.navigate("ChoiseService"); // переход на экран логина после успешной регистрации
+    try {
+      await handleGetService(
+        selectedAssistance, // Передаем актуальное значение состояния
+        dispatch
+      );
+      navigation.navigate("ChoiseService"); // переход на экран логина после успешной регистрации
 
-        // Действия, выполняемые после успешного выполнения функции handleRegistrationService
-      } catch (error) {
-        // Обработка ошибок, если они возникнут
-      }
-    } else {
-      Alert.alert("Ошибка", "Не выбрана ни одна услуга");
+      // Действия, выполняемые после успешного выполнения функции handleRegistrationService
+    } catch (error) {
+      // Обработка ошибок, если они возникнут
     }
   };
+  const [searchText, setSearchText] = useState("");
 
   const handlePressAssistance = (index, isSelected) => {
     dispatch(updateAssistanceUser(index, isSelected));
   };
-
+  const filteredAssistance = dataService.filter((item) => {
+    const nameAssistance = item.assistanceService.toLowerCase();
+    const searchAssistance = searchText.toLowerCase();
+    return nameAssistance.includes(searchAssistance);
+  });
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="Поиск"
         style={styles.searchAssistance}
         placeholderTextColor="white"
+        value={searchText}
+        onChangeText={(text) => setSearchText(text)}
       />
       <Image
         source={require("./../../assets/loupe2.png")}
         style={styles.loupeImg}
       />
       <Text style={styles.textChoiseAssistance}>Выберите вид услуг</Text>
-      {dataService.length > 0 ? (
-        dataService.map((item, index) => (
-          <Pressable
-            key={index}
-            onPress={() => {
-              handlePressAssistance(index, !item.isSelectedAssistanceUser);
-            }}
-            style={[
-              styles.itemAssistance,
-              {
-                marginLeft: index % 2 === 0 ? 10 : 20,
-                marginTop: 20,
-              },
-            ]}
-          >
-            <Image
-              source={{ uri: item.urlAssistance }}
+      {filteredAssistance.length > 0 ? (
+        dataService
+          .filter((item) =>
+            item.assistanceService
+              .toLowerCase()
+              .includes(searchText.toLowerCase())
+          )
+          .map((item, index) => (
+            <Pressable
+              key={index}
+              onPress={() => {
+                handlePressAssistance(index, !item.isSelectedAssistanceUser);
+              }}
               style={[
-                styles.imgAssistance,
+                styles.itemAssistance,
                 {
-                  borderWidth: item.isSelectedAssistanceUser ? 5 : 0,
-                  borderColor: item.isSelectedAssistanceUser
-                    ? "yellow"
-                    : "transparent",
+                  marginLeft: index % 2 === 0 ? 10 : 20,
+                  marginTop: 20,
                 },
               ]}
-            />
-            <Text style={styles.textAssistance}>{item.assistanceService}</Text>
-          </Pressable>
-        ))
+            >
+              <Image
+                source={{ uri: item.urlAssistance }}
+                style={[
+                  styles.imgAssistance,
+                  {
+                    borderWidth: item.isSelectedAssistanceUser ? 5 : 0,
+                    borderColor: item.isSelectedAssistanceUser
+                      ? "yellow"
+                      : "transparent",
+                  },
+                ]}
+              />
+              <Text style={styles.textAssistance}>
+                {item.assistanceService}
+              </Text>
+            </Pressable>
+          ))
       ) : (
-        <Text>Загрузка данных...</Text>
+        <Text>По вашему запросу ничего не найдено</Text>
       )}
       <Pressable style={styles.btnContinue} onPress={handleContinuePress}>
         <Text style={styles.textBtnContinue}>Продолжить</Text>
