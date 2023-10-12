@@ -14,6 +14,7 @@ import { setDataRegServicePageTwo } from "../../../redux/reducers/registrationRe
 import { styles } from "./PageTwoRegistrationServiceStyles";
 import { handleGetAssistance } from "../../../api/apiUsers";
 import { TextInputMask } from "react-native-masked-text";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface RegState {
   regServiceDataReducer: {
@@ -46,8 +47,11 @@ const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
   };
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={100}>
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
         <Text style={styles.textReg}>Данные сервиса</Text>
+        <ScrollView>
+          
+        </ScrollView>
         <View style={{ position: "relative" }}>
           <TextInput
             style={styles.input}
@@ -122,7 +126,7 @@ const PageTwoRegistrationService: React.FC<AuthorizationProps> = ({
           placeholder="Рабочий номер"
           placeholderTextColor="white"
           type={"custom"}
-          options={{ mask: "+9(999)999-99-99" }}
+          options={{ mask: "+7 (999)-999-99-99" }}
           keyboardType={"numeric"}
           onChangeText={(value: string) =>
             dispatch(

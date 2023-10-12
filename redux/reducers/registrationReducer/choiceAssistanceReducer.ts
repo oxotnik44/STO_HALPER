@@ -71,6 +71,15 @@ export const getAssistance = (
     assistanceData: assistanceData,
   };
 };
+export const updateAssistanceUser = (index, isSelected) => {
+  return {
+    type: "UPDATE_ASSISTANCE_USER",
+    payload: {
+      index: index,
+      isSelected: isSelected,
+    },
+  };
+};
 export const resetAssistance = () => {
   return {
     type: RESET_ASSISTANCE,

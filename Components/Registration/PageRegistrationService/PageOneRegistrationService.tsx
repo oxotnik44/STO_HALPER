@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,9 +14,11 @@ import { RootStackParamList } from "../../../Navigate";
 import { setDataRegServicePageOne } from "../../../redux/reducers/registrationReducer/regServiceDataReducer";
 import { styles } from "./PageOneRegistrationServiceStyles";
 import { TextInputMask } from "react-native-masked-text";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
+
 interface RegState {
   regServiceDataReducer: {
     nameAdmin: string;
@@ -26,36 +28,88 @@ interface RegState {
     endOfWork: string;
   };
 }
+
 type AuthorizationProps = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
+
 const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
   navigation,
 }) => {
   const dispatch = useDispatch();
   const { nameAdmin, webAddress, startOfWork, endOfWork, telephoneNumber } =
     useSelector((state: RegState) => state.regServiceDataReducer);
-  const checkRegFieldsUser = () => {
-    const [endHours, endMinutes] = endOfWork.split(":");
-    const [startHours, startMinutes] = startOfWork.split(":");
+  const [isStartTimePickerVisible, setStartTimePickerVisible] = useState(false);
+  const [isEndTimePickerVisible, setEndTimePickerVisible] = useState(false);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const showStartTimePicker = () => {
+    if (!isStartTimePickerVisible) {
+      setStartTimePickerVisible(true);
+    }
+  };
 
-    const endMinutesNum = parseInt(endHours) * 60 + parseInt(endMinutes);
-    const startMinutesNum = parseInt(startHours) * 60 + parseInt(startMinutes);
+  const showEndTimePicker = () => {
+    if (!isEndTimePickerVisible) {
+      setEndTimePickerVisible(true);
+    }
+  };
+
+  const handleTimeConfirmStart = (event, selectedTime) => {
+    if (event.type === "dismissed") {
+      setStartTimePickerVisible(false);
+    } else {
+      const formattedTime = selectedTime.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+      setStartTimePickerVisible(false);
+      setStartTime(formattedTime);
+    }
+  };
+
+  const handleTimeConfirmEnd = (event, selectedTime) => {
+    if (event.type === "dismissed") {
+      setEndTimePickerVisible(false);
+    } else {
+      const formattedTime = selectedTime.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+      setEndTimePickerVisible(false);
+      setEndTime(formattedTime);
+    }
+  };
+  const checkRegFieldsUser = () => {
     if (
       !nameAdmin ||
       !webAddress ||
-      !startOfWork ||
-      !endOfWork ||
+      !startTime ||
+      !endTime ||
       !telephoneNumber
     ) {
       Alert.alert("Заполните все поля!");
-    } else if (endMinutesNum < startMinutesNum) {
-      // Выводим сообщение об ошибке, так как endOfWork меньше startOfWork
-      Alert.alert("Ошибка","Время окончания работы меньше времени начала работы.");
+    } else if (endTime <= startTime) {
+      Alert.alert(
+        "Ошибка",
+        "Время окончания работы не может быть меньше или равно времени начала работы."
+      );
     } else {
+      dispatch(
+        setDataRegServicePageOne(
+          nameAdmin,
+          webAddress,
+          telephoneNumber,
+          startTime,
+          endTime
+        )
+      );
       navigation.navigate("PageTwoRegistrationService");
     }
   };
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-40}>
@@ -102,9 +156,7 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
           value={telephoneNumber}
           placeholderTextColor="white"
           type={"custom"}
-          options={{
-            mask: "+9(999)999-99-99",
-          }}
+          options={{ mask: "+7 (999)-999-99-99" }}
           keyboardType={"numeric"}
           onChangeText={(value: string) =>
             dispatch(
@@ -122,119 +174,76 @@ const PageOneRegistrationService: React.FC<AuthorizationProps> = ({
         <Text
           style={{
             color: "white",
-            fontSize: 23,
+            fontSize: screenWidth*0.07,
             left: screenWidth * 0.1,
             top: screenHeight * 0.04,
           }}
         >
           Время работы:
         </Text>
-        <View>
+
+        <View style={{ marginTop: screenHeight * 0.05 }}>
           <View>
             <Text
               style={{
                 color: "white",
                 fontSize: 27,
                 left: screenWidth * 0.1,
-                top: screenHeight * 0.08,
               }}
             >
-              C
+              Начало рабочего дня: {startTime}
             </Text>
-            <TextInputMask
-              style={[styles.inputTime, { bottom: screenHeight * 0.05 }]}
-              value={startOfWork}
-              placeholder="ЧЧ:ММ"
-              placeholderTextColor="white"
-              type={"datetime"}
-              options={{
-                format: "HH:mm",
-              }}
-              onChangeText={(value: string) => {
-                const [hours, minutes] = value.split(":");
-                const timeInMinutes = parseInt(hours) * 60 + parseInt(minutes);
-                if (parseInt(hours) > 23) {
-                  dispatch(
-                    setDataRegServicePageOne(
-                      nameAdmin,
-                      webAddress,
-                      telephoneNumber,
-                      "24:00",
-                      endOfWork
-                    )
-                  );
-                }
-
-                if (timeInMinutes >= 1440) {
-                  dispatch(
-                    setDataRegServicePageOne(
-                      nameAdmin,
-                      webAddress,
-                      telephoneNumber,
-                      "24:00",
-                      endOfWork
-                    )
-                  );
-                } else {
-                  dispatch(
-                    setDataRegServicePageOne(
-                      nameAdmin,
-                      webAddress,
-                      telephoneNumber,
-                      value,
-                      endOfWork
-                    )
-                  );
-                }
-              }}
-            />
           </View>
-          <View></View>
-          <Text
-            style={{
-              color: "white",
-              fontSize: 27,
-              left: screenWidth * 0.1,
-              bottom: -screenHeight * 0.01,
-            }}
-          >
-            До
-          </Text>
-          <TextInputMask
-            style={[styles.inputTime, { bottom: screenHeight * 0.12 }]}
-            value={endOfWork}
-            placeholder="ЧЧ:ММ"
-            placeholderTextColor="white"
-            type={"datetime"}
-            options={{
-              format: "HH:mm",
-            }}
-            onChangeText={(value: string) => {
-              const [hours, minutes] = value.split(":");
-              const timeInMinutes = parseInt(hours) * 60 + parseInt(minutes);
-              if (timeInMinutes >= 1440) {
-                dispatch(
-                  setDataRegServicePageOne(
-                    nameAdmin,
-                    webAddress,
-                    telephoneNumber,
-                    startOfWork,
-                    "24:00"
-                  )
-                );
-              } else {
-                dispatch(
-                  setDataRegServicePageOne(
-                    nameAdmin,
-                    webAddress,
-                    telephoneNumber,
-                    startOfWork,
-                    value
-                  )
-                );
-              }
-            }}
-          />
+          <View>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 27,
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.03,
+              }}
+            >
+              Конец рабочего дня: {endTime}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.containerTime}>
+          <View style={styles.leftContainer}>
+            <Pressable
+              onPress={showStartTimePicker}
+              style={styles.btnTimePickerStart}
+            >
+              <Text style={styles.buttonText}>Время начала</Text>
+            </Pressable>
+            {isStartTimePickerVisible && (
+              <RNDateTimePicker
+                value={new Date()} // Начальное значение времени
+                mode="time" // Режим выбора времени
+                display="spinner"
+                is24Hour={true}
+                minuteInterval={10}
+                onChange={handleTimeConfirmStart}
+              />
+            )}
+          </View>
+          <View style={styles.rightContainer}>
+            <Pressable
+              onPress={showEndTimePicker}
+              style={styles.btnTimePickerEnd}
+            >
+              <Text style={styles.buttonText}>Время окончания</Text>
+            </Pressable>
+            {isEndTimePickerVisible && (
+              <RNDateTimePicker
+                value={new Date()} // Начальное значение времени
+                mode="time" // Режим выбора времени
+                display="spinner"
+                is24Hour={true}
+                minuteInterval={10}
+                onChange={handleTimeConfirmEnd}
+              />
+            )}
+          </View>
         </View>
         <Pressable style={styles.btnContinue} onPress={checkRegFieldsUser}>
           <Text style={styles.btnTextContinue}>Продолжить</Text>

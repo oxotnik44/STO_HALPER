@@ -1,29 +1,27 @@
 import React from "react";
-import {
-  Image,
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { Image, View, Text, Pressable, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { styles } from "./ChoiseServiceStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
-import { setNumberService } from "../../redux/reducers/serviceInfoReducer";
-import { getReviews } from "../../api/apiService";
+import { getReviews, handleGetApplication } from "../../api/apiService";
+import { setNumberService } from "../../redux/reducers/login/loginReducer";
 
 interface DataServiceState {
-  serviceInfoReducer: {
-    dataService: [
+  loginReducer: {
+    dataServiceForUser: [
       {
         nameService: string;
         address: string;
       }
     ];
+  };
+}
+interface UserInfo {
+  authReducer: {
+    login: string;
   };
 }
 type AuthorizationProps = {
@@ -32,8 +30,9 @@ type AuthorizationProps = {
 
 const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
   const dataServiceInfo = useSelector(
-    (state: DataServiceState) => state.serviceInfoReducer
+    (state: DataServiceState) => state.loginReducer
   );
+  const login = useSelector((state: UserInfo) => state.authReducer.login);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const handlePress = (index: number) => {
     if (selectedIndex === index) {
@@ -44,7 +43,7 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
   };
   const [searchService, setSearchService] = useState("");
   const dispatch = useDispatch();
-  const filteredServices = dataServiceInfo.dataService.filter((item) => {
+  const filteredServices = dataServiceInfo.dataServiceForUser.filter((item) => {
     // Приведите оба значения к нижнему регистру для сравнения без учета регистра
     const serviceName = item.nameService.toLowerCase();
     const searchValue = searchService.toLowerCase();
@@ -102,7 +101,9 @@ const ChoiseService: React.FC<AuthorizationProps> = ({ navigation }) => {
                   style={styles.buttonService}
                   onPress={() => {
                     dispatch(setNumberService(index));
+                    console.log(index)
                     getReviews(item.nameService, dispatch);
+                    handleGetApplication(item.nameService, login, dispatch);
                     navigation.navigate("ServiceInfo");
                   }}
                 >

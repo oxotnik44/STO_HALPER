@@ -10,7 +10,7 @@ import regServiceDataReducer from "./reducers/registrationReducer/regServiceData
 import assistanceReducer from "./reducers/registrationReducer/choiceAssistanceReducer";
 import reviewsServiceReducer from "./reducers/reviewsServiceReducer";
 import imageCarousel from "./reducers/imageCarousel";
-import serviceInfoShowReducer from "./reducers/registrationReducer/serviceInfoReducer";
+import loginReducer from "./reducers/login/loginReducer";
 let rootreducer = combineReducers({
   authReducer: authReducer,
   choiseServicesReducer: choiseServicesReducer,
@@ -22,7 +22,7 @@ let rootreducer = combineReducers({
   assistanceReducer: assistanceReducer,
   reviewsServiceReducer: reviewsServiceReducer,
   imageCarousel: imageCarousel,
-  serviceInfoShowReducer: serviceInfoShowReducer,
+  loginReducer:loginReducer
 });
 
 export type RootState = ReturnType<typeof rootreducer>;

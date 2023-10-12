@@ -9,7 +9,7 @@ import {
 } from "../redux/reducers/registrationReducer/regServiceDataReducer";
 import {
   resetService,
-  setDataService,
+  setDataInfoService,
   setIsAdmin,
 } from "../redux/reducers/serviceInfoReducer";
 import {
@@ -17,8 +17,13 @@ import {
   resetReviews,
   setReview,
 } from "../redux/reducers/reviewsServiceReducer";
-import { setDataServiceInfo } from "../redux/reducers/registrationReducer/serviceInfoReducer";
+
 import { resetData } from "../redux/reducers/registrationReducer/registrationReducer";
+import {
+  setDataServiceForAdmin,
+  setDataServiceForUser,
+  setIsSend,
+} from "../redux/reducers/login/loginReducer";
 
 const api = axios.create({
   baseURL: "https://stohelperbackend-oxotnik44.onrender.com/api/auth",
@@ -54,23 +59,26 @@ export const handleRegistrationService = async (
       address,
       index,
       assistanceServices,
-      // Создаем пустой массив reviews
     };
 
     const response = await api.post("/registrationService", requestData);
-    console.log(response.data);
 
-    dispatch(setDataServiceInfo(requestData));
+    dispatch(setDataInfoService(response.data));
+    await handleLoginService(
+      requestData.login,
+      requestData.password,
+      navigation,
+      dispatch
+    );
     dispatch(removeDataInfo());
 
     dispatch(setIsAdmin(true));
     dispatch(resetData());
-    // Вызов экшн-криэйтора resetReviews для сброса отзывов в состоянии Redux
-    getReviews(nameService, dispatch);
+
     navigation.navigate("ServiceInfo");
   } catch (error) {
     console.error(error);
-    // обработка ошибки регистрации
+    // handle registration error
   }
 };
 
@@ -89,12 +97,9 @@ export const handleLoginService = async (
     const { service } = response.data;
     const { nameService } = service;
     dispatch(setIsAdmin(true));
-    dispatch(setDataServiceInfo(service));
+    dispatch(setDataServiceForAdmin(service));
 
-    dispatch(setDataAuthService(service));
     getReviews(nameService, dispatch);
-
-    Alert.alert("Успешный вход", "Вы успешно авторизовались!");
 
     navigation.navigate("ServiceInfo");
   } catch (error) {
@@ -127,7 +132,7 @@ export const handleGetService = async (
       assistanceServices: item.assistanceServices,
     }));
     dispatch(resetService());
-    dispatch(setDataService(serviceData));
+    dispatch(setDataServiceForUser(serviceData));
   } catch (error) {
     console.error(error);
     // обработка ошибки регистрации
@@ -183,5 +188,24 @@ export const getReviews = async (nameService: string, dispatch: Function) => {
     console.error(error);
     // Обработка ошибки, если она возникнет
     Alert.alert("Ошибка входа", "Введенные данные не верны.");
+  }
+};
+
+export const handleGetApplication = async (
+  nameService: string,
+  login: string,
+  dispatch:Function
+) => {
+  try {
+    const response = await api.post("/getApplication", {
+      nameService,
+      login,
+    });
+    console.log(1)
+
+    dispatch(setIsSend(response.data))
+  } catch (error) {
+    console.error(error);
+    Alert.alert("Ошибка входа", "Ошибка загрузке данных");
   }
 };

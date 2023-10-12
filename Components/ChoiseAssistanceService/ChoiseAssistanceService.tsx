@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./ChoiseAssistanceServiceStyle";
-import { updateAssistanceUser } from "../../redux/reducers/registrationReducer/choiceAssistanceReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigate";
 import { handleGetService } from "../../api/apiService";
+import { updateAssistanceUser } from "../../redux/reducers/registrationReducer/choiceAssistanceReducer";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;

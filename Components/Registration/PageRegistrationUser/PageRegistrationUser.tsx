@@ -104,9 +104,8 @@ const PageRegistrationUser: React.FC<AuthorizationProps> = ({ navigation }) => {
           onChangeText={(value: string) =>
             dispatch(setDataCarUser(carNumber, vinNumber, value))
           }
-          options={{
-            mask: "+7 (999)-999-99-99", // Пример маски для номера телефона, например +7 (123) 456 78 90
-          }}
+          options={{ mask: "+7 (999)-999-99-99" }}
+          keyboardType={"numeric"}
         />
         <Pressable style={styles.btnContinue} onPress={checkRegFieldsUser}>
           <Text style={styles.btnTextContinue}>Завершить</Text>

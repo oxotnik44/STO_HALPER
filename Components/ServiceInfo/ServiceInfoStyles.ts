@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   textInfoAndReview: {
-    paddingLeft: screenWidth * 0.18,
+    paddingLeft: screenWidth * 0.1,
     color: "white",
     fontSize: 23,
     bottom: screenHeight * 0.01,
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     height: 1,
     opacity: 0.3,
     backgroundColor: "#FFD83D",
-    top: screenHeight * 0.05,
     left: screenWidth * 0.07,
   },
   lineSeporatorDown: {
@@ -114,7 +113,6 @@ const styles = StyleSheet.create({
   webContainer: {
     marginTop: screenHeight * 0.02,
     padding: screenWidth * 0.04,
-    top: screenHeight * 0.01,
   },
   webRow: {
     flexDirection: "row",
@@ -170,9 +168,40 @@ const styles = StyleSheet.create({
     left: 5,
   },
   containerReview: {
-    height: screenHeight * 0.65,
+    height: screenHeight * 0.55,
     zIndex: 1,
     top: screenHeight * 0.05,
+  },
+  btnTimePicker: {
+    backgroundColor: "#FFD83D",
+    borderRadius: 15,
+    width: screenWidth * 0.4,
+    height: screenHeight * 0.05,
+    justifyContent: "center",
+    marginTop: screenHeight * 0.03,
+    alignSelf: "center",
+  },
+  textTimePicker: {
+    textAlign: "center",
+    fontSize: screenWidth * 0.04,
+  },
+  btnApplication: {
+    width: screenWidth * 0.6,
+    height: screenHeight * 0.07,
+    alignSelf: "center",
+    backgroundColor: "#FFD83D",
+    borderRadius: 15,
+    borderBottomWidth: 1,
+    marginTop: screenHeight * 0.02,
+    justifyContent: "center",
+  },
+  containerApplication: {
+    borderRadius: 15,
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: "white",
+    width: screenWidth * 0.9,
+    alignSelf: "center",
   },
 });
 
