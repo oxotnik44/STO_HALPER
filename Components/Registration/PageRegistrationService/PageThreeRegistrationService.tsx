@@ -59,7 +59,7 @@ const PageTreeRegistrationService: React.FC<AuthorizationProps> = ({
   );
   const handleContinuePress = async () => {
     if (selectedServices.length < 1) {
-      Alert.alert("Ошибка", "Пожалуйста, выберите хотя бы одну услугу!");
+      Alert.alert("Ошибка", "Выберите хотя бы одну услугу!");
     } else {
       const selectedServices = dataAssistance
         .filter((item) => item.isSelectedAssistanceService)

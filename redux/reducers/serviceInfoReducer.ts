@@ -1,9 +1,9 @@
 import { Reducer } from "redux";
 
 const SET_DATA_SERVICE = "SET_DATA_SERVICE";
-const SET_NUMBER_SERVICE = "SET_NUMBER_SERVICE";
 const SET_IS_ADMIN = "SET_IS_ADMIN";
 const RESET_SERVICE = "RESET_SERVICE";
+const SET_DATA_INFO_SERVICE = "SET_DATA_INFO_SERVICE";
 interface IServiceInfo {
   nameAdmin: string;
   webAddress: string;
@@ -20,12 +20,14 @@ interface IServiceInfo {
 }
 
 interface IState {
+  dataInfoService: IServiceInfo;
   dataService: IServiceInfo[];
   numberService: number;
   isAdmin: boolean;
 }
 
 export const initialServiceState: IState = {
+  dataInfoService: null,
   dataService: [],
   numberService: 0,
   isAdmin: false,
@@ -41,11 +43,12 @@ const serviceInfoReducer: Reducer<IState> = (
         ...state,
         dataService: [...state.dataService, ...action.dataService],
       };
-    case SET_NUMBER_SERVICE:
+    case SET_DATA_INFO_SERVICE:
       return {
         ...state,
-        numberService: action.numberService,
+        dataInfoService: action.dataInfoService,
       };
+   
     case SET_IS_ADMIN:
       return {
         ...state,
@@ -66,10 +69,11 @@ export const setDataService = (data: IServiceInfo[]) => ({
   dataService: data,
 });
 
-export const setNumberService = (numberService: number) => ({
-  type: SET_NUMBER_SERVICE,
-  numberService: numberService,
+export const setDataInfoService = (data: IServiceInfo) => ({
+  type: SET_DATA_INFO_SERVICE,
+  dataInfoService: data,
 });
+
 export const setIsAdmin = (isAdmin: boolean) => ({
   type: SET_IS_ADMIN,
   isAdmin: isAdmin,

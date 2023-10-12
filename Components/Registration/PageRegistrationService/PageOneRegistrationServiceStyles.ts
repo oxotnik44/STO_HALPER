@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+export const screenWidth = Dimensions.get("window").width;
+export const screenHeight = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
   container: {
     height: "100%",
@@ -18,7 +19,7 @@ export const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
   },
-  inputTime:{
+  inputTime: {
     borderBottomWidth: 4,
     borderRadius: 5,
     borderColor: "#FFD83D99",
@@ -51,6 +52,36 @@ export const styles = StyleSheet.create({
   btnTextContinue: {
     fontStyle: "normal",
     fontWeight: "400",
+    fontSize: 20,
+    textAlign: "center",
+  },
+  containerTime: {
+    flexDirection: "row",
+    marginTop: screenHeight * 0.06,
+  },
+  leftContainer: {
+    flex: 1,
+    marginRight: 10,
+  },
+  rightContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  btnTimePickerStart: {
+    backgroundColor: "#FFD83D",
+    borderRadius: 15,
+    height: screenHeight * 0.06,
+    justifyContent: "center",
+    alignSelf: "stretch",
+  },
+  btnTimePickerEnd: {
+    backgroundColor: "#FFD83D",
+    borderRadius: 15,
+    height: screenHeight * 0.06,
+    justifyContent: "center",
+    alignSelf: "stretch",
+  },
+  buttonText: {
     fontSize: 20,
     textAlign: "center",
   },

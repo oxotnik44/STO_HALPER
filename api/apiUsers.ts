@@ -5,13 +5,11 @@ import {
   getAssistance,
   resetAssistance,
 } from "../redux/reducers/registrationReducer/choiceAssistanceReducer";
-import {
-  resetService,
-  setDataService,
-  setIsAdmin,
-} from "../redux/reducers/serviceInfoReducer";
+import { setIsAdmin } from "../redux/reducers/serviceInfoReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { resetData } from "../redux/reducers/registrationReducer/registrationReducer";
+import { handleGetApplication } from "./apiService";
+import { setUserLogin } from "../redux/reducers/authReducer";
 
 const api = axios.create({
   baseURL: "https://stohelperbackend-oxotnik44.onrender.com/api/auth",
@@ -34,9 +32,10 @@ export const handleRegistrationUser = async (
       vinNumber,
       telephoneNumber,
     });
-    console.log(response.data);
     dispatch(resetData());
-    dispatch(setIsAdmin(false)); // pass the requestData object to the dispatch function
+    dispatch(setIsAdmin(false));
+    dispatch(setUserLogin(login));
+    // pass the requestData object to the dispatch function
     // обработка успешной регистрации
     navigation.navigate("ChoiseAssistanceService"); // переход на экран логина после успешной регистрации
   } catch (error) {
@@ -58,7 +57,6 @@ export const handleLoginUser = async (
     dispatch(resetAssistance());
     dispatch(setIsAdmin(false));
     await handleGetAssistance(dispatch);
-    Alert.alert("Успешный вход", "Вы успешно авторизовались!");
     navigation.navigate("ChoiseAssistanceService");
   } catch (error) {
     console.error(error);
@@ -76,6 +74,28 @@ export const handleGetAssistance = async (
     }));
     dispatch(resetAssistance());
     dispatch(getAssistance(assistanceData));
+  } catch (error) {
+    console.error(error);
+    Alert.alert("Ошибка входа", "Ошибка загрузке данных");
+  }
+};
+export const handleSendApplication = async (
+  nameService: string,
+  login: string,
+  listAssistances: string[],
+  date: string,
+  time: string,
+  dispatch: Function
+) => {
+  try {
+    const response = await api.put("/sendApplication", {
+      nameService,
+      login,
+      listAssistances,
+      date,
+      time,
+    });
+    await handleGetApplication(nameService, login, dispatch);
   } catch (error) {
     console.error(error);
     Alert.alert("Ошибка входа", "Ошибка загрузке данных");

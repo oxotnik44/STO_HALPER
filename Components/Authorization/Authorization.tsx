@@ -20,6 +20,7 @@ import { styles } from "./AuthorizationStyles";
 import { handleGetAssistance, handleLoginUser } from "../../api/apiUsers";
 import * as Animatable from "react-native-animatable";
 import { handleLoginService } from "../../api/apiService";
+import { resetData } from "../../redux/reducers/registrationReducer/registrationReducer";
 
 interface AuthState {
   authReducer: {
@@ -51,19 +52,14 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
       dispatch(setUserPassword(password));
       if (role == "СТО") {
         try {
-           await handleLoginService(
-            login,
-            password,
-            navigation,
-            dispatch
-          );
+          await handleLoginService(login, password, navigation, dispatch);
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
         }
       } else if (role == "Клиент") {
         try {
-          await handleLoginUser(login, password, navigation,dispatch);
+          await handleLoginUser(login, password, navigation, dispatch);
         } catch (error) {
           console.error(error);
           Alert.alert("Ошибка!", "Ошибка при отправке данных на сервер.");
@@ -79,7 +75,10 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
       }
     }
   };
-
+  const handleTransitionReg = () => {
+    dispatch(resetData());
+    navigation.navigate("Registration");
+  };
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
       <View style={styles.inner}>
@@ -160,7 +159,7 @@ const Authorization: React.FC<AuthorizationProps> = ({ navigation }) => {
         </Pressable>
         <Pressable
           style={styles.registrationButton}
-          onPress={() => navigation.navigate("Registration")}
+          onPress={handleTransitionReg}
         >
           <Text style={styles.textRegistrationButton}>Регистрация</Text>
         </Pressable>

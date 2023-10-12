@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     height: screenWidth * 0.55,
     alignSelf: "center",
     borderBottomWidth: 1,
-    marginBottom: screenHeight * 0.12,
+    marginBottom: screenHeight * 0.05,
   },
   input: {
     borderBottomWidth: 1,
